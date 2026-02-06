@@ -3,166 +3,273 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Glassmorphism iOS UI</title>
+<title>Netland CafeNet - Glassmorphism iOS</title>
 
+<link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <style>
-/* فونت iOS */
-body{
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-    Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+/* ========== Base ========== */
+*{
+  box-sizing:border-box;
   margin:0;
+  padding:0;
+  font-family:'SF Pro Display',-apple-system,BlinkMacSystemFont,'San Francisco',sans-serif;
+}
+
+body{
   min-height:100vh;
   display:flex;
   justify-content:center;
   align-items:center;
-  background:linear-gradient(135deg,#e0e0e0,#f5f5f5);
-  transition:all .3s ease;
+  background: linear-gradient(180deg,#0b1220,#111827);
+  transition:.45s ease;
+  overflow:hidden;
+  color:white;
 }
 
-/* Dark mode */
-body.dark{
-  background:linear-gradient(135deg,#111,#1c1c1c);
-  color:#fff;
+/* ========== Light Mode Background ========== */
+body.light{
+  background:
+    radial-gradient(circle at 15% 10%, rgba(255,255,255,.9), transparent 45%),
+    radial-gradient(circle at 85% 80%, rgba(220,224,230,.9), transparent 45%),
+    linear-gradient(180deg,#eef0f3,#d8dbe0);
+  color:#111;
 }
 
-/* کارت اصلی */
+/* ========== Ambient Blur Layer ========== */
+.bg{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:
+    radial-gradient(circle at 20% 20%,rgba(255,255,255,.22),transparent 40%),
+    radial-gradient(circle at 80% 80%,rgba(255,255,255,.14),transparent 45%);
+}
+
+/* ========== Glass Card ========== */
 .card{
   position:relative;
-  width:90%;
-  max-width:400px;
+  width:100%;
+  max-width:420px;
   margin:16px;
   padding:28px 22px 30px;
   border-radius:32px;
-  background:linear-gradient(180deg, rgba(255,255,255,.55), rgba(255,255,255,.35));
-  backdrop-filter:blur(34px) saturate(180%);
-  -webkit-backdrop-filter:blur(34px) saturate(180%);
-  border:1px solid rgba(255,255,255,.75);
-  box-shadow: 0 40px 70px rgba(0,0,0,.18), 0 10px 25px rgba(0,0,0,.12), inset 0 1px 1px rgba(255,255,255,.95), inset 0 -1px 1px rgba(255,255,255,.25);
-  text-align:center;
-  transition:.45s cubic-bezier(.25,.8,.25,1);
-}
 
-/* glass rim */
-.card::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  border-radius:inherit;
-  padding:1px;
-  background:linear-gradient(135deg, rgba(255,255,255,.9), rgba(255,255,255,.35), rgba(255,255,255,.1));
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  -webkit-mask-composite:xor;
-  pointer-events:none;
+  background:rgba(255,255,255,.08);
+  backdrop-filter:blur(30px) saturate(180%);
+  -webkit-backdrop-filter:blur(30px) saturate(180%);
+
+  border:1px solid rgba(255,255,255,.18);
+  box-shadow:
+    0 30px 60px rgba(0,0,0,.4),
+    inset 0 1px 0 rgba(255,255,255,.25);
+
+  text-align:center;
+  transition:.45s ease, transform .3s ease;
 }
 
 /* Hover effect */
 .card:hover{
-  transform:translateY(-6px) scale(1.01);
-  box-shadow:0 55px 90px rgba(0,0,0,.22), 0 20px 35px rgba(0,0,0,.15), inset 0 1px 1px rgba(255,255,255,1);
+  transform:translateY(-6px) scale(1.02);
 }
 
-/* لینک ها داخل کارت */
-.link{
+/* ---- Light Glass Card ---- */
+body.light .card{
+  background:rgba(255,255,255,.42);
+  backdrop-filter:blur(32px) saturate(160%);
+  -webkit-backdrop-filter:blur(32px) saturate(160%);
+
+  border:1px solid rgba(255,255,255,.65);
+  box-shadow:
+    0 25px 45px rgba(0,0,0,.18),
+    inset 0 1px 0 rgba(255,255,255,.95);
+}
+
+/* ========== Logo ========== */
+.logo{
+  width:86px;
+  height:86px;
+  border-radius:50%;
+  margin:0 auto 14px;
+
+  background:rgba(255,255,255,.28);
+  backdrop-filter:blur(16px);
   display:flex;
-  justify-content:center;
   align-items:center;
-  gap:10px;
-  margin:12px 0;
-  padding:10px 18px;
-  border-radius:20px;
-  text-decoration:none;
-  font-weight:600;
-  color:#000;
-  background:linear-gradient(180deg, rgba(255,255,255,.75), rgba(255,255,255,.55));
-  backdrop-filter:blur(26px) saturate(170%);
-  border:1px solid rgba(255,255,255,.85);
-  box-shadow:0 12px 25px rgba(0,0,0,.1), inset 0 1px 0 rgba(255,255,255,.95);
-  transition:.3s ease;
+  justify-content:center;
+  font-size:34px;
+
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.6);
 }
 
-body.dark .link{
-  color:#fff;
-  background:linear-gradient(180deg, rgba(255,255,255,.15), rgba(255,255,255,.05));
-  border:1px solid rgba(255,255,255,.25);
-  box-shadow:0 12px 25px rgba(0,0,0,.2), inset 0 1px 0 rgba(255,255,255,.15);
+body.light .logo{
+  background:rgba(255,255,255,.6);
+}
+
+/* ========== Header ========== */
+h1{
+  font-size:22px;
+  font-weight:600;
+  margin-bottom:6px;
+}
+
+p{
+  font-size:14px;
+  opacity:.7;
+  margin-bottom:24px;
+}
+
+/* ========== Links ========== */
+.links{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:14px;
+}
+
+.link{
+  padding:15px 16px;
+  border-radius:22px;
+
+  display:flex;
+  align-items:center;
+  gap:12px;
+
+  text-decoration:none;
+  font-size:15px;
+  font-weight:500;
+  color:white;
+
+  background:rgba(255,255,255,.14);
+  backdrop-filter:blur(22px) saturate(170%);
+  -webkit-backdrop-filter:blur(22px) saturate(170%);
+
+  border:1px solid rgba(255,255,255,.22);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.28);
+
+  transition:.25s ease, transform .25s ease;
 }
 
 .link:hover{
-  transform:scale(1.05);
+  transform:translateY(-2px);
+  background:rgba(255,255,255,.22);
 }
 
-/* آیکون ها */
-.link i{
-  font-size:1.4rem;
+/* ---- Light Glass Links ---- */
+body.light .link{
+  color:#111;
+  background:rgba(255,255,255,.55);
+  backdrop-filter:blur(24px) saturate(160%);
+  -webkit-backdrop-filter:blur(24px) saturate(160%);
+  border:1px solid rgba(255,255,255,.85);
+  box-shadow:
+    0 8px 20px rgba(0,0,0,.08),
+    inset 0 1px 0 rgba(255,255,255,.95);
 }
 
-/* چرخ‌دنده انیمیشن */
+body.light .link:hover{
+  background:rgba(255,255,255,.7);
+}
+
+/* ========== Icons ========== */
+.icon{
+  width:22px;
+  height:22px;
+  flex-shrink:0;
+}
+
+/* ========== Desktop ========== */
+@media(min-width:900px){
+  .card{max-width:560px;}
+  .links{grid-template-columns:repeat(3,1fr);}
+}
+
+  /* ========== Gear ========== */
 .gear{
-  font-size:2rem;
-  margin-top:16px;
-  display:inline-block;
-  transition:transform .3s ease;
+  position:fixed;
+  top:16px;
+  right:16px;
+  width:46px;
+  height:46px;
+  border-radius:50%;
+  background:rgba(255,255,255,.25);
+  backdrop-filter:blur(16px);
+  display:flex;
+  align-items:center;
+  justify-content:center;
   cursor:pointer;
+  transition:.5s cubic-bezier(.25,.8,.25,1);
 }
 
 .gear:hover{
-  animation:spin 1s linear infinite;
+  transform:rotate(120deg) scale(1.08);
 }
 
-@keyframes spin{
-  from{transform:rotate(0deg);}
-  to{transform:rotate(360deg);}
+/* Menu */
+.menu{
+  position:fixed;
+  top:70px;
+  right:16px;
+  padding:12px 14px;
+  border-radius:18px;
+  background:rgba(0,0,0,.75);
+  backdrop-filter:blur(22px);
+  display:none;
 }
 
-/* Toggle Dark/Light */
-.toggle{
-  position:absolute;
-  top:20px;
-  right:20px;
-  padding:8px 12px;
-  border-radius:20px;
-  background:rgba(255,255,255,.5);
-  backdrop-filter:blur(20px);
+body.light .menu{
+  background:rgba(255,255,255,.9);
+}
+
+.menu button{
+  background:none;
+  border:none;
+  font-size:14px;
   cursor:pointer;
-  font-weight:600;
-  transition:.3s ease;
+  color:white;
 }
 
-body.dark .toggle{
-  background:rgba(0,0,0,.3);
-  color:#fff;
-}
-
-/* Responsive */
-@media(max-width:500px){
-  .card{
-    padding:20px 16px 22px;
-  }
-  .link{
-    padding:8px 14px;
-    font-size:.9rem;
-  }
-  .gear{
-    font-size:1.6rem;
-  }
+body.light .menu button{
+  color:#111;
 }
 </style>
 </head>
+
 <body>
 
-<div class="toggle" onclick="document.body.classList.toggle('dark')">Toggle Dark/Light</div>
+<div class="bg"></div>
+
+<div class="gear">⚙️</div>
+<div class="menu">
+  <button id="mode">Dark / Light</button>
+</div>
 
 <div class="card">
-  <h2>Glassmorphism iOS Card</h2>
+  <div class="logo">🌐</div>
+  <h1>Netland CafeNet</h1>
+  <p>Quick Access</p>
 
-  <a href="#" class="link"><i class="fab fa-telegram"></i>Telegram</a>
-  <a href="#" class="link"><i class="fab fa-whatsapp"></i>WhatsApp</a>
-  <a href="#" class="link"><i class="fab fa-twitter"></i>Twitter</a>
+  <div class="links">
+    <a class="link" href="#">
+      <i class="fab fa-telegram"></i> Telegram
+    </a>
 
-  <div class="gear"><i class="fas fa-cog"></i></div>
+    <a class="link" href="#">
+      <i class="fab fa-instagram"></i> Instagram
+    </a>
+
+    <a class="link" href="#">
+      <i class="fab fa-whatsapp"></i> WhatsApp
+    </a>
+  </div>
 </div>
+
+<script>
+const gear=document.querySelector('.gear');
+const menu=document.querySelector('.menu');
+gear.onclick=()=>menu.style.display=menu.style.display==='block'?'none':'block';
+document.getElementById('mode').onclick=()=>document.body.classList.toggle('light');
+</script>
 
 </body>
 </html>
