@@ -9,234 +9,150 @@
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
 
 <style>
-/* ---------- Base ---------- */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, "San Francisco", sans-serif;
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  font-family:'SF Pro Display',-apple-system,BlinkMacSystemFont,sans-serif;
 }
 
-body {
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: #0f172a;
-  transition: all 0.5s ease;
-  overflow: hidden;
+body{
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:#0f172a;
+  overflow:hidden;
+  transition:.5s;
+}
+body.light{background:#f5f5f7;color:#111}
+
+.bg-orb{
+  position:absolute;
+  width:300px;height:300px;
+  border-radius:50%;
+  filter:blur(60px);
+}
+.orb1{top:-100px;left:-100px;background:radial-gradient(circle,rgba(56,189,248,.6),transparent 70%)}
+.orb2{bottom:-120px;right:-80px;background:radial-gradient(circle,rgba(168,85,247,.6),transparent 70%)}
+
+.card{
+  width:92%;
+  max-width:380px;
+  padding:24px;
+  border-radius:28px;
+  backdrop-filter:blur(20px);
+  background:rgba(255,255,255,.08);
+  box-shadow:0 20px 40px rgba(0,0,0,.4);
+  text-align:center;
+}
+body.light .card{background:rgba(255,255,255,.45)}
+
+.logo{
+  width:80px;height:80px;
+  border-radius:50%;
+  background:rgba(255,255,255,.2);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:32px;
+  margin:0 auto 10px;
 }
 
-body.light {
-  background: #f5f5f7;
-  color: #111;
+h1{
+  font-size:22px;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
 }
 
-/* ---------- Background Orbs ---------- */
-.bg-orb {
-  position: absolute;
-  width: 300px;
-  height: 300px;
-  border-radius: 50%;
-  filter: blur(60px);
+p{font-size:14px;opacity:.75;margin-bottom:20px}
+
+.links{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:14px;
 }
 
-.orb1 {
-  top: -100px;
-  left: -100px;
-  background: radial-gradient(circle, rgba(56,189,248,0.6), transparent 70%);
+.link{
+  padding:14px;
+  border-radius:18px;
+  text-decoration:none;
+  color:#fff;
+  background:rgba(255,255,255,.12);
+  backdrop-filter:blur(12px);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  transition:.25s;
+}
+.link:hover{transform:translateY(-2px);background:rgba(255,255,255,.22)}
+body.light .link{color:#111;background:rgba(255,255,255,.35)}
+
+@media(min-width:900px){
+  .card{max-width:520px}
+  .links{grid-template-columns:repeat(3,1fr)}
 }
 
-.orb2 {
-  bottom: -120px;
-  right: -80px;
-  background: radial-gradient(circle, rgba(168,85,247,0.6), transparent 70%);
+/* ====== PIXEL BAT (اصل) ====== */
+.bat-wrap{
+  width:32px;height:32px;
+  display:inline-block;
+  position:relative;
 }
 
-/* ---------- Glass Card ---------- */
-.card {
-  position: relative;
-  width: 92%;
-  max-width: 380px;
-  padding: 24px;
-  border-radius: 28px;
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  background: rgba(255,255,255,0.08);
-  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-  text-align: center;
-  transition: all 0.5s ease;
+.bat{
+  width:1px;height:1px;
+  position:absolute;
+  top:50%;left:50%;
+  transform:translate(-50%,-50%) scale(2.2);
+  animation:bat .4s steps(1) infinite;
 }
 
-body.light .card {
-  background: rgba(255,255,255,0.4);
-  color: #111;
+@keyframes bat{
+  0%,100%{
+    box-shadow:
+    3px 1px #54556b,4px 1px #54556b,5px 1px #54556b,
+    2px 2px #54556b,6px 2px #54556b,
+    1px 3px #54556b,7px 3px #54556b,
+    2px 4px #202020,6px 4px #202020,
+    3px 5px #202020,4px 5px #202020,5px 5px #202020;
+  }
+  50%{
+    box-shadow:
+    1px 1px #54556b,7px 1px #54556b,
+    0px 2px #54556b,8px 2px #54556b,
+    1px 3px #202020,7px 3px #202020,
+    3px 4px #202020,4px 4px #202020,5px 4px #202020;
+  }
 }
 
-/* ---------- Logo ---------- */
-.logo {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.2);
-  backdrop-filter: blur(12px);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 32px;
-  margin: 0 auto 10px;
+/* gear */
+.gear-menu{
+  position:absolute;
+  top:20px;right:20px;
+  width:40px;height:40px;
+  border-radius:50%;
+  background:rgba(255,255,255,.12);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
 }
-
-body.light .logo {
-  background: rgba(0,0,0,0.05);
+.menu-options{
+  position:absolute;
+  top:65px;right:20px;
+  background:rgba(0,0,0,.8);
+  padding:10px;
+  border-radius:12px;
+  display:none;
 }
-
-  /* ---------- Header ---------- */
-.title {
-  margin: 0 0 8px;
-  font-size: 22px;
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-}
-
-p {
-  margin: 0 0 20px;
-  opacity: 0.75;
-  font-size: 14px;
-}
-
-/* ---------- Bat (Real Wing Flap) ---------- */
-.bat {
-  position: relative;
-  width: 26px;
-  height: 12px;
-  background: currentColor;
-  border-radius: 0 0 20px 20px;
-  animation: bat-float 2s ease-in-out infinite;
-}
-
-.bat::before,
-.bat::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  width: 22px;
-  height: 12px;
-  background: inherit;
-}
-
-.bat::before {
-  left: -20px;
-  border-radius: 100% 0 100% 0;
-  transform-origin: right center;
-  animation: wing-left 0.5s ease-in-out infinite;
-}
-
-.bat::after {
-  right: -20px;
-  border-radius: 0 100% 0 100%;
-  transform-origin: left center;
-  animation: wing-right 0.5s ease-in-out infinite;
-}
-
-@keyframes wing-left {
-  0%,100% { transform: rotate(15deg); }
-  50% { transform: rotate(-25deg); }
-}
-
-@keyframes wing-right {
-  0%,100% { transform: rotate(-15deg); }
-  50% { transform: rotate(25deg); }
-}
-
-@keyframes bat-float {
-  0%,100% { transform: translateY(0); }
-  50% { transform: translateY(-4px); }
-}
-
-/* ---------- Links ---------- */
-.links {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 14px;
-}
-
-.link {
-  padding: 14px;
-  border-radius: 18px;
-  text-decoration: none;
-  color: white;
-  background: rgba(255,255,255,0.12);
-  backdrop-filter: blur(12px);
-  transition: all 0.25s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  font-weight: 500;
-}
-
-.link:hover {
-  background: rgba(255,255,255,0.22);
-  transform: translateY(-2px);
-}
-
-body.light .link {
-  color: #111;
-  background: rgba(255,255,255,0.3);
-}
-
-body.light .link:hover {
-  background: rgba(0,0,0,0.1);
-}
-
-/* ---------- Desktop ---------- */
-@media (min-width:900px) {
-  .card { max-width: 520px; }
-  .links { grid-template-columns: repeat(3, 1fr); }
-}
-
-/* ---------- Gear Menu ---------- */
-.gear-menu {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.12);
-  backdrop-filter: blur(12px);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-}
-
-body.light .gear-menu {
-  background: rgba(0,0,0,0.05);
-}
-
-.menu-options {
-  position: absolute;
-  top: 70px;
-  right: 20px;
-  background: rgba(0,0,0,0.8);
-  backdrop-filter: blur(12px);
-  border-radius: 12px;
-  padding: 10px;
-  display: none;
-}
-
-body.light .menu-options {
-  background: rgba(255,255,255,0.9);
-}
-
-.menu-options button {
-  border: none;
-  padding: 8px 12px;
-  border-radius: 10px;
-  cursor: pointer;
+.menu-options button{
+  padding:8px 12px;
+  border:none;
+  border-radius:10px;
+  cursor:pointer;
 }
 </style>
 </head>
@@ -248,15 +164,15 @@ body.light .menu-options {
 
 <div class="gear-menu">⚙️</div>
 <div class="menu-options">
-  <button id="toggle-mode">Dark / Light Mode</button>
+  <button id="toggle">Dark / Light</button>
 </div>
 
 <div class="card">
   <div class="logo">🌐</div>
 
-  <h1 class="title">
+  <h1>
     Netland CafeNet
-    <span class="bat"></span>
+    <span class="bat-wrap"><span class="bat"></span></span>
   </h1>
 
   <p>Quick Access</p>
@@ -271,19 +187,14 @@ body.light .menu-options {
   </div>
 </div>
 
-<script>
-/* ---------- Gear Menu ---------- */
-const gear = document.querySelector(".gear-menu");
-const menu = document.querySelector(".menu-options");
-
-gear.addEventListener("click", () => {
-  menu.style.display = menu.style.display === "block" ? "none" : "block";
-});
-
-/* ---------- Dark / Light Mode ---------- */
-document.getElementById("toggle-mode").addEventListener("click", () => {
-  document.body.classList.toggle("light");
-});
+  <script>
+document.querySelector('.gear-menu').onclick=()=>{
+  const m=document.querySelector('.menu-options');
+  m.style.display=m.style.display==='block'?'none':'block';
+}
+document.getElementById('toggle').onclick=()=>{
+  document.body.classList.toggle('light');
+}
 </script>
 
 </body>
