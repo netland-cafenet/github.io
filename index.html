@@ -6,7 +6,6 @@
 <title>Netland CafeNet</title>
 
 <link href="https://fonts.googleapis.com/css?family=SF+Pro+Display:400,500,600,700&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
 
 <style>
 *{
@@ -23,7 +22,7 @@ body{
   align-items:center;
   background:#0f172a;
   overflow:hidden;
-  transition:.5s;
+  transition:.4s;
 }
 body.light{background:#f5f5f7;color:#111}
 
@@ -45,6 +44,8 @@ body.light{background:#f5f5f7;color:#111}
   background:rgba(255,255,255,.08);
   box-shadow:0 20px 40px rgba(0,0,0,.4);
   text-align:center;
+  position:relative;
+  z-index:2;
 }
 body.light .card{background:rgba(255,255,255,.45)}
 
@@ -63,10 +64,10 @@ h1{
   font-size:22px;
   display:inline-flex;
   align-items:center;
-  gap:8px;
+  gap:10px;
 }
 
-p{font-size:14px;opacity:.75;margin-bottom:20px}
+p{font-size:14px;opacity:.75;margin:14px 0 20px}
 
 .links{
   display:grid;
@@ -95,64 +96,86 @@ body.light .link{color:#111;background:rgba(255,255,255,.35)}
   .links{grid-template-columns:repeat(3,1fr)}
 }
 
-/* ====== PIXEL BAT (اصل) ====== */
-.bat-wrap{
-  width:32px;height:32px;
-  display:inline-block;
+/* ===== PIXEL BAT (ORIGINAL CodingStella) ===== */
+.pixel-bat{
+  width:1px;
+  height:1px;
+  transform:scale(2.8);
   position:relative;
-}
-
-.bat{
-  width:1px;height:1px;
-  position:absolute;
-  top:50%;left:50%;
-  transform:translate(-50%,-50%) scale(2.2);
+  top:-8px;
   animation:bat .4s steps(1) infinite;
 }
 
 @keyframes bat{
   0%,100%{
     box-shadow:
-    3px 1px #54556b,4px 1px #54556b,5px 1px #54556b,
-    2px 2px #54556b,6px 2px #54556b,
-    1px 3px #54556b,7px 3px #54556b,
-    2px 4px #202020,6px 4px #202020,
-    3px 5px #202020,4px 5px #202020,5px 5px #202020;
+    17px 6px #54556b,18px 6px #54556b,19px 6px #54556b,20px 6px #54556b,
+    14px 7px #54556b,15px 7px #54556b,16px 7px #202020,
+    17px 7px #202020,18px 7px #202020,19px 7px #202020,
+    20px 7px #54556b,21px 7px #54556b,
+    12px 8px #54556b,13px 8px #202020,14px 8px #202020,
+    15px 8px #202020,16px 8px #202020,17px 8px #202020,
+    18px 8px #202020,19px 8px #202020,20px 8px #202020,
+    21px 8px #54556b,22px 8px #54556b;
   }
   50%{
     box-shadow:
-    1px 1px #54556b,7px 1px #54556b,
-    0px 2px #54556b,8px 2px #54556b,
-    1px 3px #202020,7px 3px #202020,
-    3px 4px #202020,4px 4px #202020,5px 4px #202020;
+    16px 6px #54556b,17px 6px #202020,18px 6px #202020,
+    19px 6px #202020,20px 6px #202020,21px 6px #54556b,
+    13px 7px #202020,14px 7px #202020,15px 7px #202020,
+    16px 7px #202020,17px 7px #202020,18px 7px #202020,
+    19px 7px #202020,20px 7px #202020,21px 7px #202020,
+    22px 7px #202020,
+    14px 8px #202020,15px 8px #202020,16px 8px #202020,
+    17px 8px #202020,18px 8px #202020,19px 8px #202020;
   }
 }
 
-/* gear */
+/* ===== GEAR MENU (FIXED FOR MOBILE) ===== */
 .gear-menu{
-  position:absolute;
-  top:20px;right:20px;
-  width:40px;height:40px;
+  position:fixed;
+  top:20px;
+  right:20px;
+  width:42px;
+  height:42px;
   border-radius:50%;
-  background:rgba(255,255,255,.12);
+  background:rgba(255,255,255,.15);
+  backdrop-filter:blur(12px);
   display:flex;
   align-items:center;
   justify-content:center;
   cursor:pointer;
+  z-index:999;
+  transition:.3s;
 }
+.gear-menu:hover{transform:rotate(20deg)}
+
 .menu-options{
-  position:absolute;
-  top:65px;right:20px;
+  position:fixed;
+  top:70px;
+  right:20px;
   background:rgba(0,0,0,.8);
+  backdrop-filter:blur(14px);
   padding:10px;
-  border-radius:12px;
+  border-radius:14px;
   display:none;
+  z-index:999;
+  animation:fade .25s ease;
 }
+body.light .menu-options{background:rgba(255,255,255,.95)}
+
 .menu-options button{
-  padding:8px 12px;
+  padding:8px 14px;
   border:none;
   border-radius:10px;
   cursor:pointer;
+  background:rgba(255,255,255,.15);
+}
+body.light .menu-options button{background:rgba(0,0,0,.05)}
+
+  @keyframes fade{
+  from{opacity:0;transform:translateY(-6px)}
+  to{opacity:1;transform:translateY(0)}
 }
 </style>
 </head>
@@ -172,7 +195,7 @@ body.light .link{color:#111;background:rgba(255,255,255,.35)}
 
   <h1>
     Netland CafeNet
-    <span class="bat-wrap"><span class="bat"></span></span>
+    <span class="pixel-bat"></span>
   </h1>
 
   <p>Quick Access</p>
@@ -187,14 +210,11 @@ body.light .link{color:#111;background:rgba(255,255,255,.35)}
   </div>
 </div>
 
-  <script>
-document.querySelector('.gear-menu').onclick=()=>{
-  const m=document.querySelector('.menu-options');
-  m.style.display=m.style.display==='block'?'none':'block';
-}
-document.getElementById('toggle').onclick=()=>{
-  document.body.classList.toggle('light');
-}
+<script>
+const gear=document.querySelector('.gear-menu');
+const menu=document.querySelector('.menu-options');
+gear.onclick=()=>menu.style.display=menu.style.display==='block'?'none':'block';
+document.getElementById('toggle').onclick=()=>document.body.classList.toggle('light');
 </script>
 
 </body>
