@@ -6,36 +6,56 @@
 <title>Netland CafeNet</title>
 
 <link href="https://fonts.googleapis.com/css?family=SF+Pro+Display:400,500,600,700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
 
 <style>
-*{
+/* ---------- Base ---------- */
+* {
   box-sizing:border-box;
   margin:0;
   padding:0;
-  font-family:'SF Pro Display',-apple-system,BlinkMacSystemFont,sans-serif;
+  font-family:'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
-body{
+body {
   min-height:100vh;
   display:flex;
   justify-content:center;
   align-items:center;
   background:#0f172a;
-  overflow:hidden;
   transition:.4s;
+  overflow:hidden;
 }
-body.light{background:#f5f5f7;color:#111}
 
-.bg-orb{
+body.light {
+  background:#f5f5f7;
+  color:#111;
+}
+
+/* ---------- Background Orbs ---------- */
+.bg-orb {
   position:absolute;
-  width:300px;height:300px;
+  width:300px;
+  height:300px;
   border-radius:50%;
   filter:blur(60px);
 }
-.orb1{top:-100px;left:-100px;background:radial-gradient(circle,rgba(56,189,248,.6),transparent 70%)}
-.orb2{bottom:-120px;right:-80px;background:radial-gradient(circle,rgba(168,85,247,.6),transparent 70%)}
 
-.card{
+.orb1 {
+  top:-100px;
+  left:-100px;
+  background:radial-gradient(circle, rgba(56,189,248,.6), transparent 70%);
+}
+
+.orb2 {
+  bottom:-120px;
+  right:-80px;
+  background:radial-gradient(circle, rgba(168,85,247,.6), transparent 70%);
+}
+
+/* ---------- Card ---------- */
+.card {
+  position:relative;
   width:92%;
   max-width:380px;
   padding:24px;
@@ -44,95 +64,116 @@ body.light{background:#f5f5f7;color:#111}
   background:rgba(255,255,255,.08);
   box-shadow:0 20px 40px rgba(0,0,0,.4);
   text-align:center;
-  position:relative;
   z-index:2;
 }
-body.light .card{background:rgba(255,255,255,.45)}
 
-.logo{
-  width:80px;height:80px;
+body.light .card {
+  background:rgba(255,255,255,.45);
+}
+
+/* ---------- Logo ---------- */
+.logo {
+  width:80px;
+  height:80px;
   border-radius:50%;
   background:rgba(255,255,255,.2);
   display:flex;
-  align-items:center;
   justify-content:center;
+  align-items:center;
   font-size:32px;
   margin:0 auto 10px;
 }
 
-h1{
+/* ---------- Header ---------- */
+h1 {
   font-size:22px;
   display:inline-flex;
   align-items:center;
   gap:10px;
 }
 
-p{font-size:14px;opacity:.75;margin:14px 0 20px}
+p {
+  margin:6px 0 20px;
+  opacity:.75;
+  font-size:14px;
+}
 
-.links{
+/* ---------- Links ---------- */
+.links {
   display:grid;
   grid-template-columns:1fr;
   gap:14px;
 }
 
-.link{
+.link {
   padding:14px;
   border-radius:18px;
   text-decoration:none;
-  color:#fff;
+  color:white;
   background:rgba(255,255,255,.12);
   backdrop-filter:blur(12px);
+  transition:.25s;
   display:flex;
   align-items:center;
   justify-content:center;
   gap:8px;
-  transition:.25s;
-}
-.link:hover{transform:translateY(-2px);background:rgba(255,255,255,.22)}
-body.light .link{color:#111;background:rgba(255,255,255,.35)}
-
-@media(min-width:900px){
-  .card{max-width:520px}
-  .links{grid-template-columns:repeat(3,1fr)}
+  font-weight:500;
 }
 
-/* ===== PIXEL BAT (ORIGINAL CodingStella) ===== */
-.pixel-bat{
+.link:hover {
+  transform:translateY(-2px);
+  background:rgba(255,255,255,.22);
+}
+
+body.light .link {
+  color:#111;
+  background:rgba(255,255,255,.35);
+}
+
+/* ---------- Desktop ---------- */
+@media (min-width:900px) {
+  .card { max-width:520px; }
+  .links { grid-template-columns:repeat(3,1fr); }
+}
+
+/* ---------- ORIGINAL PIXEL BAT (CodingStella) ---------- */
+.bat {
   width:1px;
   height:1px;
-  transform:scale(2.8);
   position:relative;
-  top:-8px;
-  animation:bat .4s steps(1) infinite;
+  display:inline-block;
+  transform:scale(2.5);
+  animation:bat .6s steps(1) infinite;
 }
 
-@keyframes bat{
-  0%,100%{
+@keyframes bat {
+  0%,100% {
     box-shadow:
-    17px 6px #54556b,18px 6px #54556b,19px 6px #54556b,20px 6px #54556b,
-    14px 7px #54556b,15px 7px #54556b,16px 7px #202020,
-    17px 7px #202020,18px 7px #202020,19px 7px #202020,
-    20px 7px #54556b,21px 7px #54556b,
-    12px 8px #54556b,13px 8px #202020,14px 8px #202020,
-    15px 8px #202020,16px 8px #202020,17px 8px #202020,
-    18px 8px #202020,19px 8px #202020,20px 8px #202020,
-    21px 8px #54556b,22px 8px #54556b;
+    13px 0 #000,14px 0 #000,15px 0 #000,16px 0 #000,17px 0 #000,18px 0 #000,19px 0 #000,
+    11px 1 #000,12px 1 #000,13px 1 #000,19px 1 #000,20px 1 #000,21px 1 #000,
+    9px 2 #000,10px 2 #000,11px 2 #000,21px 2 #000,22px 2 #000,23px 2 #000,
+    7px 3 #000,8px 3 #000,9px 3 #000,23px 3 #000,24px 3 #000,25px 3 #000,
+    6px 4 #000,26px 4 #000,
+    7px 5 #000,25px 5 #000,
+    8px 6 #000,24px 6 #000,
+    9px 7 #000,23px 7 #000;
   }
-  50%{
+
+  50% {
     box-shadow:
-    16px 6px #54556b,17px 6px #202020,18px 6px #202020,
-    19px 6px #202020,20px 6px #202020,21px 6px #54556b,
-    13px 7px #202020,14px 7px #202020,15px 7px #202020,
-    16px 7px #202020,17px 7px #202020,18px 7px #202020,
-    19px 7px #202020,20px 7px #202020,21px 7px #202020,
-    22px 7px #202020,
-    14px 8px #202020,15px 8px #202020,16px 8px #202020,
-    17px 8px #202020,18px 8px #202020,19px 8px #202020;
+    13px 0 #000,14px 0 #000,15px 0 #000,16px 0 #000,17px 0 #000,18px 0 #000,19px 0 #000,
+    12px 1 #000,20px 1 #000,
+    11px 2 #000,21px 2 #000,
+    10px 3 #000,22px 3 #000,
+    9px 4 #000,23px 4 #000,
+    10px 5 #000,22px 5 #000,
+    11px 6 #000,21px 6 #000,
+    12px 7 #000,20px 7 #000;
   }
 }
 
-/* ===== GEAR MENU (FIXED FOR MOBILE) ===== */
-.gear-menu{
+/* ---------- Gear Menu (FIXED – mobile safe) ---------- */
+.gear {
   position:fixed;
   top:20px;
   right:20px;
@@ -142,40 +183,40 @@ body.light .link{color:#111;background:rgba(255,255,255,.35)}
   background:rgba(255,255,255,.15);
   backdrop-filter:blur(12px);
   display:flex;
-  align-items:center;
   justify-content:center;
+  align-items:center;
   cursor:pointer;
   z-index:999;
-  transition:.3s;
 }
-.gear-menu:hover{transform:rotate(20deg)}
 
-.menu-options{
+.menu {
   position:fixed;
   top:70px;
   right:20px;
-  background:rgba(0,0,0,.8);
-  backdrop-filter:blur(14px);
-  padding:10px;
+  background:rgba(0,0,0,.75);
+  backdrop-filter:blur(12px);
   border-radius:14px;
+  padding:10px;
   display:none;
   z-index:999;
-  animation:fade .25s ease;
 }
-body.light .menu-options{background:rgba(255,255,255,.95)}
 
-.menu-options button{
-  padding:8px 14px;
+  .menu button {
   border:none;
+  padding:10px 14px;
   border-radius:10px;
-  cursor:pointer;
   background:rgba(255,255,255,.15);
+  color:white;
+  cursor:pointer;
 }
-body.light .menu-options button{background:rgba(0,0,0,.05)}
 
-  @keyframes fade{
-  from{opacity:0;transform:translateY(-6px)}
-  to{opacity:1;transform:translateY(0)}
+body.light .menu {
+  background:rgba(255,255,255,.9);
+}
+
+body.light .menu button {
+  color:#111;
+  background:rgba(0,0,0,.1);
 }
 </style>
 </head>
@@ -185,8 +226,8 @@ body.light .menu-options button{background:rgba(0,0,0,.05)}
 <div class="bg-orb orb1"></div>
 <div class="bg-orb orb2"></div>
 
-<div class="gear-menu">⚙️</div>
-<div class="menu-options">
+<div class="gear">⚙️</div>
+<div class="menu">
   <button id="toggle">Dark / Light</button>
 </div>
 
@@ -195,7 +236,7 @@ body.light .menu-options button{background:rgba(0,0,0,.05)}
 
   <h1>
     Netland CafeNet
-    <span class="pixel-bat"></span>
+    <span class="bat"></span>
   </h1>
 
   <p>Quick Access</p>
@@ -211,10 +252,14 @@ body.light .menu-options button{background:rgba(0,0,0,.05)}
 </div>
 
 <script>
-const gear=document.querySelector('.gear-menu');
-const menu=document.querySelector('.menu-options');
-gear.onclick=()=>menu.style.display=menu.style.display==='block'?'none':'block';
-document.getElementById('toggle').onclick=()=>document.body.classList.toggle('light');
+document.querySelector('.gear').onclick = () => {
+  const m = document.querySelector('.menu');
+  m.style.display = m.style.display === 'block' ? 'none' : 'block';
+};
+
+document.getElementById('toggle').onclick = () => {
+  document.body.classList.toggle('light');
+};
 </script>
 
 </body>
