@@ -1,114 +1,127 @@
 <!DOCTYPE html>
-<html lang="fa">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Netland CafeNet</title>
-<link href="https://fonts.googleapis.com/css?family=SF+Pro+Display:400,500,600,700&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+<title>Pixel Bat Animation | Dark/Light Mode</title>
+<link href="https://fonts.googleapis.com/css?family=Creepster" rel="stylesheet">
 <style>
-/* ---------- Base ---------- */
-* { box-sizing:border-box; margin:0; padding:0; font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, "San Francisco", sans-serif; }
-body { min-height:100vh; display:flex; justify-content:center; align-items:center; background:#0f172a; transition: all 0.5s ease; overflow:hidden; }
-body.light { background:#f5f5f7; color:#111; }
-.bg-orb { position:absolute; width:300px; height:300px; border-radius:50%; filter:blur(60px); }
-.orb1 { top:-100px; left:-100px; background: radial-gradient(circle, rgba(56,189,248,0.6), transparent 70%); }
-.orb2 { bottom:-120px; right:-80px; background: radial-gradient(circle, rgba(168,85,247,0.6), transparent 70%); }
-
-/* ---------- Glass Card ---------- */
-.card { position:relative; width:92%; max-width:380px; padding:24px; border-radius:28px; backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); background: rgba(255,255,255,0.08); box-shadow:0 20px 40px rgba(0,0,0,0.4); text-align:center; transition: all 0.5s ease; }
-body.light .card { background: rgba(255,255,255,0.4); color:#111; }
-
-/* ---------- Logo ---------- */
-.logo { width:80px; height:80px; border-radius:50%; background:rgba(255,255,255,0.2); backdrop-filter:blur(12px); display:flex; justify-content:center; align-items:center; font-size:32px; margin:0 auto 10px; transition: all 0.5s ease; }
-body.light .logo { background: rgba(0,0,0,0.05); }
-
-/* ---------- Header ---------- */
-h1 { margin:0 0 8px; font-size:22px; display:inline-flex; align-items:center; gap:10px; position:relative; }
-p { margin:0 0 20px; opacity:0.75; font-size:14px; }
-
-/* ---------- Links ---------- */
-.links { display:grid; grid-template-columns:1fr; gap:14px; }
-.link { padding:14px; border-radius:18px; text-decoration:none; color:white; background: rgba(255,255,255,0.12); backdrop-filter:blur(12px); transition: all 0.25s ease; display:flex; align-items:center; justify-content:center; gap:8px; font-weight:500; }
-.link:hover { background: rgba(255,255,255,0.22); transform:translateY(-2px); }
-body.light .link { color:#111; background: rgba(255,255,255,0.3); }
-body.light .link:hover { background: rgba(0,0,0,0.1); }
-
-/* ---------- Desktop ---------- */
-@media (min-width:900px){
-  .card { max-width:520px; }
-  .links { grid-template-columns:repeat(3, 1fr); }
-  .link { padding:18px 10px; font-size:14px; border-radius:20px; }
+/* ===================== */
+/* پایه‌ای برای کل صفحه */
+/* ===================== */
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s, color 0.3s;
 }
 
-/* ---------- Bat ---------- */
-.bat { position:absolute; width:24px; height:24px; top:-10px; left:-10px; fill:white; }
+/* حالت پیش‌فرض: دارک مود */
+body {
+  background-color: #121212;
+  color: #fff;
+}
 
-/* ---------- Gear Menu ---------- */
-.gear-menu { position:absolute; top:20px; right:20px; width:40px; height:40px; border-radius:50%; background:rgba(255,255,255,0.12); backdrop-filter:blur(12px); display:flex; justify-content:center; align-items:center; cursor:pointer; transition: all 0.3s ease; }
-body.light .gear-menu { background: rgba(0,0,0,0.05); }
-.gear-menu:hover { transform:rotate(20deg); }
-.menu-options { position:absolute; top:50px; right:0; background:rgba(0,0,0,0.8); backdrop-filter:blur(12px); border-radius:12px; padding:10px; display:none; flex-direction:column; gap:8px; }
-body.light .menu-options { background: rgba(255,255,255,0.9); }
-.menu-options button { padding:8px 12px; border:none; border-radius:10px; background:rgba(255,255,255,0.1); color:white; cursor:pointer; transition: all 0.3s ease; }
-body.light .menu-options button { background: rgba(0,0,0,0.05); color:#111; }
-.menu-options button:hover { background: rgba(255,255,255,0.2); }
-body.light .menu-options button:hover { background: rgba(0,0,0,0.1); }
+/* ===================== */
+/* لایت مود */
+/* ===================== */
+body.light-mode {
+  background-color: #f5f5f5;
+  color: #202020;
+}
+
+/* ===================== */
+/* کارت شبکه‌های اجتماعی */
+/* ===================== */
+.social-card {
+  width: 200px;
+  height: 60px;
+  margin: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.3s, box-shadow 0.3s;
+}
+
+/* حالت پیش‌فرض دارک مود کارت‌ها */
+body:not(.light-mode) .social-card {
+  background-color: #1e1e1e;
+  box-shadow: none;
+  color: #fff;
+}
+
+/* حالت لایت مود کارت‌ها با شدو */
+body.light-mode .social-card {
+  background-color: #fff;
+  color: #202020;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* ===================== */
+/* انیمیشن خفاش */
+/* ===================== */
+.bat {
+  width: 1px;
+  height: 1px;
+  transform: scale(4);
+  position: relative;
+  left: -128px;
+  top: -128px;
+  animation: bat 0.4s steps(1) infinite;
+}
+
+  @keyframes bat {
+  0% {
+    box-shadow: 33px 6px #54556b, 34px 6px #54556b, 35px 6px #54556b, 36px 6px #54556b, 20px 7px #54556b, 21px 7px #54556b, 22px 7px #54556b, 23px 7px #54556b, 33px 7px #54556b, 34px 7px #54556b, 35px 7px #202020, 36px 7px #202020, 37px 7px #54556b, 38px 7px #54556b, 39px 7px #54556b;
+    /* ادامه Shadow های خفاش طبق کد شما ... */
+  }
+  100% {
+    /* تکرار برای انیمیشن */
+    box-shadow: 33px 6px #54556b, 34px 6px #54556b, 35px 6px #54556b, 36px 6px #54556b, 20px 7px #54556b, 21px 7px #54556b, 22px 7px #54556b, 23px 7px #54556b, 33px 7px #54556b, 34px 7px #54556b, 35px 7px #202020, 36px 7px #202020, 37px 7px #54556b, 38px 7px #54556b, 39px 7px #54556b;
+  }
+}
+
+/* ===================== */
+/* دکمه تغییر حالت مود */
+/* ===================== */
+.toggle-btn {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 8px 12px;
+  background: #ffcc00;
+  color: #202020;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
 </style>
 </head>
 <body>
 
- <div class="bg-orb orb1"></div>
-<div class="bg-orb orb2"></div>
+<!-- انیمیشن خفاش -->
+<div class="bat"></div>
 
-<div class="gear-menu">⚙️</div>
-<div class="menu-options">
-  <button id="toggle-mode">Dark / Light Mode</button>
-</div>
+<!-- کارت شبکه‌های اجتماعی -->
+<div class="social-card">Telegram</div>
+<div class="social-card">Instagram</div>
+<div class="social-card">Twitter</div>
 
-<div class="card">
-  <div class="logo">🌐</div>
-  <h1>
-    Netland CafeNet
-    <svg class="bat" viewBox="0 0 24 24"><path d="M12 2L14 6L18 8L14 10L12 14L10 10L6 8L10 6Z"/></svg>
-  </h1>
-  <p>Quick Access</p>
-
-  <div class="links">
-    <a class="link" href="#"><svg width="20" height="20"><circle cx="10" cy="10" r="10" fill="#E1306C"/></svg> Instagram</a>
-    <a class="link" href="#"><svg width="20" height="20"><circle cx="10" cy="10" r="10" fill="#0088CC"/></svg> Telegram</a>
-    <a class="link" href="#"><svg width="20" height="20"><circle cx="10" cy="10" r="10" fill="#005FFF"/></svg> Rubika</a>
-    <a class="link" href="#"><svg width="20" height="20"><circle cx="10" cy="10" r="10" fill="#25D366"/></svg> WhatsApp</a>
-    <a class="link" href="#"><svg width="20" height="20"><circle cx="10" cy="10" r="10" fill="#FF3B30"/></svg> Call</a>
-    <a class="link" href="#"><svg width="20" height="20"><circle cx="10" cy="10" r="10" fill="#34C759"/></svg> Location</a>
-  </div>
-</div>
+<!-- دکمه تغییر مود -->
+<button class="toggle-btn" onclick="toggleMode()">Toggle Light/Dark</button>
 
 <script>
-  // ---------- Bat Animation ----------
-  const bat = document.querySelector(".bat");
-  const tl = gsap.timeline({ repeat:-1, yoyo:true });
-  tl.to(bat, { x:40, y:-10, rotation:20, duration:1, ease:"power1.inOut" })
-    .to(bat, { x:-40, y:-5, rotation:-20, duration:1, ease:"power1.inOut" });
-
-  // ---------- iOS-style link hover ----------
-  const links = document.querySelectorAll(".link");
-  links.forEach(link=>{
-    link.addEventListener("mouseenter", ()=>gsap.to(link,{scale:1.05,duration:0.2,ease:"power1.out"}));
-    link.addEventListener("mouseleave", ()=>gsap.to(link,{scale:1,duration:0.2,ease:"power1.out"}));
-  });
-
-  // ---------- Gear Menu ----------
-  const gear = document.querySelector(".gear-menu");
-  const menu = document.querySelector(".menu-options");
-  gear.addEventListener("click", ()=>{ menu.style.display = menu.style.display==='flex'?'none':'flex'; });
-
-  // ---------- Dark/Light Mode ----------
-  const toggle = document.getElementById("toggle-mode");
-  toggle.addEventListener("click", ()=>{
-    document.body.classList.toggle("light");
-  });
+function toggleMode() {
+  document.body.classList.toggle('light-mode');
+}
 </script>
 
 </body>
-</html> 
+</html>
