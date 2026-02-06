@@ -1,61 +1,123 @@
 <!DOCTYPE html>
 <html lang="fa">
 <head>
-  <meta charset="UTF-8">
-  <title>Netland CafeNet</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body {
-      margin: 0;
-      font-family: sans-serif;
-      background: #0f172a;
-      color: white;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-    }
-    .card {
-      width: 100%;
-      max-width: 360px;
-      background: #020617;
-      border-radius: 16px;
-      padding: 24px;
-      text-align: center;
-    }
-    h1 {
-      margin-bottom: 10px;
-    }
-    p {
-      color: #cbd5f5;
-      font-size: 14px;
-      margin-bottom: 20px;
-    }
-    a {
-      display: block;
-      text-decoration: none;
-      background: #1e293b;
-      margin: 10px 0;
-      padding: 14px;
-      border-radius: 10px;
-      color: white;
-      font-size: 16px;
-    }
-    a:hover {
-      background: #334155;
-    }
-  </style>
-</head>
-<body>
-  <div class="card">
-    <h1>Netland CafeNet</h1>
-    <p>ارتباط سریع با ما</p>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Netland CafeNet</title>
 
-    <a href="https://instagram.com/YOURPAGE" target="_blank">📸 اینستاگرام</a>
-    <a href="https://t.me/YOURID" target="_blank">✈️ تلگرام</a>
-    <a href="https://rubika.ir/YOURID" target="_blank">🔵 روبیکا</a>
-    <a href="https://wa.me/989XXXXXXXXX" target="_blank">🟢 واتساپ</a>
-    <a href="tel:09XXXXXXXXX">☎️ تماس</a>
+<style>
+/* ---------- Base ---------- */
+* {
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, "San Francisco", sans-serif;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0f172a, #020617);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* ---------- Blurry Background Orbs ---------- */
+.bg-orb {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(56,189,248,0.6), transparent 70%);
+  filter: blur(60px);
+}
+.orb1 { top: -100px; left: -100px; }
+.orb2 { bottom: -120px; right: -80px; background: radial-gradient(circle, rgba(168,85,247,0.6), transparent 70%); }
+
+/* ---------- Glass Card ---------- */
+.card {
+  position: relative;
+  width: 92%;
+  max-width: 380px;
+  padding: 24px;
+  border-radius: 28px;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+  text-align: center;
+  color: white;
+}
+
+.card h1 {
+  margin: 0 0 8px;
+  font-size: 22px;
+}
+
+.card p {
+  margin: 0 0 20px;
+  opacity: 0.75;
+  font-size: 14px;
+}
+
+/* ---------- Links ---------- */
+.links {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+}
+
+.link {
+  padding: 14px;
+  border-radius: 18px;
+  text-decoration: none;
+  color: white;
+  background: rgba(255,255,255,0.12);
+  backdrop-filter: blur(12px);
+  transition: all 0.25s ease;
+}
+
+.link:hover {
+  background: rgba(255,255,255,0.22);
+  transform: translateY(-2px);
+}
+
+/* ---------- Desktop Mode ---------- */
+@media (min-width: 900px) {
+  .card {
+    max-width: 520px;
+  }
+
+  .links {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .link {
+    padding: 18px 10px;
+    font-size: 14px;
+    border-radius: 20px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="bg-orb orb1"></div>
+<div class="bg-orb orb2"></div>
+
+<div class="card">
+  <h1>Netland CafeNet</h1>
+  <p>Quick Access</p>
+
+  <div class="links">
+    <a class="link" href="#">📸 Instagram</a>
+    <a class="link" href="#">✈️ Telegram</a>
+    <a class="link" href="#">🔵 Rubika</a>
+    <a class="link" href="#">🟢 WhatsApp</a>
+    <a class="link" href="#">📍 Location</a>
+    <a class="link" href="#">☎️ Call</a>
   </div>
+</div>
+
 </body>
 </html>
