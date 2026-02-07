@@ -7,13 +7,12 @@
 
 <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-<style>
 /* ================= Base ================= */
 *{
   box-sizing:border-box;
   margin:0;
   padding:0;
-  font-family:'SF Pro Display',-apple-system,BlinkMacSystemFont,'San Francisco',sans-serif;
+  font-family:'SF Pro Display',-apple-system,BlinkMacSystemFont,sans-serif;
 }
 
 body{
@@ -21,17 +20,32 @@ body{
   display:flex;
   justify-content:center;
   align-items:center;
-  background:linear-gradient(180deg,#0b1220,#111827);
-  transition:.45s ease;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(120,140,255,.18), transparent 40%),
+    radial-gradient(circle at 80% 80%, rgba(180,100,255,.12), transparent 45%),
+    linear-gradient(180deg,#0a0f1e,#0e1426);
+  transition:.6s ease;
   overflow:hidden;
+  color:white;
 }
 
+/* ================= Light Mode ================= */
 body.light{
   background:
-    radial-gradient(circle at 15% 10%, rgba(255,255,255,.9), transparent 45%),
-    radial-gradient(circle at 85% 80%, rgba(220,224,230,.9), transparent 45%),
-    linear-gradient(180deg,#eef0f3,#d8dbe0);
+    radial-gradient(circle at 20% 15%, rgba(255,255,255,1), transparent 40%),
+    radial-gradient(circle at 80% 80%, rgba(220,225,232,1), transparent 45%),
+    linear-gradient(180deg,#f1f3f6,#d9dde3);
   color:#111;
+}
+
+/* ================= Ambient Layer ================= */
+.bg{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:
+    radial-gradient(circle at 30% 30%, rgba(255,255,255,.15), transparent 40%),
+    radial-gradient(circle at 70% 70%, rgba(255,255,255,.08), transparent 45%);
 }
 
 /* ================= Card ================= */
@@ -39,98 +53,259 @@ body.light{
   position:relative;
   width:100%;
   max-width:420px;
-  margin:16px;
-  padding:28px 22px 30px;
-  border-radius:32px;
-  background:rgba(255,255,255,.08);
-  backdrop-filter:blur(30px) saturate(180%);
-  border:1px solid rgba(255,255,255,.18);
-  box-shadow:0 30px 60px rgba(0,0,0,.4);
+  padding:32px 24px 34px;
+  border-radius:36px;
+
+  background:rgba(255,255,255,.07);
+  backdrop-filter:blur(36px) saturate(180%);
+  -webkit-backdrop-filter:blur(36px) saturate(180%);
+
+  border:1px solid rgba(255,255,255,.22);
+  box-shadow:
+    0 50px 100px rgba(0,0,0,.55),
+    inset 0 1px 0 rgba(255,255,255,.25),
+    0 0 60px rgba(120,140,255,.12);
+
   text-align:center;
+  animation:float 7s ease-in-out infinite;
 }
 
+/* ---- Light Card ---- */
 body.light .card{
-  background:rgba(255,255,255,.42);
-  border:1px solid rgba(255,255,255,.65);
+  background:rgba(255,255,255,.5);
+  backdrop-filter:blur(38px) saturate(160%);
+  border:1px solid rgba(255,255,255,.9);
+  box-shadow:
+    0 30px 60px rgba(0,0,0,.18),
+    inset 0 1px 0 rgba(255,255,255,1);
 }
 
-/* ================= Header ================= */
+@keyframes float{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-12px)}
+}
+
+/* ================= Logo ================= */
 .logo{
-  width:86px;
-  height:86px;
+  width:92px;
+  height:92px;
   border-radius:50%;
-  margin:0 auto 14px;
-  background:rgba(255,255,255,.28);
+  margin:0 auto 16px;
+  background:rgba(255,255,255,.25);
+  backdrop-filter:blur(20px);
   display:flex;
   align-items:center;
   justify-content:center;
-  font-size:34px;
+  font-size:36px;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.7),
+    0 10px 30px rgba(0,0,0,.25);
+}
+
+body.light .logo{
+  background:rgba(255,255,255,.75);
+}
+
+/* ================= Text ================= */
+h1{
+  font-size:22px;
+  font-weight:600;
+}
+
+p{
+  font-size:14px;
+  opacity:.7;
+  margin-bottom:26px;
+}
+
+/* ================= Links ================= */
+.links{
+  display:grid;
+  gap:16px;
+}
+
+.link{
+  padding:16px 20px;
+  border-radius:24px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  text-decoration:none;
+  font-size:15px;
+  font-weight:500;
+  color:white;
+
+  background:rgba(255,255,255,.14);
+  backdrop-filter:blur(28px) saturate(170%);
+  border:1px solid rgba(255,255,255,.28);
+  box-shadow:
+    0 14px 30px rgba(0,0,0,.3),
+    inset 0 1px 0 rgba(255,255,255,.35);
+
+  transition:.35s ease;
+}
+
+.link:hover{
+  transform:translateY(-4px) scale(1.015);
+  background:rgba(255,255,255,.22);
+}
+
+/* ---- Light Links ---- */
+body.light .link{
+  color:#111;
+  background:rgba(255,255,255,.65);
+  border:1px solid rgba(255,255,255,1);
+  box-shadow:
+    0 12px 24px rgba(0,0,0,.12),
+    inset 0 1px 0 rgba(255,255,255,1);
+}
+
+/* ================= Toggle ================= */
+.toggleWrapper{
+  position:fixed;
+  top:18px;
+  right:18px;
+  z-index:10;
+}
+
+.toggle{
+  width:74px;
+  height:38px;
+  background:rgba(255,255,255,.25);
+  border-radius:22px;
+  backdrop-filter:blur(22px);
+  position:relative;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  padding:4px;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.4);
+}
+
+.toggle span{
+  position:absolute;
+  width:30px;
+  height:30px;
+  border-radius:50%;
+  background:white;
+  left:4px;
+  transition:.45s cubic-bezier(.4,0,.2,1);
+}
+
+.toggle::after{
+  content:"Dark";
+  position:absolute;
+  right:10px;
+  font-size:12px;
+  opacity:.75;
+}
+
+input{
+  display:none;
+}
+
+  input:checked + .toggle span{
+  transform:translateX(36px);
+}
+
+input:checked + .toggle::after{
+  content:"Light";
+  left:10px;
+  right:auto;
+}
+
+/* Light Mode */
+body.light{
+  background:
+    radial-gradient(circle at 15% 10%, rgba(255,255,255,.95), transparent 45%),
+    radial-gradient(circle at 85% 80%, rgba(220,224,230,.9), transparent 45%),
+    linear-gradient(180deg,#eef0f3,#d8dbe0);
+  color:#111;
+}
+
+/* Ambient blur */
+.bg{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:
+    radial-gradient(circle at 20% 20%,rgba(255,255,255,.18),transparent 40%),
+    radial-gradient(circle at 80% 80%,rgba(255,255,255,.12),transparent 45%);
+}
+
+/* Card */
+.card{
+  position:relative;
+  width:100%;
+  max-width:420px;
+  padding:30px 22px 32px;
+  border-radius:34px;
+
+  background:rgba(255,255,255,.08);
+  backdrop-filter:blur(34px) saturate(180%);
+  -webkit-backdrop-filter:blur(34px) saturate(180%);
+
+  border:1px solid rgba(255,255,255,.25);
+  box-shadow:
+    0 40px 80px rgba(0,0,0,.45),
+    inset 0 1px 0 rgba(255,255,255,.35);
+
+  text-align:center;
+  animation:float 6s ease-in-out infinite;
+}
+
+/* Light Card */
+body.light .card{
+  background:rgba(255,255,255,.45);
+  border:1px solid rgba(255,255,255,.8);
+  box-shadow:
+    0 30px 60px rgba(0,0,0,.18),
+    inset 0 1px 0 rgba(255,255,255,.95);
+}
+
+@keyframes float{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-10px)}
+}
+
+/* Logo */
+.logo{
+  width:90px;
+  height:90px;
+  border-radius:50%;
+  margin:0 auto 14px;
+  background:rgba(255,255,255,.3);
+  backdrop-filter:blur(18px);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:36px;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.7);
+}
+
+body.light .logo{
+  background:rgba(255,255,255,.7);
 }
 
 h1{
   font-size:22px;
   font-weight:600;
-  margin-bottom:6px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:12px;
 }
 
-/* ================= Pixel Bat (ORIGINAL CodingStella) ================= */
-.bat{
-  width:34px;
-  height:18px;
-  position:relative;
-}
-
-.bat::before,
-.bat::after{
-  content:"";
-  position:absolute;
-  top:0;
-  width:50%;
-  height:100%;
-  background:
-    linear-gradient(#000 0 0) left 0 top 4px/100% 2px,
-    linear-gradient(#000 0 0) left 2px top 2px/100% 2px,
-    linear-gradient(#000 0 0) left 4px top 0/100% 2px,
-    linear-gradient(#000 0 0) left 6px top 2px/100% 2px,
-    linear-gradient(#000 0 0) left 8px top 4px/100% 2px;
-  background-repeat:no-repeat;
-}
-
-.bat::after{
-  right:0;
-  transform:scaleX(-1);
-}
-
-@keyframes flap{
-  0%,100%{transform:rotate(0deg)}
-  50%{transform:rotate(12deg)}
-}
-
-.bat{
-  animation:flap .4s infinite ease-in-out;
-  transform-origin:center;
-}
-
-/* ================= Text ================= */
 p{
   font-size:14px;
   opacity:.7;
   margin-bottom:24px;
 }
 
-/* ================= Links ================= */
+/* Links */
 .links{
   display:grid;
-  grid-template-columns:1fr;
   gap:14px;
 }
 
 .link{
-  padding:15px 16px;
+  padding:15px 18px;
   border-radius:22px;
   display:flex;
   align-items:center;
@@ -139,77 +314,105 @@ p{
   font-size:15px;
   font-weight:500;
   color:white;
-  background:rgba(255,255,255,.14);
-  backdrop-filter:blur(22px);
-  border:1px solid rgba(255,255,255,.22);
+
+  background:rgba(255,255,255,.15);
+  backdrop-filter:blur(26px) saturate(170%);
+  border:1px solid rgba(255,255,255,.3);
+  box-shadow:
+    0 10px 25px rgba(0,0,0,.25),
+    inset 0 1px 0 rgba(255,255,255,.35);
+
+  transition:.3s ease;
+}
+
+.link:hover{
+  transform:translateY(-3px) scale(1.01);
+  background:rgba(255,255,255,.25);
 }
 
 body.light .link{
   color:#111;
-  background:rgba(255,255,255,.55);
+  background:rgba(255,255,255,.6);
+  border:1px solid rgba(255,255,255,.9);
+  box-shadow:
+    0 10px 20px rgba(0,0,0,.1),
+    inset 0 1px 0 rgba(255,255,255,1);
 }
 
-/* ================= Gear ================= */
-.gear{
+/* Icons */
+.icon{
+  width:22px;
+  height:22px;
+}
+
+/* Toggle Dark / Light */
+.toggleWrapper{
   position:fixed;
-  top:16px;
-  right:16px;
-  width:46px;
-  height:46px;
-  border-radius:50%;
+  top:18px;
+  right:18px;
+}
+
+.toggle{
+  width:72px;
+  height:36px;
   background:rgba(255,255,255,.25);
+  border-radius:20px;
+  backdrop-filter:blur(20px);
+  position:relative;
+  cursor:pointer;
   display:flex;
   align-items:center;
-  justify-content:center;
-  cursor:pointer;
-  transition:.4s ease;
+  padding:4px;
 }
 
-.gear:hover{
-  transform:rotate(120deg) scale(1.1);
+.toggle span{
+  position:absolute;
+  width:28px;
+  height:28px;
+  border-radius:50%;
+  background:white;
+  left:4px;
+  transition:.4s cubic-bezier(.4,0,.2,1);
 }
 
-.menu{
-  position:fixed;
-  top:70px;
-  right:16px;
-  padding:12px 14px;
-  border-radius:18px;
-  background:rgba(0,0,0,.75);
+.toggle::after{
+  content:"Dark";
+  position:absolute;
+  right:10px;
+  font-size:12px;
+  opacity:.7;
+}
+
+input{
   display:none;
 }
 
-body.light .menu{
-  background:rgba(255,255,255,.9);
+input:checked + .toggle span{
+  transform:translateX(36px);
 }
 
-.menu button{
-  background:none;
-  border:none;
-  font-size:14px;
-  cursor:pointer;
-  color:white;
+input:checked + .toggle::after{
+  content:"Light";
+  left:10px;
+  right:auto;
 }
-
-body.light .menu button{color:#111}
 </style>
 </head>
 
 <body>
 
-<div class="gear">⚙️</div>
-<div class="menu">
-  <button id="mode">Dark / Light</button>
+<div class="bg"></div>
+
+<div class="toggleWrapper">
+  <input type="checkbox" id="mode">
+  <label class="toggle" for="mode">
+    <span></span>
+  </label>
 </div>
 
-<div class="card">
+  <div class="card">
   <div class="logo">🌐</div>
-
-  <h1>
-    Netland CafeNet
-    <div class="bat"></div>
-  </h1>
-
+  <h1>Netland CafeNet</h1>
   <p>Quick Access</p>
 
   <div class="links">
@@ -220,10 +423,10 @@ body.light .menu button{color:#111}
 </div>
 
 <script>
-const gear=document.querySelector('.gear');
-const menu=document.querySelector('.menu');
-gear.onclick=()=>menu.style.display=menu.style.display==='block'?'none':'block';
-document.getElementById('mode').onclick=()=>document.body.classList.toggle('light');
+const toggle=document.getElementById('mode');
+toggle.addEventListener('change',()=>{
+  document.body.classList.toggle('light');
+});
 </script>
 
 </body>
