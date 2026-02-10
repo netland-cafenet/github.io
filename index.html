@@ -3,366 +3,306 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Netland CafeNet</title>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+<title>Glassmorphism UI</title>
 
 <style>
-
-/* ================= RESET ================= */
-
-* {
+/* =========================
+   RESET + FONT
+========================= */
+*,
+*::before,
+*::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "SF Pro Display",-apple-system,BlinkMacSystemFont,sans-serif;
+}
+
+@font-face {
+  font-family: "SF Pro";
+  src: local("SF Pro Display"), local("San Francisco");
 }
 
 html, body {
   width: 100%;
   height: 100%;
-}
-
-/* ================= ROOT ================= */
-
-:root {
-  --light-bg-main: #f3f3f3;
-  --light-bg-accent: #e6e6e6;
-  --dark-bg-main: #05070c;
-  --dark-bg-accent: #0b1326;
-
-  --glass-light: rgba(255,255,255,0.55);
-  --glass-dark: rgba(255,255,255,0.08);
-
-  --border-light: rgba(255,255,255,0.9);
-  --border-dark: rgba(255,255,255,0.25);
-
-  --yellow-main: #f4c430;
-  --yellow-soft: #ffe9a3;
-
-  --blue-main: #25c9ff;
-  --blue-soft: #bfefff;
-
-  --transition-slow: 0.8s cubic-bezier(.4,0,.2,1);
-  --transition-fast: 0.4s cubic-bezier(.4,0,.2,1);
-}
-
-/* ================= BODY ================= */
-
-body {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: radial-gradient(circle at 20% 20%, #ffffff, var(--light-bg-main));
+  font-family: "SF Pro", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
   overflow: hidden;
-  transition: background var(--transition-slow);
+}
+
+/* =========================
+   ROOT VARIABLES
+========================= */
+:root {
+  --blur-strong: 40px;
+  --blur-soft: 25px;
+
+  --glass-light: rgba(255,255,255,0.35);
+  --glass-dark: rgba(20,20,25,0.45);
+
+  --border-light: rgba(255,255,255,0.6);
+  --border-dark: rgba(255,255,255,0.12);
+
+  --text-light: #111;
+  --text-dark: #e6e6e6;
+
+  --sun: #ffd54a;
+  --moon: #9fb4ff;
+
+  --ease-spring: cubic-bezier(.68,-0.6,.32,1.6);
+}
+
+/* =========================
+   BODY MODES
+========================= */
+body.light {
+  background: #f2f3f5;
+  color: var(--text-light);
 }
 
 body.dark {
-  background: radial-gradient(circle at 20% 20%, #0f172a, var(--dark-bg-main));
+  background: #0b0f16;
+  color: var(--text-dark);
 }
 
-/* ================= AMBIENT BLOBS ================= */
-
-.ambient {
+/* =========================
+   ANIMATED BACKGROUND
+========================= */
+.background {
   position: fixed;
-  inset: -30%;
-  pointer-events: none;
-  z-index: 0;
+  inset: -20%;
+  z-index: -1;
+  filter: blur(80px);
+  animation: bgMove 18s ease-in-out infinite alternate;
 }
 
-.ambient::before,
-.ambient::after {
-  content: "";
-  position: absolute;
-  width: 600px;
-  height: 600px;
-  border-radius: 50%;
-  filter: blur(120px);
-  animation: floatAmbient 20s linear infinite;
+body.light .background {
+  background:
+    radial-gradient(circle at 20% 30%, #ffffff 0%, transparent 40%),
+    radial-gradient(circle at 80% 60%, #d6d9df 0%, transparent 45%);
 }
 
-.ambient::before {
-  background: rgba(255,255,255,0.7);
-  top: 10%;
-  left: 15%;
+body.dark .background {
+  background:
+    radial-gradient(circle at 25% 35%, #1c2440 0%, transparent 45%),
+    radial-gradient(circle at 75% 65%, #05070c 0%, transparent 50%);
 }
 
-.ambient::after {
-  background: rgba(180,180,180,0.5);
-  bottom: 10%;
-  right: 15%;
-  animation-delay: -10s;
+@keyframes bgMove {
+  0% { transform: translateY(0) translateX(0); }
+  100% { transform: translateY(-80px) translateX(60px); }
 }
 
-body.dark .ambient::before {
-  background: rgba(50,120,255,0.35);
+/* =========================
+   TOP BAR
+========================= */
+.topbar {
+  width: 100%;
+  padding: 18px 24px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
 }
 
-body.dark .ambient::after {
-  background: rgba(80,0,255,0.25);
+/* =========================
+   THEME SWITCH (COMPACT)
+========================= */
+.theme-switch {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
 }
 
-@keyframes floatAmbient {
-  0% { transform: translate(0,0); }
-  50% { transform: translate(-80px,60px); }
-  100% { transform: translate(0,0); }
-}
-
-/* ================= CARD ================= */
-
-.card {
+.switch {
+  width: 54px;
+  height: 28px;
+  border-radius: 999px;
   position: relative;
-  z-index: 2;
-  width: 420px;
-  padding: 36px 28px 38px;
-  border-radius: 40px;
+  backdrop-filter: blur(var(--blur-soft));
+  transition: background 0.6s ease;
+}
 
+body.light .switch {
+  background: rgba(255,255,255,0.55);
+  box-shadow: inset 0 0 0 1px var(--border-light);
+}
+
+body.dark .switch {
+  background: rgba(0,0,0,0.45);
+  box-shadow: inset 0 0 0 1px var(--border-dark);
+}
+
+.thumb {
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  transition: transform 0.7s var(--ease-spring), background 0.6s ease;
+}
+
+body.light .thumb {
+  background: radial-gradient(circle at top, #fff7c8, var(--sun));
+}
+
+body.dark .thumb {
+  transform: translateX(26px);
+  background: radial-gradient(circle at top, #c7d2ff, var(--moon));
+}
+
+/* =========================
+   SUN / MOON MORPH
+========================= */
+.icon {
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  transition: all 0.7s var(--ease-spring);
+}
+
+.sun {
+  opacity: 1;
+  transform: scale(1) rotate(0deg);
+}
+
+.moon {
+  opacity: 0;
+  transform: scale(0.4) rotate(-120deg);
+}
+
+body.dark .sun {
+  opacity: 0;
+  transform: scale(0.4) rotate(120deg);
+}
+
+body.dark .moon {
+  opacity: 1;
+  transform: scale(1) rotate(0deg);
+}
+
+/* =========================
+   LABEL
+========================= */
+.mode-text {
+  font-size: 13px;
+  letter-spacing: 0.3px;
+  opacity: 0.85;
+}
+
+/* =========================
+   MAIN LAYOUT
+========================= */
+.main {
+  width: 100%;
+  height: calc(100% - 72px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+}
+
+.cards {
+  display: flex;
+  gap: 28px;
+}
+
+/* =========================
+   GLASS CARDS
+========================= */
+.card {
+  width: 240px;
+  height: 150px;
+  border-radius: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  letter-spacing: 0.4px;
+  backdrop-filter: blur(var(--blur-strong)) saturate(170%);
+  transition: transform 0.6s var(--ease-spring),
+              box-shadow 0.6s ease,
+              background 0.6s ease;
+}
+
+body.light .card {
   background: var(--glass-light);
-  backdrop-filter: blur(42px) saturate(180%);
-  -webkit-backdrop-filter: blur(42px) saturate(180%);
-
-  border: 1px solid var(--border-light);
-
   box-shadow:
-    0 40px 90px rgba(0,0,0,0.15),
-    inset 0 1px 0 rgba(255,255,255,1);
-
-  text-align: center;
-  transition: background var(--transition-slow), border var(--transition-slow), box-shadow var(--transition-slow);
+    0 25px 50px rgba(0,0,0,0.12),
+    inset 0 0 0 1px var(--border-light);
 }
 
 body.dark .card {
   background: var(--glass-dark);
-  border: 1px solid var(--border-dark);
   box-shadow:
-    0 50px 110px rgba(0,0,0,0.65),
-    inset 0 1px 0 rgba(255,255,255,0.35);
+    0 30px 70px rgba(0,0,0,0.65),
+    inset 0 0 0 1px var(--border-dark);
 }
 
-/* ================= FLOAT ================= */
-
-.card {
-  animation: cardFloat 8s ease-in-out infinite;
+.card:hover {
+  transform: translateY(-16px) scale(1.03);
 }
 
-@keyframes cardFloat {
-  0%,100% { transform: translateY(0); }
-  50% { transform: translateY(-14px); }
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 768px) {
+  .cards {
+    flex-direction: column;
+  }
 }
-
-/* ================= LOGO ================= */
-
-.logo {
-  width: 92px;
-  height: 92px;
-  margin: 0 auto 18px;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.35);
-  backdrop-filter: blur(20px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 36px;
-}
-
-/* ================= TEXT ================= */
-
-h1 {
-  font-size: 22px;
-  font-weight: 600;
-  margin-bottom: 6px;
-}
-
-p {
-  font-size: 14px;
-  opacity: 0.7;
-  margin-bottom: 26px;
-}
-
-/* ================= LINKS ================= */
-
-.links {
-  display: grid;
-  gap: 16px;
-}
-
-.link {
-  padding: 16px 20px;
-  border-radius: 26px;
-  text-decoration: none;
-  color: inherit;
-  font-size: 15px;
-  font-weight: 500;
-
-  background: rgba(255,255,255,0.18);
-  backdrop-filter: blur(28px) saturate(170%);
-  border: 1px solid rgba(255,255,255,0.3);
-
-  box-shadow:
-    0 18px 40px rgba(0,0,0,0.25),
-    inset 0 1px 0 rgba(255,255,255,0.4);
-
-  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
-}
-
-.link:hover {
-  transform: translateY(-4px);
-  box-shadow:
-    0 28px 60px rgba(0,0,0,0.35),
-    inset 0 1px 0 rgba(255,255,255,0.5);
-}
-
-/* ================= TOGGLE WRAPPER ================= */
-
-.toggle-wrapper {
-  position: fixed;
-  top: 24px;
-  right: 24px;
-  z-index: 5;
-}
-
-/* ================= TOGGLE ================= */
-
-.theme-toggle {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  user-select: none;
-}
-
-.theme-toggle span {
-  font-size: 14px;
-  opacity: 0.7;
-}
-
-/* ================= SWITCH ================= */
-
-.switch {
-  position: relative;
-  width: 92px;
-  height: 44px;
-  border-radius: 30px;
-  background: var(--yellow-soft);
-  padding: 5px;
-  cursor: pointer;
-  transition: background var(--transition-slow);
-}
-
-body.dark .switch {
-  background: var(--blue-soft);
-}
-
-/* ================= KNOB ================= */
-
-.knob {
-  position: absolute;
-  top: 5px;
-  left: 5px;
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  background: var(--yellow-main);
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  box-shadow:
-    0 8px 20px rgba(0,0,0,0.25),
-    inset 0 1px 0 rgba(255,255,255,0.6);
-
-  transition:
-    transform var(--transition-slow),
-    background var(--transition-slow),
-    box-shadow var(--transition-slow);
-}
-
-/* ================= SUN ================= */
-
-.knob::before {
-  content: "☀️";
-  font-size: 16px;
-  transition: transform var(--transition-slow), opacity var(--transition-fast);
-}
-
-/* ================= DARK STATE ================= */
-
-body.dark .knob {
-  transform: translateX(48px);
-  background: var(--blue-main);
-  box-shadow:
-    0 10px 26px rgba(0,0,0,0.45),
-    inset 0 1px 0 rgba(255,255,255,0.35);
-}
-
-body.dark .knob::before {
-  content: "🌙";
-  transform: rotate(360deg) scale(1.15);
-}
-
-/* ================= GLOW ================= */
-
-.knob::after {
-  content: "";
-  position: absolute;
-  inset: -10px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(255,200,80,0.6), transparent 70%);
-  opacity: 0.8;
-  transition: opacity var(--transition-slow);
-}
-
-body.dark .knob::after {
-  background: radial-gradient(circle, rgba(80,180,255,0.6), transparent 70%);
-}
-
-/* ================= HIDE INPUT ================= */
-
-#theme-toggle {
-  display: none;
-}
-
 </style>
 </head>
 
-<body>
+<body class="light">
 
-<div class="ambient"></div>
+<div class="background"></div>
 
-<div class="toggle-wrapper">
-  <label class="theme-toggle">
-    <span>Light</span>
-    <div class="switch" id="switch">
-      <div class="knob"></div>
+<header class="topbar">
+  <div class="theme-switch" id="toggle">
+    <div class="switch">
+      <div class="thumb">
+        <svg class="icon sun" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="4"/>
+          <line x1="12" y1="20" x2="12" y2="23"/>
+          <line x1="1" y1="12" x2="4" y2="12"/>
+          <line x1="20" y1="12" x2="23" y2="12"/>
+          <line x1="4.2" y1="4.2" x2="6.6" y2="6.6"/>
+          <line x1="17.4" y1="17.4" x2="19.8" y2="19.8"/>
+          <line x1="17.4" y1="6.6" x2="19.8" y2="4.2"/>
+          <line x1="4.2" y1="19.8" x2="6.6" y2="17.4"/>
+        </svg>
+
+        <svg class="icon moon" viewBox="0 0 24 24" fill="#111">
+          <path d="M21 12.7A9 9 0 1111.3 3a7 7 0 009.7 9.7z"/>
+        </svg>
+      </div>
     </div>
-    <span>Dark</span>
-  </label>
-</div>
-
-<div class="card">
-  <div class="logo">🌐</div>
-  <h1>Netland CafeNet</h1>
-  <p>Quick Access</p>
-
-  <div class="links">
-    <a class="link" href="#">Telegram</a>
-    <a class="link" href="#">Instagram</a>
-    <a class="link" href="#">WhatsApp</a>
+    <div class="mode-text">Dark</div>
   </div>
-</div>
+</header>
+
+<main class="main">
+  <div class="cards">
+    <div class="card">Telegram</div>
+    <div class="card">Instagram</div>
+    <div class="card">WhatsApp</div>
+  </div>
+</main>
 
 <script>
+const toggle = document.getElementById("toggle");
+const body = document.body;
 
-const switchEl = document.getElementById("switch");
-
-switchEl.addEventListener("click", () => {
-  document.body.classList.toggle("dark");
+toggle.addEventListener("click", () => {
+  body.classList.toggle("dark");
+  body.classList.toggle("light");
 });
-
 </script>
 
 </body>
-</html>
+</html>  
