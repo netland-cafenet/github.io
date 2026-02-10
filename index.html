@@ -15,31 +15,28 @@
   font-family:'SF Pro Display',-apple-system,BlinkMacSystemFont,sans-serif;
 }
 
-/* ================= Body ================= */
 body{
   min-height:100vh;
   display:flex;
   justify-content:center;
   align-items:center;
   background:
-    radial-gradient(circle at 20% 20%, rgba(120,140,255,.15), transparent 40%),
+    radial-gradient(circle at 20% 20%, rgba(120,140,255,.18), transparent 40%),
     radial-gradient(circle at 80% 80%, rgba(180,100,255,.12), transparent 45%),
-    linear-gradient(180deg,#0b1220,#111827);
-  transition:background .8s cubic-bezier(.4,0,.2,1), color .5s ease;
+    linear-gradient(180deg,#0a0f1e,#0e1426);
+  transition:.6s ease;
   overflow:hidden;
   color:white;
 }
 
-/* ================= Light Mode ================= */
 body.light{
   background:
-    radial-gradient(circle at 20% 20%, rgba(120,120,120,.18), transparent 40%),
-    radial-gradient(circle at 80% 80%, rgba(80,80,80,.12), transparent 45%),
-    linear-gradient(180deg,#f2f3f6,#dadde3);
+    radial-gradient(circle at 15% 10%, rgba(255,255,255,.95), transparent 45%),
+    radial-gradient(circle at 85% 80%, rgba(220,224,230,.9), transparent 45%),
+    linear-gradient(180deg,#eef0f3,#d8dbe0);
   color:#111;
 }
 
-/* Moving ambient */
 .bg{
   position:absolute;
   inset:-20%;
@@ -47,32 +44,29 @@ body.light{
   background:
     radial-gradient(circle at 30% 30%, rgba(255,255,255,.25), transparent 40%),
     radial-gradient(circle at 70% 70%, rgba(255,255,255,.15), transparent 45%);
-  animation:ambientMove 20s linear infinite;
+  animation:ambient 20s linear infinite;
 }
 
-@keyframes ambientMove{
+@keyframes ambient{
   0%{transform:translate(0,0)}
   50%{transform:translate(-60px,40px)}
   100%{transform:translate(0,0)}
 }
 
-/* ================= Card ================= */
 .card{
   position:relative;
   width:100%;
   max-width:420px;
-  padding:30px 22px 32px;
-  border-radius:34px;
-  text-align:center;
-
+  padding:32px 24px 34px;
+  border-radius:36px;
   background:rgba(255,255,255,.08);
   backdrop-filter:blur(38px) saturate(180%);
-  -webkit-backdrop-filter:blur(38px) saturate(180%);
-  border:1px solid rgba(255,255,255,.28);
-
+  border:1px solid rgba(255,255,255,.25);
   box-shadow:
     0 40px 80px rgba(0,0,0,.45),
-    inset 0 1px 0 rgba(255,255,255,.45);
+    inset 0 1px 0 rgba(255,255,255,.35);
+  text-align:center;
+  animation:float 7s ease-in-out infinite;
 }
 
 body.light .card{
@@ -83,55 +77,65 @@ body.light .card{
     inset 0 1px 0 rgba(255,255,255,1);
 }
 
-/* ================= Logo ================= */
+@keyframes float{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-12px)}
+}
+
 .logo{
-  width:90px;
-  height:90px;
+  width:92px;
+  height:92px;
   border-radius:50%;
-  margin:0 auto 14px;
-  background:rgba(255,255,255,.3);
-  backdrop-filter:blur(18px);
+  margin:0 auto 16px;
+  background:rgba(255,255,255,.25);
+  backdrop-filter:blur(20px);
   display:flex;
   align-items:center;
   justify-content:center;
   font-size:36px;
 }
 
-/* ================= Text ================= */
-h1{font-size:22px;font-weight:600;}
-p{font-size:14px;opacity:.7;margin-bottom:24px;}
+h1{
+  font-size:22px;
+  font-weight:600;
+}
 
-/* ================= Links ================= */
-.links{display:grid;gap:14px;}
+p{
+  font-size:14px;
+  opacity:.7;
+  margin-bottom:26px;
+}
+
+.links{
+  display:grid;
+  gap:16px;
+}
 
 .link{
-  padding:15px 18px;
-  border-radius:22px;
+  padding:16px 20px;
+  border-radius:24px;
   text-decoration:none;
   font-size:15px;
   font-weight:500;
   color:inherit;
-
-  background:rgba(255,255,255,.15);
-  backdrop-filter:blur(26px) saturate(170%);
-  border:1px solid rgba(255,255,255,.3);
-
+  background:rgba(255,255,255,.14);
+  backdrop-filter:blur(28px) saturate(170%);
+  border:1px solid rgba(255,255,255,.28);
   box-shadow:
-    0 10px 25px rgba(0,0,0,.25),
+    0 14px 30px rgba(0,0,0,.3),
     inset 0 1px 0 rgba(255,255,255,.35);
-
-  transition:.3s ease;
+  transition:.35s ease;
 }
 
 .link:hover{
-  transform:translateY(-3px);
+  transform:translateY(-4px) scale(1.015);
 }
 
-/* ================= Toggle (همون قبلی، با خورشید/ماه) ================= */
 .toggleWrapper{
   position:fixed;
   top:18px;
   right:18px;
+  z-index:10;
 }
 
 input{display:none;}
@@ -140,49 +144,50 @@ input{display:none;}
   width:72px;
   height:36px;
   background:rgba(255,255,255,.25);
-  border-radius:20px;
-  backdrop-filter:blur(20px);
+  border-radius:22px;
+  backdrop-filter:blur(22px);
   position:relative;
   cursor:pointer;
+  display:flex;
+  align-items:center;
   padding:4px;
 }
 
-.toggle span{
+.knob{
   position:absolute;
   width:28px;
   height:28px;
   border-radius:50%;
   background:white;
   left:4px;
-
   display:flex;
   align-items:center;
   justify-content:center;
   font-size:16px;
-
   transition:
-    transform .55s cubic-bezier(.4,0,.2,1),
-    background .4s ease,
-    box-shadow .4s ease;
+    transform .5s cubic-bezier(.4,0,.2,1),
+    box-shadow .5s ease,
+    background .5s ease;
 }
 
-.toggle span::before{
+.knob::before{
   content:"☀️";
   transition:
-    transform .5s ease,
-    opacity .3s ease;
+    transform .6s cubic-bezier(.68,-0.6,.32,1.6),
+    filter .5s ease;
+  filter:drop-shadow(0 0 6px rgba(255,200,80,.9));
 }
 
-/* Dark state */
-input:checked + .toggle span{
+input:checked + .toggle .knob{
   transform:translateX(36px);
   background:#0f172a;
   box-shadow:0 6px 18px rgba(0,0,0,.45);
 }
 
-  input:checked + .toggle span::before{
+input:checked + .toggle .knob::before{
   content:"🌙";
-  transform:rotate(360deg) scale(1.1);
+  transform:rotate(360deg) scale(1.15);
+  filter:drop-shadow(0 0 6px rgba(180,200,255,.8));
 }
 </style>
 </head>
@@ -194,7 +199,7 @@ input:checked + .toggle span{
 <div class="toggleWrapper">
   <input type="checkbox" id="mode">
   <label class="toggle" for="mode">
-    <span></span>
+    <span class="knob"></span>
   </label>
 </div>
 
@@ -202,7 +207,6 @@ input:checked + .toggle span{
   <div class="logo">🌐</div>
   <h1>Netland CafeNet</h1>
   <p>Quick Access</p>
-
   <div class="links">
     <a class="link" href="#">Telegram</a>
     <a class="link" href="#">Instagram</a>
@@ -217,4 +221,4 @@ document.getElementById('mode').addEventListener('change',()=>{
 </script>
 
 </body>
-</html>
+</html>  
