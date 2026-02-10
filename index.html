@@ -21,7 +21,10 @@ body{
   display:flex;
   justify-content:center;
   align-items:center;
-  background:linear-gradient(180deg,#0b1220,#111827);
+  background:
+    radial-gradient(circle at 20% 20%, rgba(120,140,255,.15), transparent 40%),
+    radial-gradient(circle at 80% 80%, rgba(180,100,255,.12), transparent 45%),
+    linear-gradient(180deg,#0b1220,#111827);
   transition:background .8s cubic-bezier(.4,0,.2,1), color .5s ease;
   overflow:hidden;
   color:white;
@@ -30,95 +33,79 @@ body{
 /* ================= Light Mode ================= */
 body.light{
   background:
-    radial-gradient(circle at 15% 10%, rgba(255,255,255,.95), transparent 45%),
-    radial-gradient(circle at 85% 80%, rgba(220,224,230,.9), transparent 45%),
-    linear-gradient(180deg,#eef0f3,#d8dbe0);
+    radial-gradient(circle at 20% 20%, rgba(120,120,120,.18), transparent 40%),
+    radial-gradient(circle at 80% 80%, rgba(80,80,80,.12), transparent 45%),
+    linear-gradient(180deg,#f2f3f6,#dadde3);
   color:#111;
 }
 
-/* ================= Ambient ================= */
+/* Moving ambient */
 .bg{
   position:absolute;
-  inset:0;
+  inset:-20%;
   pointer-events:none;
   background:
-    radial-gradient(circle at 30% 30%,rgba(255,255,255,.15),transparent 40%),
-    radial-gradient(circle at 70% 70%,rgba(255,255,255,.08),transparent 45%);
+    radial-gradient(circle at 30% 30%, rgba(255,255,255,.25), transparent 40%),
+    radial-gradient(circle at 70% 70%, rgba(255,255,255,.15), transparent 45%);
+  animation:ambientMove 20s linear infinite;
 }
 
-/* ================= Card (Base) ================= */
+@keyframes ambientMove{
+  0%{transform:translate(0,0)}
+  50%{transform:translate(-60px,40px)}
+  100%{transform:translate(0,0)}
+}
+
+/* ================= Card ================= */
 .card{
   position:relative;
-  display:flex;
-  gap:32px;
-  padding:32px;
-  border-radius:36px;
+  width:100%;
+  max-width:420px;
+  padding:30px 22px 32px;
+  border-radius:34px;
+  text-align:center;
 
   background:rgba(255,255,255,.08);
-  backdrop-filter:blur(34px) saturate(180%);
-  border:1px solid rgba(255,255,255,.25);
+  backdrop-filter:blur(38px) saturate(180%);
+  -webkit-backdrop-filter:blur(38px) saturate(180%);
+  border:1px solid rgba(255,255,255,.28);
+
   box-shadow:
     0 40px 80px rgba(0,0,0,.45),
-    inset 0 1px 0 rgba(255,255,255,.35);
-
-  transition:.6s cubic-bezier(.4,0,.2,1);
+    inset 0 1px 0 rgba(255,255,255,.45);
 }
 
-/* ===== Desktop (افقی) ===== */
-@media (min-width: 768px){
-  .card{
-    width:720px;
-    flex-direction:row;
-    align-items:center;
-  }
-  .content{
-    text-align:left;
-  }
-}
-
-/* ===== Mobile (عمودی) ===== */
-@media (max-width: 767px){
-  .card{
-    width:90%;
-    flex-direction:column;
-    text-align:center;
-  }
+body.light .card{
+  background:rgba(255,255,255,.5);
+  border:1px solid rgba(255,255,255,.85);
+  box-shadow:
+    0 30px 60px rgba(0,0,0,.18),
+    inset 0 1px 0 rgba(255,255,255,1);
 }
 
 /* ================= Logo ================= */
 .logo{
-  width:96px;
-  height:96px;
+  width:90px;
+  height:90px;
   border-radius:50%;
+  margin:0 auto 14px;
   background:rgba(255,255,255,.3);
   backdrop-filter:blur(18px);
   display:flex;
   align-items:center;
   justify-content:center;
-  font-size:38px;
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.7);
+  font-size:36px;
 }
 
 /* ================= Text ================= */
-h1{
-  font-size:24px;
-  font-weight:600;
-}
-
-p{
-  font-size:14px;
-  opacity:.7;
-  margin:10px 0 22px;
-}
+h1{font-size:22px;font-weight:600;}
+p{font-size:14px;opacity:.7;margin-bottom:24px;}
 
 /* ================= Links ================= */
-.links{
-  display:grid;
-  gap:14px;
-}
+.links{display:grid;gap:14px;}
 
 .link{
-  padding:15px 20px;
+  padding:15px 18px;
   border-radius:22px;
   text-decoration:none;
   font-size:15px;
@@ -128,6 +115,7 @@ p{
   background:rgba(255,255,255,.15);
   backdrop-filter:blur(26px) saturate(170%);
   border:1px solid rgba(255,255,255,.3);
+
   box-shadow:
     0 10px 25px rgba(0,0,0,.25),
     inset 0 1px 0 rgba(255,255,255,.35);
@@ -136,10 +124,10 @@ p{
 }
 
 .link:hover{
-  transform:translateY(-3px) scale(1.02);
+  transform:translateY(-3px);
 }
 
-/* ================= Toggle ================= */
+/* ================= Toggle (همون قبلی، با خورشید/ماه) ================= */
 .toggleWrapper{
   position:fixed;
   top:18px;
@@ -160,37 +148,41 @@ input{display:none;}
 }
 
 .toggle span{
+  position:absolute;
   width:28px;
   height:28px;
   border-radius:50%;
   background:white;
-  position:absolute;
   left:4px;
+
   display:flex;
   align-items:center;
   justify-content:center;
   font-size:16px;
 
   transition:
-    transform .55s cubic-bezier(.68,-0.6,.32,1.6),
+    transform .55s cubic-bezier(.4,0,.2,1),
     background .4s ease,
     box-shadow .4s ease;
 }
 
 .toggle span::before{
   content:"☀️";
-  transition:.3s ease;
+  transition:
+    transform .5s ease,
+    opacity .3s ease;
 }
 
-/* ===== Dark Mode State ===== */
+/* Dark state */
 input:checked + .toggle span{
-  transform:translateX(36px) rotate(360deg) scale(1.1);
+  transform:translateX(36px);
   background:#0f172a;
   box-shadow:0 6px 18px rgba(0,0,0,.45);
 }
 
-input:checked + .toggle span::before{
+  input:checked + .toggle span::before{
   content:"🌙";
+  transform:rotate(360deg) scale(1.1);
 }
 </style>
 </head>
@@ -208,26 +200,21 @@ input:checked + .toggle span::before{
 
 <div class="card">
   <div class="logo">🌐</div>
+  <h1>Netland CafeNet</h1>
+  <p>Quick Access</p>
 
-  <div class="content">
-    <h1>Netland CafeNet</h1>
-    <p>Quick Access</p>
-
-    <div class="links">
-      <a class="link" href="#">Telegram</a>
-      <a class="link" href="#">Instagram</a>
-      <a class="link" href="#">WhatsApp</a>
-    </div>
+  <div class="links">
+    <a class="link" href="#">Telegram</a>
+    <a class="link" href="#">Instagram</a>
+    <a class="link" href="#">WhatsApp</a>
   </div>
 </div>
 
 <script>
-const toggle = document.getElementById('mode');
-
-toggle.addEventListener('change',()=>{
+document.getElementById('mode').addEventListener('change',()=>{
   document.body.classList.toggle('light');
 });
 </script>
 
 </body>
-</html>  
+</html>
