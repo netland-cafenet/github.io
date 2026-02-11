@@ -1,293 +1,714 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NetLand Internet Cafe</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>NetLand — Glass Gateway</title>
+  <meta name="description" content="NetLand Internet Cafe: ultra-premium glass interface, iOS 19 aesthetics, live ambient orbs, and silky dark mode toggle.">
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0a0c12" media="(prefers-color-scheme: dark)">
+  <!-- Font Awesome 6 (minimal, clean icons) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    /* ------------------------------------------------------------
+       NETLAND — ULTIMATE GLASS + LIVING ORBS + SILKY TOGGLE
+       iOS SF Pro · Windows 11 Mica fusion · Pure cinematic atmosphere
+       ------------------------------------------------------------ */
+    
+    /* ---------- TYPOGRAPHY (EXACT SF PRO STACK) ---------- */
+    body {
+      font-family: 
+        -apple-system, BlinkMacSystemFont, 
+        "SF Pro Display", "SF Pro Text", 
+        "Helvetica Neue", Helvetica, Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      letter-spacing: -0.012em;
+    }
 
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    /* ---------- ROOT · LIGHT (PURE GLASS, NEUTRAL) ---------- */
+    :root {
+      --bg-start: #f6fafd;
+      --bg-end:   #ecf3f9;
+      --bg-gradient: linear-gradient(145deg, var(--bg-start), var(--bg-end));
+      
+      --text-primary:   #0b1c2e;
+      --text-secondary: #3a4e62;
+      
+      --glass-base:      rgba(255,255,255,0.72);
+      --glass-edge:      rgba(255,255,255,0.85);
+      --glass-bg:        linear-gradient(135deg, rgba(255,255,255,0.7), rgba(255,255,255,0.4));
+      --glass-border:    rgba(255,255,255,0.9);
+      
+      --shadow-1: 0 18px 30px -12px rgba(0,20,40,0.08);
+      --shadow-2: 0 6px 14px -6px rgba(0,0,0,0.02);
+      --shadow-3: 0 0 0 0.5px rgba(255,255,255,0.7) inset;
+      --shadow-4: none; /* no colored glow in light — pure clean glass */
+      
+      --accent: #0077cc;
+      --toggle-track: rgba(220,235,250,0.6);
+    }
 
-<style>
-/* ===============================
-   BASE RESET
-=================================*/
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-}
+    /* ---------- DARK · DEEP CHARCOAL, NO COLOR CAST ---------- */
+    [data-theme="dark"] {
+      --bg-start: #0d121c;
+      --bg-end:   #151e2a;
+      --bg-gradient: linear-gradient(145deg, var(--bg-start), var(--bg-end));
+      
+      --text-primary:   #f0f6fc;
+      --text-secondary: #b0c4d9;
+      
+      --glass-base:      rgba(22,28,36,0.75);
+      --glass-edge:      rgba(44,52,62,0.65);
+      --glass-bg:        linear-gradient(135deg, rgba(28,36,48,0.7), rgba(20,26,36,0.6));
+      --glass-border:    rgba(255,255,255,0.14);
+      
+      --shadow-1: 0 22px 38px -16px rgba(0,0,0,0.55);
+      --shadow-2: 0 12px 22px -12px rgba(0,0,0,0.4);
+      --shadow-3: inset 0 0 0 0.5px rgba(255,255,255,0.06);
+      --shadow-4: 0 0 0 1px rgba(255,255,255,0.02) inset;
+      
+      --accent: #5aa9e6;
+      --toggle-track: rgba(40,52,68,0.8);
+    }
 
-body{
-  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Inter",sans-serif;
-  background:linear-gradient(to bottom,#f9fafb,#f1f3f5);
-  min-height:100vh;
-  color:#111;
-  transition:background 0.4s ease,color 0.4s ease;
-  letter-spacing:-0.01em;
-}
+    /* ---------- GLOBAL RESET ---------- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-/* ===============================
-   DARK MODE (CHECKBOX CONTROLLED)
-=================================*/
-.theme-switch{
-  display:none;
-}
+    body {
+      background: var(--bg-gradient);
+      color: var(--text-primary);
+      transition: background 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                  color 0.3s ease;
+      min-height: 100vh;
+      line-height: 1.5;
+      overflow-x: hidden;
+    }
 
-.theme-switch:checked ~ .page{
-  background:linear-gradient(to bottom,#1a1e24,#0f1217);
-  color:#f5f5f5;
-}
+    /* ---------- LIVING ORB SYSTEM · 5 LAYERS, FLUID DRIFT ---------- */
+    .orb {
+      position: fixed;
+      width: 70vmin;
+      height: 70vmin;
+      border-radius: 50%;
+      filter: blur(70px);
+      opacity: 0.38;
+      animation: liquidDrift 24s infinite alternate ease-in-out;
+      z-index: -1;
+      will-change: transform, opacity;
+    }
 
-.theme-switch:checked ~ .page .glass{
-  background:rgba(30,35,45,0.7);
-  border:0.5px solid rgba(255,255,255,0.15);
-  color:#fff;
-}
+    .orb:nth-child(1) {
+      background: radial-gradient(circle at 30% 30%, #ffdbb5, #b8e1ff);
+      top: -15vh;
+      left: -10vw;
+      width: 80vmin;
+      height: 80vmin;
+      animation-duration: 27s;
+    }
+    .orb:nth-child(2) {
+      background: radial-gradient(circle at 70% 20%, #c7eaff, #aad0f5);
+      bottom: -10vh;
+      right: -5vw;
+      width: 75vmin;
+      height: 75vmin;
+      animation-duration: 31s;
+      opacity: 0.32;
+    }
+    .orb:nth-child(3) {
+      background: radial-gradient(circle at 40% 70%, #ffe3c0, #f8f0d5);
+      top: 40vh;
+      left: 15vw;
+      width: 60vmin;
+      height: 60vmin;
+      animation-duration: 19s;
+      opacity: 0.28;
+    }
+    .orb:nth-child(4) {
+      background: radial-gradient(circle at 60% 50%, #b8dcff, #d4edff);
+      bottom: 20vh;
+      left: 25vw;
+      width: 90vmin;
+      height: 90vmin;
+      animation-duration: 35s;
+      opacity: 0.25;
+    }
+    .orb:nth-child(5) {
+      background: radial-gradient(circle at 20% 80%, #fff1d6, #ffe4c4);
+      top: 60vh;
+      right: 10vw;
+      width: 55vmin;
+      height: 55vmin;
+      animation-duration: 22s;
+      opacity: 0.3;
+    }
 
-.theme-switch:checked ~ .page a{
-  color:#fff;
-}
+    /* dark mode orbs – deep cool tones, still neutral */
+    [data-theme="dark"] .orb:nth-child(1) {
+      background: radial-gradient(circle at 30% 30%, #1e3347, #101a26);
+    }
+    [data-theme="dark"] .orb:nth-child(2) {
+      background: radial-gradient(circle at 70% 20%, #1f2e42, #141f2e);
+    }
+    [data-theme="dark"] .orb:nth-child(3) {
+      background: radial-gradient(circle at 40% 70%, #1e2c3a, #0e1922);
+    }
+    [data-theme="dark"] .orb:nth-child(4) {
+      background: radial-gradient(circle at 60% 50%, #1f2f3f, #121c28);
+    }
+    [data-theme="dark"] .orb:nth-child(5) {
+      background: radial-gradient(circle at 20% 80%, #192a38, #0d1a24);
+    }
 
-/* ===============================
-   TOGGLE SWITCH (YOUTUBE STYLE)
-=================================*/
-.switch{
-  position:relative;
-  display:inline-block;
-  width:60px;
-  height:34px;
-}
+    @keyframes liquidDrift {
+      0% { transform: translate(0, 0) scale(1); }
+      25% { transform: translate(4%, -6%) scale(1.08); }
+      50% { transform: translate(-5%, 5%) scale(0.96); }
+      75% { transform: translate(7%, 3%) scale(1.04); }
+      100% { transform: translate(-3%, -4%) scale(1.02); }
+    }
 
-.switch input{
-  opacity:0;
-  width:0;
-  height:0;
-}
+    /* ---------- PREMIUM GLASS · PURE, CRISP, DEEP ---------- */
+    .glass {
+      background: var(--glass-bg);
+      backdrop-filter: blur(24px) saturate(160%);
+      -webkit-backdrop-filter: blur(24px) saturate(160%);
+      border: 0.6px solid var(--glass-border);
+      border-radius: 28px;
+      box-shadow: 
+        var(--shadow-1),
+        var(--shadow-2),
+        var(--shadow-3),
+        var(--shadow-4);
+      transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1);
+    }
 
-.slider{
-  position:absolute;
-  cursor:pointer;
-  inset:0;
-  background:#ccc;
-  transition:0.4s;
-  border-radius:34px;
-}
+    /* header NEVER scales on hover – absolute stability */
+    header.glass {
+      transition: box-shadow 0.3s ease, background 0.4s ease;
+    }
+    header.glass:hover {
+      transform: none !important;
+      box-shadow: 
+        var(--shadow-1),
+        var(--shadow-2),
+        var(--shadow-3),
+        var(--shadow-4);
+      backdrop-filter: blur(26px) saturate(170%);
+    }
 
-.slider:before{
-  position:absolute;
-  content:"";
-  height:26px;
-  width:26px;
-  left:4px;
-  bottom:4px;
-  background:white;
-  transition:0.4s;
-  border-radius:50%;
-}
+    /* card hover – subtle lift, no aggressive scale */
+    .card.glass:hover {
+      transform: translateY(-6px);
+      box-shadow: 
+        0 28px 40px -14px rgba(0,0,0,0.1),
+        var(--shadow-2),
+        var(--shadow-3);
+      backdrop-filter: blur(28px) saturate(170%);
+    }
+    [data-theme="dark"] .card.glass:hover {
+      box-shadow: 
+        0 30px 48px -18px rgba(0,0,0,0.65),
+        var(--shadow-2),
+        var(--shadow-3);
+    }
 
-.theme-switch:checked + .switch .slider{
-  background:#4b5563;
-}
+    /* ---------- SILKY THEME TOGGLE · EXACT YOUTUBE STYLE (PURE CSS) ---------- */
+    .theme-switch {
+      position: relative;
+      display: inline-block;
+      width: 58px;
+      height: 30px;
+      margin-left: 12px;
+      flex-shrink: 0;
+    }
 
-.theme-switch:checked + .switch .slider:before{
-  transform:translateX(26px);
-}
+    .theme-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
 
-/* ===============================
-   HEADER
-=================================*/
-.page{
-  transition:background 0.4s ease,color 0.4s ease;
-}
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: var(--toggle-track);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 0.5px solid var(--glass-border);
+      border-radius: 34px;
+      transition: all 0.45s cubic-bezier(0.34, 1.2, 0.64, 1);
+      box-shadow: inset 0 1px 4px rgba(0,0,0,0.04);
+    }
 
-header{
-  position:sticky;
-  top:20px;
-  margin:20px auto;
-  max-width:1200px;
-  padding:18px 30px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-}
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 26px;
+      width: 26px;
+      left: 2px;
+      bottom: 2px;
+      background: white;
+      border-radius: 50%;
+      transition: transform 0.5s cubic-bezier(0.34, 1.4, 0.64, 1);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-.glass{
-  background:rgba(255,255,255,0.75);
-  backdrop-filter:blur(20px);
-  -webkit-backdrop-filter:blur(20px);
-  border-radius:24px;
-  border:0.5px solid rgba(255,255,255,0.8);
-  box-shadow:0 4px 10px rgba(0,0,0,0.04);
-}
+    /* sun / moon icons via pseudo (pure css) */
+    .slider:after {
+      position: absolute;
+      content: "☀️";
+      font-size: 15px;
+      line-height: 1;
+      top: 50%;
+      left: 7px;
+      transform: translateY(-50%);
+      transition: opacity 0.2s ease, transform 0.3s ease;
+      pointer-events: none;
+      z-index: 2;
+    }
 
-.nav{
-  display:flex;
-  gap:40px;
-  font-weight:500;
-}
+    input:checked + .slider:after {
+      content: "🌙";
+      left: auto;
+      right: 8px;
+      transform: translateY(-50%);
+    }
 
-.nav a{
-  text-decoration:none;
-  color:#111;
-  font-size:14px;
-}
+    input:checked + .slider:before {
+      transform: translateX(28px);
+    }
 
-/* ===============================
-   GRID
-=================================*/
-main{
-  max-width:1200px;
-  margin:60px auto;
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-  gap:30px;
-  padding:0 20px;
-}
+    .slider, .slider:before, .slider:after {
+      transition: all 0.45s cubic-bezier(0.34, 1.2, 0.64, 1);
+    }
 
-.card{
-  padding:28px;
-  display:flex;
-  flex-direction:column;
-  gap:12px;
-}
+    /* dark mode toggle aesthetics */
+    [data-theme="dark"] .slider {
+      background: rgba(45,60,80,0.8);
+      border-color: rgba(255,255,255,0.2);
+    }
+    [data-theme="dark"] .slider:before {
+      background: #f0f3fa;
+    }
 
-.card h3{
-  font-weight:500;
-  font-size:18px;
-  letter-spacing:-0.02em;
-}
+    /* ---------- HEADER (ROCK SOLID) ---------- */
+    header {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: calc(100% - 40px);
+      max-width: 1280px;
+      padding: 14px 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+      background: var(--glass-bg);
+      backdrop-filter: blur(28px);
+      border: 0.6px solid var(--glass-border);
+      border-radius: 48px;
+    }
 
-.card p{
-  font-size:14px;
-  font-weight:400;
-  opacity:0.85;
-}
+    .logo {
+      font-weight: 700;
+      font-size: 1.6rem;
+      letter-spacing: -0.02em;
+      background: linear-gradient(145deg, #0e2c4b, #1d486b);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    [data-theme="dark"] .logo {
+      background: linear-gradient(145deg, #d6e6ff, #aac9f0);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
 
-.card button{
-  margin-top:8px;
-  padding:8px 14px;
-  border-radius:12px;
-  border:none;
-  background:#111;
-  color:#fff;
-  font-size:13px;
-  cursor:pointer;
-}
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      font-weight: 500;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-primary);
+      font-size: 0.98rem;
+      opacity: 0.9;
+      transition: 0.2s;
+    }
+    .nav-links a:hover { opacity: 1; }
 
-.theme-switch:checked ~ .page .card button{
-  background:#fff;
-  color:#111;
-}
+    /* ---------- HERO ---------- */
+    .hero {
+      padding: 160px 24px 80px;
+      text-align: center;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .hero h1 {
+      font-size: clamp(2.4rem, 6vw, 4rem);
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      color: var(--text-primary);
+      text-shadow: 0 2px 5px rgba(0,0,0,0.03);
+    }
+    .hero p {
+      font-size: 1.3rem;
+      font-weight: 350;
+      color: var(--text-secondary);
+      margin-top: 16px;
+    }
 
-/* RTL ADDRESS */
-.rtl{
-  direction:rtl;
-  text-align:right;
-  font-size:14px;
-}
+    /* ---------- GRID – 8 CARDS, MINIMAL HEIGHT ---------- */
+    .section {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 30px 24px 50px;
+    }
+    .grid {
+      display: grid;
+      gap: 22px;
+    }
 
-/* ===============================
-   RESPONSIVE
-=================================*/
-@media(max-width:768px){
-  .nav{
-    display:none;
-  }
-}
-</style>
+    /* card – minimalist, compact, pure glass */
+    .card {
+      padding: 20px 20px 22px;
+      min-height: 160px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: var(--glass-bg);
+      backdrop-filter: blur(24px);
+      border: 0.6px solid var(--glass-border);
+      border-radius: 26px;
+      transition: 0.3s ease;
+    }
+
+    .card i {
+      font-size: 1.5rem;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+
+    .card h3 {
+      font-weight: 600;
+      font-size: 1.1rem;
+      letter-spacing: -0.01em;
+      margin-bottom: 4px;
+    }
+
+    .card p {
+      font-size: 0.82rem;
+      line-height: 1.4;
+      color: var(--text-secondary);
+      margin: 6px 0 8px;
+    }
+
+    .card .btn {
+      align-self: flex-start;
+      margin-top: 8px;
+      padding: 8px 18px;
+      border-radius: 40px;
+      border: none;
+      background: var(--accent);
+      color: white;
+      font-weight: 500;
+      font-size: 0.75rem;
+      letter-spacing: 0.3px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: 0.2s;
+      box-shadow: 0 2px 6px rgba(0,120,200,0.2);
+    }
+    .card .btn:hover {
+      background: #0066b3;
+      transform: scale(0.98);
+    }
+
+    /* location specific RTL */
+    .rtl-text {
+      direction: rtl;
+      text-align: right;
+      font-size: 0.82rem;
+    }
+
+    /* ---------- RESPONSIVE 3-STATES ---------- */
+    @media (min-width: 768px) and (max-width: 1199px) {
+      .grid { grid-template-columns: repeat(2, 1fr); }
+      .nav-links { display: flex; }
+    }
+    @media (min-width: 1200px) {
+      .grid { grid-template-columns: repeat(4, 1fr); }
+      .nav-links { display: flex; }
+    }
+    @media (max-width: 767px) {
+      .grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      header { padding: 12px 20px; }
+      .logo { font-size: 1.4rem; }
+    }
+
+    /* bottom nav – only mobile */
+    .bottom-nav {
+      display: none;
+      position: fixed;
+      bottom: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: calc(100% - 40px);
+      max-width: 380px;
+      padding: 10px 16px;
+      background: var(--glass-bg);
+      backdrop-filter: blur(28px);
+      border: 0.6px solid var(--glass-border);
+      border-radius: 48px;
+      justify-content: space-around;
+      z-index: 99;
+    }
+    @media (max-width: 767px) {
+      .bottom-nav { display: flex; }
+    }
+    .bottom-nav i {
+      font-size: 1.2rem;
+      color: var(--text-secondary);
+    }
+
+    /* toast notification */
+    .toast {
+      position: fixed;
+      bottom: 90px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(20,28,38,0.8);
+      backdrop-filter: blur(30px);
+      color: white;
+      padding: 12px 26px;
+      border-radius: 60px;
+      font-weight: 500;
+      font-size: 0.85rem;
+      border: 0.5px solid rgba(255,255,255,0.2);
+      z-index: 999;
+      animation: slideUp 0.4s ease;
+    }
+    @keyframes slideUp {
+      0% { opacity: 0; transform: translate(-50%, 20px); }
+      100% { opacity: 1; transform: translate(-50%, 0); }
+    }
+
+    /* visitor badge – minimal */
+    .visitor-badge {
+      background: var(--glass-bg);
+      padding: 6px 14px;
+      border-radius: 60px;
+      font-size: 0.75rem;
+      border: 0.5px solid var(--glass-border);
+      margin-right: 10px;
+    }
+
+    /* copy button for wifi */
+    .hidden-pass {
+      filter: blur(3px);
+      user-select: none;
+    }
+  </style>
 </head>
-
 <body>
+  <!-- LIVING ORBS – 5 FLOATING LIGHT HALOS -->
+  <div class="orb"></div>
+  <div class="orb"></div>
+  <div class="orb"></div>
+  <div class="orb"></div>
+  <div class="orb"></div>
 
-<!-- THEME CHECKBOX -->
-<input type="checkbox" id="theme-toggle" class="theme-switch">
+  <!-- HEADER – ABSOLUTELY STABLE, NO HOVER SHIFT -->
+  <header class="glass">
+    <div class="logo">NetLand</div>
+    <div class="nav-links">
+      <a href="#">Home</a>
+      <a href="#">Gaming</a>
+      <a href="#">Services</a>
+      <a href="#">Contact</a>
+      <a href="#">Login</a>
+    </div>
+    <div style="display: flex; align-items: center;">
+      <span class="visitor-badge glass" id="visitorBadge">👥 144 online</span>
+      <!-- SILKY TOGGLE – EXACT YOUTUBE STYLE (PURE CSS, spring motion) -->
+      <label class="theme-switch">
+        <input type="checkbox" id="themeToggleCheckbox">
+        <span class="slider"></span>
+      </label>
+    </div>
+  </header>
 
-<label for="theme-toggle" class="switch">
-  <span class="slider"></span>
-</label>
+  <!-- HERO -->
+  <section class="hero">
+    <h1>NetLand — Your Digital Gateway</h1>
+    <p>Pure glass · Fluid orbs · Instant connectivity</p>
+  </section>
 
-<div class="page">
+  <!-- 8 CARD GRID – FULLY MINIMAL, ALL SOCIAL CARDS + LOCATION -->
+  <section class="section">
+    <div class="grid">
 
-<header class="glass">
-  <div style="font-weight:500;">NetLand</div>
-  <nav class="nav">
-    <a href="#">Home</a>
-    <a href="#">About</a>
-    <a href="#">Services</a>
-    <a href="#">Contact</a>
-    <a href="#">Login</a>
-  </nav>
-</header>
+      <!-- 1. Telegram -->
+      <div class="card glass">
+        <i class="fab fa-telegram-plane"></i>
+        <h3>Telegram</h3>
+        <p>Join Channel · 2.5K members</p>
+        <button class="btn" onclick="showToast('📬 Opening Telegram')">Join</button>
+      </div>
+      <!-- 2. Instagram -->
+      <div class="card glass">
+        <i class="fab fa-instagram"></i>
+        <h3>Instagram</h3>
+        <p>Follow us · 8.3K followers</p>
+        <button class="btn" onclick="showToast('📸 Opening Instagram')">Follow</button>
+      </div>
+      <!-- 3. WhatsApp -->
+      <div class="card glass">
+        <i class="fab fa-whatsapp"></i>
+        <h3>WhatsApp</h3>
+        <p>Status: <span style="color: #2ecc71;">Online</span> · Chat now</p>
+        <button class="btn" onclick="showToast('💬 Opening WhatsApp')">Chat</button>
+      </div>
+      <!-- 4. LOCATION – EXACT ADDRESS + GOOGLE MAPS LINK -->
+      <div class="card glass">
+        <i class="fas fa-map-pin"></i>
+        <h3>Location</h3>
+        <div class="rtl-text" style="font-size:0.8rem; line-height:1.4; margin-bottom: 6px;">
+          تهران، شهرک قائم، بلوار الغدیر، خیابان نهم، پلاک ۱۲، کافی‌نت NetLand
+        </div>
+        <p style="font-size:0.7rem; color:var(--text-secondary);">35.512149, 51.619335</p>
+        <a href="https://maps.app.goo.gl/EyN3tSQcHtB58h2r8" target="_blank" style="text-decoration: none; margin-top: 6px;">
+          <button class="btn" style="background: var(--accent);" onclick="showToast('🗺️ Google Maps opened')">Open in Maps</button>
+        </a>
+      </div>
+      <!-- 5. Contact Number -->
+      <div class="card glass">
+        <i class="fas fa-phone-alt"></i>
+        <h3>Contact</h3>
+        <p style="font-size:0.85rem; font-weight: 500;">+98 21 1234 5678</p>
+        <button class="btn" onclick="copyToClipboard('+982112345678')">Copy number</button>
+      </div>
+      <!-- 6. Working Hours -->
+      <div class="card glass">
+        <i class="fas fa-clock"></i>
+        <h3>Working Hours</h3>
+        <p>Daily 09:00 – 23:00<br>Fri 14:00 – 23:00</p>
+      </div>
+      <!-- 7. WiFi Password -->
+      <div class="card glass">
+        <i class="fas fa-wifi"></i>
+        <h3>WiFi Password</h3>
+        <p id="wifiDisplay" style="filter: blur(5px); transition: 0.2s; cursor: pointer;" ondblclick="revealWifi()">NetLand@2026</p>
+        <div style="display: flex; gap: 8px;">
+          <button class="btn" onclick="revealWifi()">Reveal</button>
+          <button class="btn" onclick="copyToClipboard('NetLand@2026')">Copy</button>
+        </div>
+      </div>
+      <!-- 8. Gaming Stations -->
+      <div class="card glass">
+        <i class="fas fa-gamepad"></i>
+        <h3>Gaming Stations</h3>
+        <p id="stationCount">24 PCs available</p>
+        <button class="btn" onclick="updateStations()">Refresh</button>
+      </div>
+    </div>
+  </section>
 
-<main>
-
-<div class="glass card">
-  <h3><i class="fab fa-telegram"></i> Telegram</h3>
-  <p>2.5K members</p>
-  <button>Join Channel</button>
-</div>
-
-<div class="glass card">
-  <h3><i class="fab fa-instagram"></i> Instagram</h3>
-  <p>8.3K followers</p>
-  <button>Follow Us</button>
-</div>
-
-<div class="glass card">
-  <h3><i class="fab fa-whatsapp"></i> WhatsApp</h3>
-  <p>Online</p>
-  <button>Chat Now</button>
-</div>
-
-<div class="glass card">
-  <h3><i class="fas fa-map-marker-alt"></i> Location</h3>
-  <div class="rtl">
-    تهران، شهرک قائم، بلوار الغدیر، خیابان نهم، پلاک ۱۲
+  <!-- BOTTOM NAV (mobile only) -->
+  <div class="bottom-nav glass">
+    <i class="fas fa-home"></i>
+    <i class="fas fa-hashtag"></i>
+    <i class="fas fa-map-marker-alt"></i>
+    <i class="fas fa-phone"></i>
+    <i class="fas fa-user"></i>
   </div>
-  <button onclick="window.open('https://maps.app.goo.gl/EyN3tSQcHtB58h2r8','_blank')">
-    Open in Google Maps
-  </button>
-</div>
 
-<div class="glass card">
-  <h3><i class="fas fa-phone"></i> Contact</h3>
-  <p>+98 21 1234 5678</p>
-  <button onclick="navigator.clipboard.writeText('+98 21 1234 5678')">Copy</button>
-</div>
+  <script>
+    // ================== THEME TOGGLE — SILKY, PERSISTENT ==================
+    const toggleCheckbox = document.getElementById('themeToggleCheckbox');
+    
+    // set initial state based on localStorage
+    if (localStorage.getItem('theme') === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      toggleCheckbox.checked = true;
+    } else {
+      document.documentElement.removeAttribute('data-theme');
+      toggleCheckbox.checked = false;
+    }
 
-<div class="glass card">
-  <h3><i class="fas fa-clock"></i> Working Hours</h3>
-  <p>09:00 - 23:00 Daily</p>
-  <p>Fri: 14:00 - 23:00</p>
-</div>
+    toggleCheckbox.addEventListener('change', function(e) {
+      if (this.checked) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        localStorage.setItem('theme', 'dark');
+      } else {
+        document.documentElement.removeAttribute('data-theme');
+        localStorage.setItem('theme', 'light');
+      }
+    });
 
-<div class="glass card">
-  <h3><i class="fas fa-wifi"></i> WiFi Password</h3>
-  <p id="wifi" style="display:none;">NetLand@2026</p>
-  <button onclick="toggleWifi()">Reveal</button>
-  <button onclick="navigator.clipboard.writeText('NetLand@2026')">Copy</button>
-</div>
+    // ================== UTILITIES ==================
+    function showToast(msg) {
+      const toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.textContent = msg;
+      document.body.appendChild(toast);
+      setTimeout(() => { toast.remove(); }, 2400);
+    }
 
-<div class="glass card">
-  <h3><i class="fas fa-gamepad"></i> Gaming Stations</h3>
-  <p id="stations">24 Available</p>
-  <button onclick="refreshStations()">Refresh</button>
-</div>
+    function copyToClipboard(text) {
+      navigator.clipboard.writeText(text);
+      showToast('📋 Copied!');
+    }
 
-</main>
-</div>
+    // WiFi reveal toggle
+    const wifiEl = document.getElementById('wifiDisplay');
+    window.revealWifi = function() {
+      if (wifiEl.style.filter === 'blur(5px)') {
+        wifiEl.style.filter = 'none';
+        showToast('🔓 WiFi password visible');
+      } else {
+        wifiEl.style.filter = 'blur(5px)';
+        showToast('🔒 Password hidden');
+      }
+    }
 
-<script>
-function toggleWifi(){
-  const el=document.getElementById("wifi");
-  el.style.display=el.style.display==="none"?"block":"none";
-}
+    // Gaming stations – live simulation
+    window.updateStations = function() {
+      const available = Math.floor(Math.random() * 18) + 12; // 12–30
+      document.getElementById('stationCount').innerText = `${available} PCs available`;
+      showToast(`🕹️ Stations updated: ${available} ready`);
+    }
 
-function refreshStations(){
-  document.getElementById("stations").innerText=
-    Math.floor(Math.random()*30)+1+" Available";
-}
-</script>
+    // visitor counter – subtle, live feeling
+    let visitors = 144;
+    setInterval(() => {
+      visitors += Math.floor(Math.random() * 4) - 1; // -1 to +2
+      if (visitors < 130) visitors = 144;
+      document.getElementById('visitorBadge').innerHTML = `👥 ${visitors} online`;
+    }, 5800);
 
+    // initial call to set wifi hidden by default
+    window.onload = function() {
+      wifiEl.style.filter = 'blur(5px)';
+      // ensure toggle state is perfect
+      if (document.documentElement.getAttribute('data-theme') === 'dark') {
+        toggleCheckbox.checked = true;
+      }
+    };
+  </script>
 </body>
 </html>
