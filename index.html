@@ -4,408 +4,395 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>NetLand Internet Cafe | Your Digital Gateway</title>
-
-<!-- SEO -->
-<meta name="description" content="NetLand Internet Cafe - High-speed internet, gaming stations, Wi-Fi access, and digital services.">
-<meta name="keywords" content="Internet Cafe, Gaming, WiFi, Telegram, Instagram, NetLand">
-<meta name="author" content="NetLand Internet Cafe">
-
-<!-- Google Font -->
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-
-<!-- Font Awesome -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<meta name="description" content="NetLand Internet Cafe - Premium gaming stations, high-speed WiFi, and modern digital space. Join us today.">
+<meta name="theme-color" content="#0ea5e9">
 
 <style>
+/* =========================================================
+   NETLAND INTERNET CAFE - PRODUCTION READY SINGLE FILE
+   Senior Frontend Architecture - Mobile First
+   ========================================================= */
 
-/* =========================
-   CSS VARIABLES (THEMES)
-========================= */
+/* ========================
+   CSS VARIABLES (THEME)
+   ======================== */
 
-:root {
-    --bg: #f8f9fb;
-    --card-bg: rgba(255,255,255,0.6);
-    --text: #111;
-    --accent: #007bff;
-    --border: rgba(255,255,255,0.3);
+:root{
+  --bg-primary:#f8fafc;
+  --bg-secondary:rgba(255,255,255,0.6);
+  --text-primary:#0f172a;
+  --text-secondary:#475569;
+  --accent-gradient:linear-gradient(135deg,#0ea5e9,#2563eb);
+  --glass-border:rgba(255,255,255,0.3);
+  --shadow-soft:0 8px 32px rgba(0,0,0,0.08);
+  --glow:0 0 15px rgba(14,165,233,0.6);
 }
 
-[data-theme="dark"] {
-    --bg: #0f172a;
-    --card-bg: rgba(15,23,42,0.6);
-    --text: #f1f5f9;
-    --accent: #00f5ff;
-    --border: rgba(255,255,255,0.1);
+[data-theme="dark"]{
+  --bg-primary:#0f172a;
+  --bg-secondary:rgba(30,41,59,0.5);
+  --text-primary:#f1f5f9;
+  --text-secondary:#94a3b8;
+  --accent-gradient:linear-gradient(135deg,#06b6d4,#3b82f6);
+  --glass-border:rgba(255,255,255,0.08);
+  --shadow-soft:0 8px 32px rgba(0,0,0,0.5);
+  --glow:0 0 20px rgba(6,182,212,0.8);
 }
 
-/* =========================
-   GLOBAL STYLES
-========================= */
+/* ========================
+   RESET & BASE
+   ======================== */
 
-* {
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+*,
+*::before,
+*::after{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
 }
 
-body {
-    font-family: 'Inter', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    transition: all 0.3s ease;
-    overflow-x:hidden;
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  background:var(--bg-primary);
+  color:var(--text-primary);
+  transition:background .3s,color .3s;
+  line-height:1.6;
+  overflow-x:hidden;
 }
 
-h1, h2, h3 {
-    font-weight:700;
+/* Smooth transitions */
+a,button{
+  transition:all .3s ease;
+  cursor:pointer;
 }
 
-a {
-    text-decoration:none;
-    color:inherit;
-}
-
-.container {
-    width:90%;
-    max-width:1300px;
-    margin:auto;
-    padding:40px 0;
-}
-
-/* =========================
+/* ========================
    GLASS CARD
-========================= */
+   ======================== */
 
-.glass {
-    background: var(--card-bg);
-    backdrop-filter: blur(20px);
-    border:1px solid var(--border);
-    border-radius:20px;
-    box-shadow:0 8px 32px rgba(0,0,0,0.1);
-    padding:20px;
-    transition:all 0.4s ease;
+.glass{
+  background:var(--bg-secondary);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  border:1px solid var(--glass-border);
+  box-shadow:var(--shadow-soft);
+  border-radius:20px;
 }
 
-.glass:hover {
-    transform:translateY(-5px) scale(1.02);
+/* ========================
+   HEADER
+   ======================== */
+
+header{
+  position:fixed;
+  top:0;
+  width:100%;
+  z-index:100;
+  padding:1rem;
 }
 
-/* Floating Animation */
-@keyframes float {
-    0%{transform:translateY(0)}
-    50%{transform:translateY(-10px)}
-    100%{transform:translateY(0)}
+.navbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:0.8rem 1.2rem;
 }
 
-.floating {
-    animation: float 6s ease-in-out infinite;
+.logo{
+  font-weight:700;
+  font-size:1.2rem;
+  background:var(--accent-gradient);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
 }
 
-/* =========================
-   NAVIGATION
-========================= */
-
-nav {
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:20px 5%;
-    position:sticky;
-    top:0;
-    z-index:1000;
-    backdrop-filter:blur(20px);
+.nav-links{
+  display:none;
 }
 
-.nav-links {
-    display:flex;
-    gap:25px;
+.nav-links a{
+  text-decoration:none;
+  color:var(--text-primary);
+  margin-left:1.5rem;
+  font-size:0.9rem;
 }
 
-.nav-links a:hover {
-    color:var(--accent);
+/* ========================
+   THEME TOGGLE
+   ======================== */
+
+.theme-toggle{
+  width:50px;
+  height:26px;
+  background:var(--bg-secondary);
+  border-radius:50px;
+  position:relative;
+  border:1px solid var(--glass-border);
 }
 
-/* Theme Toggle */
-
-.theme-toggle {
-    width:60px;
-    height:30px;
-    border-radius:50px;
-    background:var(--card-bg);
-    border:1px solid var(--border);
-    display:flex;
-    align-items:center;
-    padding:5px;
-    cursor:pointer;
-    position:relative;
+.theme-toggle::after{
+  content:"";
+  position:absolute;
+  top:2px;
+  left:2px;
+  width:22px;
+  height:22px;
+  border-radius:50%;
+  background:var(--accent-gradient);
+  transition:transform .3s;
 }
 
-.toggle-circle {
-    width:20px;
-    height:20px;
-    background:var(--accent);
-    border-radius:50%;
-    position:absolute;
-    transition:0.3s ease;
+[data-theme="dark"] .theme-toggle::after{
+  transform:translateX(24px);
 }
 
-[data-theme="dark"] .toggle-circle {
-    left:30px;
-}
-
-/* =========================
+/* ========================
    HERO
-========================= */
+   ======================== */
 
-.hero {
-    text-align:center;
-    padding:100px 20px;
+.hero{
+  padding:120px 1.5rem 80px;
+  text-align:center;
 }
 
-.gradient-text {
-    background: linear-gradient(90deg, var(--accent), #6dd5fa);
-    -webkit-background-clip:text;
-    -webkit-text-fill-color:transparent;
-    font-size:3rem;
+.hero h1{
+  font-size:2rem;
+  background:var(--accent-gradient);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  animation:fadeIn 1s ease forwards;
 }
 
-/* =========================
-   GRID
-========================= */
-
-.grid {
-    display:grid;
-    gap:20px;
+.hero p{
+  color:var(--text-secondary);
+  margin-top:1rem;
 }
 
-/* Desktop */
+.cta-btn{
+  display:inline-block;
+  margin-top:2rem;
+  padding:0.8rem 1.5rem;
+  border-radius:50px;
+  background:var(--accent-gradient);
+  color:#fff;
+  text-decoration:none;
+  box-shadow:var(--glow);
+}
+
+.cta-btn:hover{
+  transform:scale(1.05);
+}
+
+/* ========================
+   GRID CARDS
+   ======================== */
+
+.section{
+  padding:2rem 1.2rem;
+}
+
+.grid{
+  display:grid;
+  gap:1.2rem;
+}
+
+.card{
+  padding:1.5rem;
+  position:relative;
+  overflow:hidden;
+  animation:float 6s ease-in-out infinite;
+}
+
+.card h3{
+  margin-top:0.8rem;
+}
+
+.card p{
+  font-size:0.9rem;
+  color:var(--text-secondary);
+}
+
+.card button{
+  margin-top:1rem;
+  padding:0.5rem 1rem;
+  border:none;
+  border-radius:8px;
+  background:var(--accent-gradient);
+  color:#fff;
+}
+
+/* ========================
+   FOOTER
+   ======================== */
+
+footer{
+  text-align:center;
+  padding:2rem 1rem;
+  color:var(--text-secondary);
+  font-size:0.8rem;
+}
+
+/* ========================
+   ANIMATIONS
+   ======================== */
+
+@keyframes fadeIn{
+  from{opacity:0;transform:translateY(20px);}
+  to{opacity:1;transform:translateY(0);}
+}
+
+@keyframes float{
+  0%,100%{transform:translateY(0);}
+  50%{transform:translateY(-8px);}
+}
+
+/* ========================
+   RESPONSIVE
+   ======================== */
+
+@media(min-width:768px){
+  .grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+}
+
 @media(min-width:1024px){
-    .grid { grid-template-columns:repeat(4,1fr); }
+  .nav-links{
+    display:block;
+  }
+  .grid{
+    grid-template-columns:repeat(4,1fr);
+  }
+  .hero h1{
+    font-size:3rem;
+  }
 }
-
-/* Tablet */
-@media(min-width:768px) and (max-width:1023px){
-    .grid { grid-template-columns:repeat(2,1fr); }
-}
-
-/* Mobile */
-@media(max-width:767px){
-    .grid { grid-template-columns:1fr; }
-}
-
-/* =========================
-   BOTTOM NAV (Mobile)
-========================= */
-
-.bottom-nav {
-    display:none;
-}
-
-@media(max-width:767px){
-    .nav-links{display:none;}
-    .bottom-nav{
-        display:flex;
-        justify-content:space-around;
-        position:fixed;
-        bottom:0;
-        width:100%;
-        padding:15px 0;
-        backdrop-filter:blur(20px);
-    }
-}
-
-/* =========================
-   TOAST
-========================= */
-
-.toast {
-    position:fixed;
-    bottom:30px;
-    right:30px;
-    padding:15px 20px;
-    border-radius:10px;
-    background:var(--accent);
-    color:#fff;
-    display:none;
-}
-
-/* Fade In */
-.fade-in {
-    opacity:0;
-    transform:translateY(20px);
-    transition:all 0.6s ease;
-}
-
-.fade-in.visible {
-    opacity:1;
-    transform:translateY(0);
-}
-
 </style>
 </head>
 
 <body>
 
-<nav class="glass">
-    <h2>NetLand</h2>
+<header>
+  <nav class="navbar glass">
+    <div class="logo">NetLand</div>
     <div class="nav-links">
-        <a href="#">Home</a>
-        <a href="#">Services</a>
-        <a href="#">Contact</a>
+      <a href="#">Home</a>
+      <a href="#">Gaming</a>
+      <a href="#">Contact</a>
     </div>
-    <div class="theme-toggle" id="themeToggle">
-        <div class="toggle-circle"></div>
-    </div>
-</nav>
+    <div class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"></div>
+  </nav>
+</header>
 
 <section class="hero">
-    <h1 class="gradient-text">NetLand - Your Digital Gateway</h1>
-    <p>High-speed internet & premium gaming experience</p>
+  <h1>NetLand - Your Digital Gateway</h1>
+  <p>Premium gaming, ultra-fast WiFi, and a modern digital atmosphere.</p>
+  <a href="#" class="cta-btn">Explore Now</a>
 </section>
 
-<div class="container">
-    <div class="grid">
+<section class="section">
+  <div class="grid">
 
-        <div class="glass floating fade-in">
-            <h3><i class="fab fa-telegram"></i> Telegram</h3>
-            <button onclick="showToast('Redirecting to Telegram...')">Join Channel</button>
-        </div>
-
-        <div class="glass floating fade-in">
-            <h3><i class="fab fa-instagram"></i> Instagram</h3>
-            <button onclick="showToast('Opening Instagram...')">Follow Us</button>
-        </div>
-
-        <div class="glass floating fade-in">
-            <h3><i class="fab fa-whatsapp"></i> WhatsApp</h3>
-            <button onclick="showToast('Opening WhatsApp...')">Chat Now</button>
-        </div>
-
-        <div class="glass floating fade-in">
-            <h3><i class="fas fa-map-marker-alt"></i> Location</h3>
-            <p>123 Digital Street</p>
-        </div>
-
-        <div class="glass fade-in">
-            <h3><i class="fas fa-phone"></i> Contact</h3>
-            <button onclick="copyText('0123456789')">Copy Number</button>
-        </div>
-
-        <div class="glass fade-in">
-            <h3><i class="fas fa-clock"></i> Working Hours</h3>
-            <p>09:00 - 23:00</p>
-        </div>
-
-        <div class="glass fade-in">
-            <h3><i class="fas fa-wifi"></i> Wi-Fi</h3>
-            <button onclick="copyText('NetLand123')">Copy Password</button>
-        </div>
-
-        <div class="glass fade-in">
-            <h3><i class="fas fa-gamepad"></i> Gaming Stations</h3>
-            <p>Status: <span id="gamingStatus"></span></p>
-        </div>
-
+    <div class="card glass">
+      <h3>Telegram</h3>
+      <p>Join our latest updates channel.</p>
+      <button onclick="toast('Telegram opened')">Join</button>
     </div>
-</div>
 
-<div class="toast" id="toast"></div>
+    <div class="card glass">
+      <h3>Instagram</h3>
+      <p>Follow our gaming highlights.</p>
+      <button onclick="toast('Instagram opened')">Follow</button>
+    </div>
 
-<div class="bottom-nav glass">
-    <i class="fas fa-home"></i>
-    <i class="fas fa-gamepad"></i>
-    <i class="fas fa-phone"></i>
-</div>
+    <div class="card glass">
+      <h3>Wi-Fi Password</h3>
+      <p>Click to copy our secure password.</p>
+      <button onclick="copyText('NetLand123')">Copy</button>
+    </div>
+
+    <div class="card glass">
+      <h3>Gaming Stations</h3>
+      <p><span id="stations">8</span> PCs Available</p>
+      <button onclick="toggleStations()">Simulate</button>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  © 2026 NetLand Internet Cafe. All rights reserved.
+</footer>
 
 <script>
+/* ========================
+   THEME SYSTEM
+   ======================== */
 
-/* =========================
-   THEME TOGGLE
-========================= */
+const toggle=document.getElementById("themeToggle");
 
-const toggle = document.getElementById('themeToggle');
-
-if(localStorage.getItem('theme')){
-    document.documentElement.setAttribute('data-theme', localStorage.getItem('theme'));
+if(localStorage.getItem("theme")==="dark"){
+  document.documentElement.setAttribute("data-theme","dark");
 }
 
-toggle.onclick = () => {
-    let current = document.documentElement.getAttribute('data-theme');
-    if(current === 'dark'){
-        document.documentElement.removeAttribute('data-theme');
-        localStorage.setItem('theme','light');
-    } else {
-        document.documentElement.setAttribute('data-theme','dark');
-        localStorage.setItem('theme','dark');
-    }
-};
-
-/* =========================
-   COPY FUNCTION
-========================= */
-
-function copyText(text){
-    navigator.clipboard.writeText(text);
-    showToast("Copied successfully!");
-}
-
-/* =========================
-   TOAST
-========================= */
-
-function showToast(message){
-    const toast = document.getElementById("toast");
-    toast.innerText = message;
-    toast.style.display = "block";
-    setTimeout(()=>toast.style.display="none",2000);
-}
-
-/* =========================
-   SCROLL ANIMATION
-========================= */
-
-const observer = new IntersectionObserver(entries=>{
-    entries.forEach(entry=>{
-        if(entry.isIntersecting){
-            entry.target.classList.add("visible");
-        }
-    });
+toggle.addEventListener("click",()=>{
+  if(document.documentElement.getAttribute("data-theme")==="dark"){
+    document.documentElement.removeAttribute("data-theme");
+    localStorage.setItem("theme","light");
+  }else{
+    document.documentElement.setAttribute("data-theme","dark");
+    localStorage.setItem("theme","dark");
+  }
 });
 
-document.querySelectorAll('.fade-in').forEach(el=>observer.observe(el));
+/* ========================
+   TOAST SYSTEM
+   ======================== */
 
-/* =========================
-   GAMING STATUS
-========================= */
-
-const status = document.getElementById("gamingStatus");
-
-function updateGamingStatus(){
-    const available = Math.floor(Math.random()*10)+1;
-    status.innerText = available + " PCs Available";
+function toast(message){
+  const t=document.createElement("div");
+  t.textContent=message;
+  t.style.position="fixed";
+  t.style.bottom="20px";
+  t.style.left="50%";
+  t.style.transform="translateX(-50%)";
+  t.style.padding="0.8rem 1.2rem";
+  t.style.borderRadius="12px";
+  t.style.background="rgba(0,0,0,0.8)";
+  t.style.color="#fff";
+  t.style.zIndex="999";
+  t.style.animation="fadeIn .3s ease";
+  document.body.appendChild(t);
+  setTimeout(()=>t.remove(),2000);
 }
 
-updateGamingStatus();
-setInterval(updateGamingStatus,5000);
+/* ========================
+   COPY FUNCTION
+   ======================== */
 
-/* =========================
+function copyText(text){
+  navigator.clipboard.writeText(text);
+  toast("Copied to clipboard!");
+}
+
+/* ========================
+   SIMULATED GAMING STATIONS
+   ======================== */
+
+function toggleStations(){
+  const el=document.getElementById("stations");
+  el.textContent=Math.floor(Math.random()*10);
+}
+
+/* ========================
    VISITOR COUNTER
-========================= */
+   ======================== */
 
-let visitors = Math.floor(Math.random()*200)+50;
+let visitors=120;
 setInterval(()=>{
-    visitors++;
-    console.log("Visitors:",visitors);
+  visitors+=Math.floor(Math.random()*3);
+  document.title="("+visitors+" Online) NetLand Internet Cafe";
 },3000);
-
-/* =========================
-   NETWORK SIGNAL
-========================= */
-
-if(navigator.connection){
-    console.log("Network:",navigator.connection.effectiveType);
-}
-
 </script>
 
 </body>
