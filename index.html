@@ -3,306 +3,410 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Glassmorphism UI</title>
+<title>NetLand Internet Cafe | Your Digital Gateway</title>
+
+<!-- SEO -->
+<meta name="description" content="NetLand Internet Cafe - High-speed internet, gaming stations, Wi-Fi access, and digital services.">
+<meta name="keywords" content="Internet Cafe, Gaming, WiFi, Telegram, Instagram, NetLand">
+<meta name="author" content="NetLand Internet Cafe">
+
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
-/* =========================
-   RESET + FONT
-========================= */
-*,
-*::before,
-*::after {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-@font-face {
-  font-family: "SF Pro";
-  src: local("SF Pro Display"), local("San Francisco");
-}
-
-html, body {
-  width: 100%;
-  height: 100%;
-  font-family: "SF Pro", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-  overflow: hidden;
-}
 
 /* =========================
-   ROOT VARIABLES
+   CSS VARIABLES (THEMES)
 ========================= */
+
 :root {
-  --blur-strong: 40px;
-  --blur-soft: 25px;
+    --bg: #f8f9fb;
+    --card-bg: rgba(255,255,255,0.6);
+    --text: #111;
+    --accent: #007bff;
+    --border: rgba(255,255,255,0.3);
+}
 
-  --glass-light: rgba(255,255,255,0.35);
-  --glass-dark: rgba(20,20,25,0.45);
-
-  --border-light: rgba(255,255,255,0.6);
-  --border-dark: rgba(255,255,255,0.12);
-
-  --text-light: #111;
-  --text-dark: #e6e6e6;
-
-  --sun: #ffd54a;
-  --moon: #9fb4ff;
-
-  --ease-spring: cubic-bezier(.68,-0.6,.32,1.6);
+[data-theme="dark"] {
+    --bg: #0f172a;
+    --card-bg: rgba(15,23,42,0.6);
+    --text: #f1f5f9;
+    --accent: #00f5ff;
+    --border: rgba(255,255,255,0.1);
 }
 
 /* =========================
-   BODY MODES
+   GLOBAL STYLES
 ========================= */
-body.light {
-  background: #f2f3f5;
-  color: var(--text-light);
+
+* {
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
-body.dark {
-  background: #0b0f16;
-  color: var(--text-dark);
+body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    transition: all 0.3s ease;
+    overflow-x:hidden;
+}
+
+h1, h2, h3 {
+    font-weight:700;
+}
+
+a {
+    text-decoration:none;
+    color:inherit;
+}
+
+.container {
+    width:90%;
+    max-width:1300px;
+    margin:auto;
+    padding:40px 0;
 }
 
 /* =========================
-   ANIMATED BACKGROUND
+   GLASS CARD
 ========================= */
-.background {
-  position: fixed;
-  inset: -20%;
-  z-index: -1;
-  filter: blur(80px);
-  animation: bgMove 18s ease-in-out infinite alternate;
+
+.glass {
+    background: var(--card-bg);
+    backdrop-filter: blur(20px);
+    border:1px solid var(--border);
+    border-radius:20px;
+    box-shadow:0 8px 32px rgba(0,0,0,0.1);
+    padding:20px;
+    transition:all 0.4s ease;
 }
 
-body.light .background {
-  background:
-    radial-gradient(circle at 20% 30%, #ffffff 0%, transparent 40%),
-    radial-gradient(circle at 80% 60%, #d6d9df 0%, transparent 45%);
+.glass:hover {
+    transform:translateY(-5px) scale(1.02);
 }
 
-body.dark .background {
-  background:
-    radial-gradient(circle at 25% 35%, #1c2440 0%, transparent 45%),
-    radial-gradient(circle at 75% 65%, #05070c 0%, transparent 50%);
+/* Floating Animation */
+@keyframes float {
+    0%{transform:translateY(0)}
+    50%{transform:translateY(-10px)}
+    100%{transform:translateY(0)}
 }
 
-@keyframes bgMove {
-  0% { transform: translateY(0) translateX(0); }
-  100% { transform: translateY(-80px) translateX(60px); }
+.floating {
+    animation: float 6s ease-in-out infinite;
 }
 
 /* =========================
-   TOP BAR
+   NAVIGATION
 ========================= */
-.topbar {
-  width: 100%;
-  padding: 18px 24px;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
+
+nav {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:20px 5%;
+    position:sticky;
+    top:0;
+    z-index:1000;
+    backdrop-filter:blur(20px);
+}
+
+.nav-links {
+    display:flex;
+    gap:25px;
+}
+
+.nav-links a:hover {
+    color:var(--accent);
+}
+
+/* Theme Toggle */
+
+.theme-toggle {
+    width:60px;
+    height:30px;
+    border-radius:50px;
+    background:var(--card-bg);
+    border:1px solid var(--border);
+    display:flex;
+    align-items:center;
+    padding:5px;
+    cursor:pointer;
+    position:relative;
+}
+
+.toggle-circle {
+    width:20px;
+    height:20px;
+    background:var(--accent);
+    border-radius:50%;
+    position:absolute;
+    transition:0.3s ease;
+}
+
+[data-theme="dark"] .toggle-circle {
+    left:30px;
 }
 
 /* =========================
-   THEME SWITCH (COMPACT)
+   HERO
 ========================= */
-.theme-switch {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  cursor: pointer;
+
+.hero {
+    text-align:center;
+    padding:100px 20px;
 }
 
-.switch {
-  width: 54px;
-  height: 28px;
-  border-radius: 999px;
-  position: relative;
-  backdrop-filter: blur(var(--blur-soft));
-  transition: background 0.6s ease;
-}
-
-body.light .switch {
-  background: rgba(255,255,255,0.55);
-  box-shadow: inset 0 0 0 1px var(--border-light);
-}
-
-body.dark .switch {
-  background: rgba(0,0,0,0.45);
-  box-shadow: inset 0 0 0 1px var(--border-dark);
-}
-
-.thumb {
-  width: 24px;
-  height: 24px;
-  position: absolute;
-  top: 2px;
-  left: 2px;
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  overflow: hidden;
-  transition: transform 0.7s var(--ease-spring), background 0.6s ease;
-}
-
-body.light .thumb {
-  background: radial-gradient(circle at top, #fff7c8, var(--sun));
-}
-
-body.dark .thumb {
-  transform: translateX(26px);
-  background: radial-gradient(circle at top, #c7d2ff, var(--moon));
+.gradient-text {
+    background: linear-gradient(90deg, var(--accent), #6dd5fa);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    font-size:3rem;
 }
 
 /* =========================
-   SUN / MOON MORPH
+   GRID
 ========================= */
-.icon {
-  position: absolute;
-  width: 15px;
-  height: 15px;
-  transition: all 0.7s var(--ease-spring);
+
+.grid {
+    display:grid;
+    gap:20px;
 }
 
-.sun {
-  opacity: 1;
-  transform: scale(1) rotate(0deg);
+/* Desktop */
+@media(min-width:1024px){
+    .grid { grid-template-columns:repeat(4,1fr); }
 }
 
-.moon {
-  opacity: 0;
-  transform: scale(0.4) rotate(-120deg);
+/* Tablet */
+@media(min-width:768px) and (max-width:1023px){
+    .grid { grid-template-columns:repeat(2,1fr); }
 }
 
-body.dark .sun {
-  opacity: 0;
-  transform: scale(0.4) rotate(120deg);
-}
-
-body.dark .moon {
-  opacity: 1;
-  transform: scale(1) rotate(0deg);
+/* Mobile */
+@media(max-width:767px){
+    .grid { grid-template-columns:1fr; }
 }
 
 /* =========================
-   LABEL
+   BOTTOM NAV (Mobile)
 ========================= */
-.mode-text {
-  font-size: 13px;
-  letter-spacing: 0.3px;
-  opacity: 0.85;
+
+.bottom-nav {
+    display:none;
+}
+
+@media(max-width:767px){
+    .nav-links{display:none;}
+    .bottom-nav{
+        display:flex;
+        justify-content:space-around;
+        position:fixed;
+        bottom:0;
+        width:100%;
+        padding:15px 0;
+        backdrop-filter:blur(20px);
+    }
 }
 
 /* =========================
-   MAIN LAYOUT
+   TOAST
 ========================= */
-.main {
-  width: 100%;
-  height: calc(100% - 72px);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 40px;
+
+.toast {
+    position:fixed;
+    bottom:30px;
+    right:30px;
+    padding:15px 20px;
+    border-radius:10px;
+    background:var(--accent);
+    color:#fff;
+    display:none;
 }
 
-.cards {
-  display: flex;
-  gap: 28px;
+/* Fade In */
+.fade-in {
+    opacity:0;
+    transform:translateY(20px);
+    transition:all 0.6s ease;
 }
 
-/* =========================
-   GLASS CARDS
-========================= */
-.card {
-  width: 240px;
-  height: 150px;
-  border-radius: 26px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
-  letter-spacing: 0.4px;
-  backdrop-filter: blur(var(--blur-strong)) saturate(170%);
-  transition: transform 0.6s var(--ease-spring),
-              box-shadow 0.6s ease,
-              background 0.6s ease;
+.fade-in.visible {
+    opacity:1;
+    transform:translateY(0);
 }
 
-body.light .card {
-  background: var(--glass-light);
-  box-shadow:
-    0 25px 50px rgba(0,0,0,0.12),
-    inset 0 0 0 1px var(--border-light);
-}
-
-body.dark .card {
-  background: var(--glass-dark);
-  box-shadow:
-    0 30px 70px rgba(0,0,0,0.65),
-    inset 0 0 0 1px var(--border-dark);
-}
-
-.card:hover {
-  transform: translateY(-16px) scale(1.03);
-}
-
-/* =========================
-   RESPONSIVE
-========================= */
-@media (max-width: 768px) {
-  .cards {
-    flex-direction: column;
-  }
-}
 </style>
 </head>
 
-<body class="light">
+<body>
 
-<div class="background"></div>
-
-<header class="topbar">
-  <div class="theme-switch" id="toggle">
-    <div class="switch">
-      <div class="thumb">
-        <svg class="icon sun" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2">
-          <circle cx="12" cy="12" r="5"/>
-          <line x1="12" y1="1" x2="12" y2="4"/>
-          <line x1="12" y1="20" x2="12" y2="23"/>
-          <line x1="1" y1="12" x2="4" y2="12"/>
-          <line x1="20" y1="12" x2="23" y2="12"/>
-          <line x1="4.2" y1="4.2" x2="6.6" y2="6.6"/>
-          <line x1="17.4" y1="17.4" x2="19.8" y2="19.8"/>
-          <line x1="17.4" y1="6.6" x2="19.8" y2="4.2"/>
-          <line x1="4.2" y1="19.8" x2="6.6" y2="17.4"/>
-        </svg>
-
-        <svg class="icon moon" viewBox="0 0 24 24" fill="#111">
-          <path d="M21 12.7A9 9 0 1111.3 3a7 7 0 009.7 9.7z"/>
-        </svg>
-      </div>
+<nav class="glass">
+    <h2>NetLand</h2>
+    <div class="nav-links">
+        <a href="#">Home</a>
+        <a href="#">Services</a>
+        <a href="#">Contact</a>
     </div>
-    <div class="mode-text">Dark</div>
-  </div>
-</header>
+    <div class="theme-toggle" id="themeToggle">
+        <div class="toggle-circle"></div>
+    </div>
+</nav>
 
-<main class="main">
-  <div class="cards">
-    <div class="card">Telegram</div>
-    <div class="card">Instagram</div>
-    <div class="card">WhatsApp</div>
-  </div>
-</main>
+<section class="hero">
+    <h1 class="gradient-text">NetLand - Your Digital Gateway</h1>
+    <p>High-speed internet & premium gaming experience</p>
+</section>
+
+<div class="container">
+    <div class="grid">
+
+        <div class="glass floating fade-in">
+            <h3><i class="fab fa-telegram"></i> Telegram</h3>
+            <button onclick="showToast('Redirecting to Telegram...')">Join Channel</button>
+        </div>
+
+        <div class="glass floating fade-in">
+            <h3><i class="fab fa-instagram"></i> Instagram</h3>
+            <button onclick="showToast('Opening Instagram...')">Follow Us</button>
+        </div>
+
+        <div class="glass floating fade-in">
+            <h3><i class="fab fa-whatsapp"></i> WhatsApp</h3>
+            <button onclick="showToast('Opening WhatsApp...')">Chat Now</button>
+        </div>
+
+        <div class="glass floating fade-in">
+            <h3><i class="fas fa-map-marker-alt"></i> Location</h3>
+            <p>123 Digital Street</p>
+        </div>
+
+        <div class="glass fade-in">
+            <h3><i class="fas fa-phone"></i> Contact</h3>
+            <button onclick="copyText('0123456789')">Copy Number</button>
+        </div>
+
+        <div class="glass fade-in">
+            <h3><i class="fas fa-clock"></i> Working Hours</h3>
+            <p>09:00 - 23:00</p>
+        </div>
+
+        <div class="glass fade-in">
+            <h3><i class="fas fa-wifi"></i> Wi-Fi</h3>
+            <button onclick="copyText('NetLand123')">Copy Password</button>
+        </div>
+
+        <div class="glass fade-in">
+            <h3><i class="fas fa-gamepad"></i> Gaming Stations</h3>
+            <p>Status: <span id="gamingStatus"></span></p>
+        </div>
+
+    </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<div class="bottom-nav glass">
+    <i class="fas fa-home"></i>
+    <i class="fas fa-gamepad"></i>
+    <i class="fas fa-phone"></i>
+</div>
 
 <script>
-const toggle = document.getElementById("toggle");
-const body = document.body;
 
-toggle.addEventListener("click", () => {
-  body.classList.toggle("dark");
-  body.classList.toggle("light");
+/* =========================
+   THEME TOGGLE
+========================= */
+
+const toggle = document.getElementById('themeToggle');
+
+if(localStorage.getItem('theme')){
+    document.documentElement.setAttribute('data-theme', localStorage.getItem('theme'));
+}
+
+toggle.onclick = () => {
+    let current = document.documentElement.getAttribute('data-theme');
+    if(current === 'dark'){
+        document.documentElement.removeAttribute('data-theme');
+        localStorage.setItem('theme','light');
+    } else {
+        document.documentElement.setAttribute('data-theme','dark');
+        localStorage.setItem('theme','dark');
+    }
+};
+
+/* =========================
+   COPY FUNCTION
+========================= */
+
+function copyText(text){
+    navigator.clipboard.writeText(text);
+    showToast("Copied successfully!");
+}
+
+/* =========================
+   TOAST
+========================= */
+
+function showToast(message){
+    const toast = document.getElementById("toast");
+    toast.innerText = message;
+    toast.style.display = "block";
+    setTimeout(()=>toast.style.display="none",2000);
+}
+
+/* =========================
+   SCROLL ANIMATION
+========================= */
+
+const observer = new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+        if(entry.isIntersecting){
+            entry.target.classList.add("visible");
+        }
+    });
 });
+
+document.querySelectorAll('.fade-in').forEach(el=>observer.observe(el));
+
+/* =========================
+   GAMING STATUS
+========================= */
+
+const status = document.getElementById("gamingStatus");
+
+function updateGamingStatus(){
+    const available = Math.floor(Math.random()*10)+1;
+    status.innerText = available + " PCs Available";
+}
+
+updateGamingStatus();
+setInterval(updateGamingStatus,5000);
+
+/* =========================
+   VISITOR COUNTER
+========================= */
+
+let visitors = Math.floor(Math.random()*200)+50;
+setInterval(()=>{
+    visitors++;
+    console.log("Visitors:",visitors);
+},3000);
+
+/* =========================
+   NETWORK SIGNAL
+========================= */
+
+if(navigator.connection){
+    console.log("Network:",navigator.connection.effectiveType);
+}
+
 </script>
 
 </body>
-</html>  
+</html>
