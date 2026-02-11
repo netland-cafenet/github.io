@@ -1,104 +1,94 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
 <head>
-<meta charset="UTF-8" />
+<meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>NetLand Internet Cafe</title>
 
-<!-- Prevent theme flash -->
 <script>
 (function () {
   const saved = localStorage.getItem("theme");
-  if (saved) {
-    document.documentElement.setAttribute("data-theme", saved);
-  }
+  if (saved) document.documentElement.setAttribute("data-theme", saved);
 })();
 </script>
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
 
 <style>
 :root{
-  --radius: 22px;
-  --transition: 0.5s ease-in-out;
-  --spring: cubic-bezier(0.34,1.56,0.64,1);
+  --radius:20px;
+  --transition:0.5s ease-in-out;
+  --spring:cubic-bezier(0.34,1.56,0.64,1);
 }
 
-/* =========================
-   THEME VARIABLES
-========================= */
 html[data-theme="dark"]{
-  --bg-gradient: radial-gradient(circle at 20% 20%, #0f1724, #0b111a 40%, #070b12);
-  --glass-bg: linear-gradient(135deg, rgba(25,35,50,0.65), rgba(20,30,45,0.55));
-  --glass-border: 0.5px solid rgba(255,255,255,0.12);
+  --bg-gradient:radial-gradient(circle at 20% 20%, #0f1724, #0b111a 40%, #070b12);
+  --glass-bg:linear-gradient(135deg, rgba(25,35,50,0.65), rgba(20,30,45,0.55));
+  --glass-border:0.5px solid rgba(255,255,255,0.12);
   --glass-shadow:
     inset 0 0 0 1px rgba(255,255,255,0.05),
-    0 35px 55px -20px rgba(0,0,0,0.65),
-    0 15px 25px -12px rgba(0,0,0,0.4),
-    0 0 15px rgba(0,229,255,0.15);
-  --text: #f1f5f9;
-  --muted: #94a3b8;
+    0 28px 44px -20px rgba(0,0,0,0.52),
+    0 12px 20px -12px rgba(0,0,0,0.32),
+    0 0 12px rgba(0,229,255,0.12);
+  --text:#f1f5f9;
+  --muted:#94a3b8;
 }
 
 html[data-theme="light"]{
-  --bg-gradient: radial-gradient(circle at 20% 20%, #dbeafe, #f8fafc 40%, #eef2ff);
-  --glass-bg: linear-gradient(135deg, rgba(255,255,255,0.6), rgba(255,255,255,0.4));
-  --glass-border: 0.5px solid rgba(255,255,255,0.8);
+  --bg-gradient:radial-gradient(circle at 20% 20%, #dbeafe, #f8fafc 40%, #eef2ff);
+  --glass-bg:linear-gradient(135deg, rgba(255,255,255,0.6), rgba(255,255,255,0.4));
+  --glass-border:0.5px solid rgba(255,255,255,0.8);
   --glass-shadow:
     inset 0 0 0 1px rgba(255,255,255,0.7),
-    0 30px 50px -20px rgba(0,20,40,0.25),
-    0 10px 20px -8px rgba(0,0,0,0.08),
-    0 0 0 0.5px rgba(255,255,255,0.5) inset;
-  --text: #0f172a;
-  --muted: #475569;
+    0 24px 40px -20px rgba(0,20,40,0.2),
+    0 8px 16px -8px rgba(0,0,0,0.06),
+    0 0 0 0.5px rgba(255,255,255,0.4) inset;
+  --text:#0f172a;
+  --muted:#475569;
 }
 
-/* =========================
-   GLOBAL
-========================= */
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-}
+*{box-sizing:border-box;margin:0;padding:0}
 
 body{
   font-family:'Inter',sans-serif;
   background:var(--bg-gradient);
   color:var(--text);
   min-height:100vh;
-  transition: background var(--transition), color var(--transition);
+  transition:background var(--transition),color var(--transition);
   overflow-x:hidden;
   letter-spacing:0.2px;
 }
 
-h1,h2,h3{
+main{
+  padding:140px 20px 120px;
+  max-width:1100px;
+  margin:auto;
+  display:grid;
+  gap:18px;
+}
+
+h2{
+  font-size:1.1rem;
   font-weight:700;
-  letter-spacing:-0.3px;
+  margin-bottom:8px;
 }
 
 p{
-  font-weight:500;
+  font-size:0.85rem;
+  line-height:1.4;
   color:var(--muted);
-  line-height:1.6;
+  margin-bottom:8px;
 }
 
-main{
-  padding:140px 20px 120px;
-  max-width:1200px;
-  margin:auto;
-}
-
-/* =========================
-   BACKGROUND ORBS
-========================= */
+/* ORBS */
 .orb{
   position:fixed;
   border-radius:50%;
   filter:blur(120px);
   opacity:0.25;
   pointer-events:none;
-  will-change: transform, filter;
+  will-change:transform,filter;
   animation-timing-function:cubic-bezier(0.45,0,0.55,1);
   animation-iteration-count:infinite;
   animation-direction:alternate;
@@ -112,26 +102,15 @@ html[data-theme="light"] .orb:nth-child(1){background:#f59e0b;}
 html[data-theme="light"] .orb:nth-child(2){background:#38bdf8;}
 html[data-theme="light"] .orb:nth-child(3){background:#c084fc;}
 
-.orb1{width:400px;height:400px;top:10%;left:-10%;animation:float1 30s;}
-.orb2{width:500px;height:500px;bottom:-10%;right:-10%;animation:float2 25s;}
-.orb3{width:350px;height:350px;top:50%;left:40%;animation:float3 35s;}
+.orb1{width:380px;height:380px;top:10%;left:-10%;animation:float1 30s;}
+.orb2{width:480px;height:480px;bottom:-10%;right:-10%;animation:float2 25s;}
+.orb3{width:320px;height:320px;top:50%;left:40%;animation:float3 35s;}
 
-@keyframes float1{
-  from{transform:translateY(-40px) translateX(0);}
-  to{transform:translateY(60px) translateX(60px);}
-}
-@keyframes float2{
-  from{transform:translateY(0) translateX(0);}
-  to{transform:translateY(-80px) translateX(-60px);}
-}
-@keyframes float3{
-  from{transform:translateY(30px) translateX(-40px);}
-  to{transform:translateY(-50px) translateX(40px);}
-}
+@keyframes float1{from{transform:translateY(-30px)}to{transform:translateY(50px)}}
+@keyframes float2{from{transform:translateY(0)}to{transform:translateY(-70px)}}
+@keyframes float3{from{transform:translateY(20px)}to{transform:translateY(-40px)}}
 
-/* =========================
-   GLASS BASE
-========================= */
+/* GLASS */
 .glass{
   background:var(--glass-bg);
   backdrop-filter:blur(20px);
@@ -139,54 +118,36 @@ html[data-theme="light"] .orb:nth-child(3){background:#c084fc;}
   border-radius:var(--radius);
   border:var(--glass-border);
   box-shadow:var(--glass-shadow);
-  transition: all var(--transition);
-  transform-origin:center;
+  transition:all var(--transition);
 }
 
-/* =========================
-   HEADER (ROCK SOLID)
-========================= */
+/* HEADER */
 .glass-header{
   position:fixed;
   top:20px;
   left:50%;
   transform:translateX(-50%);
   z-index:1000;
-  isolation:isolate;
   width:90%;
   max-width:1000px;
-  padding:16px 24px;
+  padding:14px 20px;
   display:flex;
   justify-content:space-between;
   align-items:center;
 }
 
-.glass-header:hover{
-  transform:translateX(-50%); /* NO SCALE EVER */
-}
+.glass-header:hover{transform:translateX(-50%)}
 
-.logo{
-  font-weight:800;
-  font-size:20px;
-  letter-spacing:1px;
-}
+.logo{font-weight:800;font-size:18px}
 
 .visitor-badge{
-  padding:6px 14px;
-  border-radius:999px;
-  font-size:13px;
+  font-size:12px;
   font-weight:600;
-  background:rgba(255,255,255,0.1);
-  backdrop-filter:blur(10px);
 }
 
-/* =========================
-   THEME TOGGLE SWITCH
-========================= */
 .theme-switch{
   position:relative;
-  width:60px;
-  height:30px;
+  width:60px;height:30px;
   border-radius:30px;
   background:var(--glass-bg);
   border:var(--glass-border);
@@ -197,16 +158,14 @@ html[data-theme="light"] .orb:nth-child(3){background:#c084fc;}
 
 .switch-thumb{
   position:absolute;
-  top:3px;
-  left:3px;
-  width:24px;
-  height:24px;
+  top:3px;left:3px;
+  width:24px;height:24px;
   border-radius:50%;
   background:white;
   display:flex;
   align-items:center;
   justify-content:center;
-  font-size:14px;
+  font-size:13px;
   transition:all 0.5s var(--spring);
 }
 
@@ -214,25 +173,50 @@ html[data-theme="dark"] .switch-thumb{
   transform:translateX(30px) rotate(360deg) scale(1.2);
 }
 
-html[data-theme="light"] .switch-thumb{
-  transform:translateX(0) rotate(0deg) scale(1);
-}
-
-/* =========================
-   CARDS
-========================= */
+/* CARDS */
 .card{
-  padding:30px;
-  margin-bottom:30px;
+  padding:20px;
+  min-height:160px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  animation:floatCard 8s ease-in-out infinite alternate;
 }
 
-.card:hover{
-  transform:translateY(-6px);
+@keyframes floatCard{
+  from{transform:translateY(-1.5px)}
+  to{transform:translateY(1.5px)}
 }
 
-/* =========================
-   BOTTOM NAV
-========================= */
+button, .btn{
+  padding:6px 12px;
+  font-size:0.75rem;
+  border-radius:14px;
+  border:none;
+  cursor:pointer;
+  background:rgba(255,255,255,0.15);
+  color:var(--text);
+  backdrop-filter:blur(10px);
+}
+
+/* LOCATION RTL */
+.rtl{
+  direction:rtl;
+  text-align:right;
+  font-size:0.85rem;
+  margin-bottom:8px;
+}
+
+.map-box{
+  margin-top:10px;
+  padding:14px;
+  text-align:center;
+  font-size:0.8rem;
+  border-radius:16px;
+  background:rgba(255,255,255,0.08);
+}
+
+/* BOTTOM NAV */
 .bottom-nav{
   position:fixed;
   bottom:20px;
@@ -242,39 +226,23 @@ html[data-theme="light"] .switch-thumb{
   max-width:500px;
   display:flex;
   justify-content:space-around;
-  padding:14px;
-  z-index:999;
+  padding:12px;
 }
 
 .bottom-nav a{
   text-decoration:none;
+  font-size:0.8rem;
   color:var(--muted);
   font-weight:600;
-  transition:all 0.3s;
 }
 
-.bottom-nav a:hover,
-.bottom-nav a.active{
-  color:var(--text);
-}
+.bottom-nav a.active,
+.bottom-nav a:hover{color:var(--text)}
 
-/* =========================
-   FOCUS STATES
-========================= */
 :focus-visible{
   outline:2px solid #00e5ff;
   outline-offset:2px;
   border-radius:6px;
-}
-
-/* =========================
-   RESPONSIVE
-========================= */
-@media(max-width:768px){
-  .glass-header{
-    flex-direction:column;
-    gap:12px;
-  }
 }
 </style>
 </head>
@@ -287,12 +255,10 @@ html[data-theme="light"] .switch-thumb{
 
 <header class="glass glass-header">
   <div class="logo">NetLand</div>
-
-  <div style="display:flex;align-items:center;gap:16px;">
+  <div style="display:flex;align-items:center;gap:14px">
     <div class="visitor-badge" aria-live="polite">
-      👥 <span id="visitorCount">1247</span> Visitors
+      👥 <span id="visitorCount">2540</span>
     </div>
-
     <div class="theme-switch" role="switch" aria-checked="true" tabindex="0" id="themeToggle">
       <div class="switch-thumb" id="thumb">🌙</div>
     </div>
@@ -300,47 +266,110 @@ html[data-theme="light"] .switch-thumb{
 </header>
 
 <main>
-  <section class="glass card">
-    <h2>Ultra Fast Gaming</h2>
-    <p>RTX-powered PCs, 240Hz monitors, zero latency environment.</p>
-  </section>
 
-  <section class="glass card">
-    <h2>Premium Lounge</h2>
-    <p>Relax in cyberpunk-inspired neon comfort zones.</p>
-  </section>
+<!-- LOCATION CARD -->
+<section class="glass card">
+  <div>
+    <h2><i class="fas fa-map-marker-alt"></i> Location</h2>
+    <div class="rtl">
+      تهران، شهرک قائم، بلوار الغدیر، خیابان نهم، پلاک ۱۲، کافی‌نت NetLand
+    </div>
+    <p>Coordinates: 35.512149, 51.619335</p>
+    <a href="https://maps.app.goo.gl/EyN3tSQcHtB58h2r8" target="_blank" class="btn">Open in Google Maps</a>
+    <div class="glass map-box">
+      <i class="fas fa-map"></i><br/>View Map
+    </div>
+  </div>
+</section>
 
-  <section class="glass card">
-    <h2>Location</h2>
-    <iframe 
-      src="https://maps.google.com/maps?q=Singapore&t=&z=13&ie=UTF8&iwloc=&output=embed"
-      width="100%" height="250" style="border:0;border-radius:18px;">
-    </iframe>
-  </section>
+<!-- TELEGRAM -->
+<section class="glass card">
+  <div>
+    <h2><i class="fab fa-telegram"></i> Telegram</h2>
+    <p>2,540 members</p>
+    <button>Join Channel</button>
+  </div>
+</section>
+
+<!-- INSTAGRAM -->
+<section class="glass card">
+  <div>
+    <h2><i class="fab fa-instagram"></i> Instagram</h2>
+    <p>8,320 followers</p>
+    <button>Follow Us</button>
+  </div>
+</section>
+
+<!-- WHATSAPP -->
+<section class="glass card">
+  <div>
+    <h2><i class="fab fa-whatsapp"></i> WhatsApp</h2>
+    <p>Status: Online</p>
+    <button>Chat Now</button>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="glass card">
+  <div>
+    <h2><i class="fas fa-phone"></i> Contact</h2>
+    <p id="phone">+98 21 1234 5678</p>
+    <button onclick="navigator.clipboard.writeText('+98 21 1234 5678')">Copy</button>
+  </div>
+</section>
+
+<!-- HOURS -->
+<section class="glass card">
+  <div>
+    <h2><i class="fas fa-clock"></i> Hours</h2>
+    <p>Daily 09-23</p>
+    <p>Friday 14-23</p>
+  </div>
+</section>
+
+<!-- WIFI -->
+<section class="glass card">
+  <div>
+    <h2><i class="fas fa-wifi"></i> WiFi</h2>
+    <p id="wifiPass" style="display:none">Password: NETLAND2024</p>
+    <button onclick="toggleWifi()">Reveal</button>
+    <button onclick="navigator.clipboard.writeText('NETLAND2024')">Copy</button>
+  </div>
+</section>
+
+<!-- GAMING -->
+<section class="glass card">
+  <div>
+    <h2><i class="fas fa-gamepad"></i> Gaming Stations</h2>
+    <p>Active: <span id="stations">18</span></p>
+    <button onclick="refreshStations()">Refresh</button>
+  </div>
+</section>
+
 </main>
 
 <nav class="glass bottom-nav">
   <a href="#" class="active">Home</a>
-  <a href="#">Games</a>
-  <a href="#">Pricing</a>
+  <a href="#">Social</a>
+  <a href="#">Visit</a>
   <a href="#">Contact</a>
 </nav>
 
 <script>
-const toggle = document.getElementById("themeToggle");
-const thumb = document.getElementById("thumb");
-const html = document.documentElement;
+const toggle=document.getElementById("themeToggle");
+const thumb=document.getElementById("thumb");
+const html=document.documentElement;
 
 function setTheme(theme){
   html.setAttribute("data-theme",theme);
   localStorage.setItem("theme",theme);
   toggle.setAttribute("aria-checked", theme==="dark");
-  thumb.textContent = theme==="dark" ? "🌙" : "☀️";
+  thumb.textContent=theme==="dark"?"🌙":"☀️";
 }
 
 toggle.addEventListener("click",()=>{
-  const current = html.getAttribute("data-theme");
-  setTheme(current==="dark" ? "light":"dark");
+  const current=html.getAttribute("data-theme");
+  setTheme(current==="dark"?"light":"dark");
 });
 
 toggle.addEventListener("keydown",(e)=>{
@@ -350,14 +379,23 @@ toggle.addEventListener("keydown",(e)=>{
   }
 });
 
-/* Visitor counter realistic increment */
-let count = 1247;
+let count=2540;
 setInterval(()=>{
-  if(Math.random() > 0.7){
-    count += 1;
-    document.getElementById("visitorCount").textContent = count;
+  if(Math.random()>0.7){
+    count++;
+    document.getElementById("visitorCount").textContent=count;
   }
-}, 5000);
+},6000);
+
+function toggleWifi(){
+  const el=document.getElementById("wifiPass");
+  el.style.display=el.style.display==="none"?"block":"none";
+}
+
+function refreshStations(){
+  document.getElementById("stations").textContent=
+    Math.floor(Math.random()*25)+5;
+}
 </script>
 
 </body>
