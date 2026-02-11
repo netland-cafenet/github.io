@@ -3,268 +3,195 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NetLand Internet Cafe | Your Digital Gateway</title>
-<meta name="description" content="NetLand Internet Cafe - Premium gaming stations, high-speed WiFi, and modern digital space. Join us today.">
-<meta name="theme-color" content="#0ea5e9">
+<title>NetLand Internet Cafe</title>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
 
 <style>
-/* =========================================================
-   NETLAND INTERNET CAFE - PRODUCTION READY SINGLE FILE
-   Senior Frontend Architecture - Mobile First
-   ========================================================= */
-
-/* ========================
-   CSS VARIABLES (THEME)
-   ======================== */
-
-:root{
-  --bg-primary:#f8fafc;
-  --bg-secondary:rgba(255,255,255,0.6);
-  --text-primary:#0f172a;
-  --text-secondary:#475569;
-  --accent-gradient:linear-gradient(135deg,#0ea5e9,#2563eb);
-  --glass-border:rgba(255,255,255,0.3);
-  --shadow-soft:0 8px 32px rgba(0,0,0,0.08);
-  --glow:0 0 15px rgba(14,165,233,0.6);
-}
-
-[data-theme="dark"]{
-  --bg-primary:#0f172a;
-  --bg-secondary:rgba(30,41,59,0.5);
-  --text-primary:#f1f5f9;
-  --text-secondary:#94a3b8;
-  --accent-gradient:linear-gradient(135deg,#06b6d4,#3b82f6);
-  --glass-border:rgba(255,255,255,0.08);
-  --shadow-soft:0 8px 32px rgba(0,0,0,0.5);
-  --glow:0 0 20px rgba(6,182,212,0.8);
-}
-
-/* ========================
-   RESET & BASE
-   ======================== */
-
-*,
-*::before,
-*::after{
-  box-sizing:border-box;
+/* ===============================
+   BASE RESET
+=================================*/
+*{
   margin:0;
   padding:0;
+  box-sizing:border-box;
 }
 
 body{
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
-  background:var(--bg-primary);
-  color:var(--text-primary);
-  transition:background .3s,color .3s;
-  line-height:1.6;
-  overflow-x:hidden;
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Inter",sans-serif;
+  background:linear-gradient(to bottom,#f9fafb,#f1f3f5);
+  min-height:100vh;
+  color:#111;
+  transition:background 0.4s ease,color 0.4s ease;
+  letter-spacing:-0.01em;
 }
 
-/* Smooth transitions */
-a,button{
-  transition:all .3s ease;
-  cursor:pointer;
-}
-
-/* ========================
-   GLASS CARD
-   ======================== */
-
-.glass{
-  background:var(--bg-secondary);
-  backdrop-filter:blur(20px);
-  -webkit-backdrop-filter:blur(20px);
-  border:1px solid var(--glass-border);
-  box-shadow:var(--shadow-soft);
-  border-radius:20px;
-}
-
-/* ========================
-   HEADER
-   ======================== */
-
-header{
-  position:fixed;
-  top:0;
-  width:100%;
-  z-index:100;
-  padding:1rem;
-}
-
-.navbar{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:0.8rem 1.2rem;
-}
-
-.logo{
-  font-weight:700;
-  font-size:1.2rem;
-  background:var(--accent-gradient);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-}
-
-.nav-links{
+/* ===============================
+   DARK MODE (CHECKBOX CONTROLLED)
+=================================*/
+.theme-switch{
   display:none;
 }
 
-.nav-links a{
-  text-decoration:none;
-  color:var(--text-primary);
-  margin-left:1.5rem;
-  font-size:0.9rem;
+.theme-switch:checked ~ .page{
+  background:linear-gradient(to bottom,#1a1e24,#0f1217);
+  color:#f5f5f5;
 }
 
-/* ========================
-   THEME TOGGLE
-   ======================== */
-
-.theme-toggle{
-  width:50px;
-  height:26px;
-  background:var(--bg-secondary);
-  border-radius:50px;
-  position:relative;
-  border:1px solid var(--glass-border);
-}
-
-.theme-toggle::after{
-  content:"";
-  position:absolute;
-  top:2px;
-  left:2px;
-  width:22px;
-  height:22px;
-  border-radius:50%;
-  background:var(--accent-gradient);
-  transition:transform .3s;
-}
-
-[data-theme="dark"] .theme-toggle::after{
-  transform:translateX(24px);
-}
-
-/* ========================
-   HERO
-   ======================== */
-
-.hero{
-  padding:120px 1.5rem 80px;
-  text-align:center;
-}
-
-.hero h1{
-  font-size:2rem;
-  background:var(--accent-gradient);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-  animation:fadeIn 1s ease forwards;
-}
-
-.hero p{
-  color:var(--text-secondary);
-  margin-top:1rem;
-}
-
-.cta-btn{
-  display:inline-block;
-  margin-top:2rem;
-  padding:0.8rem 1.5rem;
-  border-radius:50px;
-  background:var(--accent-gradient);
+.theme-switch:checked ~ .page .glass{
+  background:rgba(30,35,45,0.7);
+  border:0.5px solid rgba(255,255,255,0.15);
   color:#fff;
+}
+
+.theme-switch:checked ~ .page a{
+  color:#fff;
+}
+
+/* ===============================
+   TOGGLE SWITCH (YOUTUBE STYLE)
+=================================*/
+.switch{
+  position:relative;
+  display:inline-block;
+  width:60px;
+  height:34px;
+}
+
+.switch input{
+  opacity:0;
+  width:0;
+  height:0;
+}
+
+.slider{
+  position:absolute;
+  cursor:pointer;
+  inset:0;
+  background:#ccc;
+  transition:0.4s;
+  border-radius:34px;
+}
+
+.slider:before{
+  position:absolute;
+  content:"";
+  height:26px;
+  width:26px;
+  left:4px;
+  bottom:4px;
+  background:white;
+  transition:0.4s;
+  border-radius:50%;
+}
+
+.theme-switch:checked + .switch .slider{
+  background:#4b5563;
+}
+
+.theme-switch:checked + .switch .slider:before{
+  transform:translateX(26px);
+}
+
+/* ===============================
+   HEADER
+=================================*/
+.page{
+  transition:background 0.4s ease,color 0.4s ease;
+}
+
+header{
+  position:sticky;
+  top:20px;
+  margin:20px auto;
+  max-width:1200px;
+  padding:18px 30px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.glass{
+  background:rgba(255,255,255,0.75);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  border-radius:24px;
+  border:0.5px solid rgba(255,255,255,0.8);
+  box-shadow:0 4px 10px rgba(0,0,0,0.04);
+}
+
+.nav{
+  display:flex;
+  gap:40px;
+  font-weight:500;
+}
+
+.nav a{
   text-decoration:none;
-  box-shadow:var(--glow);
+  color:#111;
+  font-size:14px;
 }
 
-.cta-btn:hover{
-  transform:scale(1.05);
-}
-
-/* ========================
-   GRID CARDS
-   ======================== */
-
-.section{
-  padding:2rem 1.2rem;
-}
-
-.grid{
+/* ===============================
+   GRID
+=================================*/
+main{
+  max-width:1200px;
+  margin:60px auto;
   display:grid;
-  gap:1.2rem;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:30px;
+  padding:0 20px;
 }
 
 .card{
-  padding:1.5rem;
-  position:relative;
-  overflow:hidden;
-  animation:float 6s ease-in-out infinite;
+  padding:28px;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
 }
 
 .card h3{
-  margin-top:0.8rem;
+  font-weight:500;
+  font-size:18px;
+  letter-spacing:-0.02em;
 }
 
 .card p{
-  font-size:0.9rem;
-  color:var(--text-secondary);
+  font-size:14px;
+  font-weight:400;
+  opacity:0.85;
 }
 
 .card button{
-  margin-top:1rem;
-  padding:0.5rem 1rem;
+  margin-top:8px;
+  padding:8px 14px;
+  border-radius:12px;
   border:none;
-  border-radius:8px;
-  background:var(--accent-gradient);
+  background:#111;
   color:#fff;
+  font-size:13px;
+  cursor:pointer;
 }
 
-/* ========================
-   FOOTER
-   ======================== */
-
-footer{
-  text-align:center;
-  padding:2rem 1rem;
-  color:var(--text-secondary);
-  font-size:0.8rem;
+.theme-switch:checked ~ .page .card button{
+  background:#fff;
+  color:#111;
 }
 
-/* ========================
-   ANIMATIONS
-   ======================== */
-
-@keyframes fadeIn{
-  from{opacity:0;transform:translateY(20px);}
-  to{opacity:1;transform:translateY(0);}
+/* RTL ADDRESS */
+.rtl{
+  direction:rtl;
+  text-align:right;
+  font-size:14px;
 }
 
-@keyframes float{
-  0%,100%{transform:translateY(0);}
-  50%{transform:translateY(-8px);}
-}
-
-/* ========================
+/* ===============================
    RESPONSIVE
-   ======================== */
-
-@media(min-width:768px){
-  .grid{
-    grid-template-columns:repeat(2,1fr);
-  }
-}
-
-@media(min-width:1024px){
-  .nav-links{
-    display:block;
-  }
-  .grid{
-    grid-template-columns:repeat(4,1fr);
-  }
-  .hero h1{
-    font-size:3rem;
+=================================*/
+@media(max-width:768px){
+  .nav{
+    display:none;
   }
 }
 </style>
@@ -272,127 +199,94 @@ footer{
 
 <body>
 
-<header>
-  <nav class="navbar glass">
-    <div class="logo">NetLand</div>
-    <div class="nav-links">
-      <a href="#">Home</a>
-      <a href="#">Gaming</a>
-      <a href="#">Contact</a>
-    </div>
-    <div class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"></div>
+<!-- THEME CHECKBOX -->
+<input type="checkbox" id="theme-toggle" class="theme-switch">
+
+<label for="theme-toggle" class="switch">
+  <span class="slider"></span>
+</label>
+
+<div class="page">
+
+<header class="glass">
+  <div style="font-weight:500;">NetLand</div>
+  <nav class="nav">
+    <a href="#">Home</a>
+    <a href="#">About</a>
+    <a href="#">Services</a>
+    <a href="#">Contact</a>
+    <a href="#">Login</a>
   </nav>
 </header>
 
-<section class="hero">
-  <h1>NetLand - Your Digital Gateway</h1>
-  <p>Premium gaming, ultra-fast WiFi, and a modern digital atmosphere.</p>
-  <a href="#" class="cta-btn">Explore Now</a>
-</section>
+<main>
 
-<section class="section">
-  <div class="grid">
+<div class="glass card">
+  <h3><i class="fab fa-telegram"></i> Telegram</h3>
+  <p>2.5K members</p>
+  <button>Join Channel</button>
+</div>
 
-    <div class="card glass">
-      <h3>Telegram</h3>
-      <p>Join our latest updates channel.</p>
-      <button onclick="toast('Telegram opened')">Join</button>
-    </div>
+<div class="glass card">
+  <h3><i class="fab fa-instagram"></i> Instagram</h3>
+  <p>8.3K followers</p>
+  <button>Follow Us</button>
+</div>
 
-    <div class="card glass">
-      <h3>Instagram</h3>
-      <p>Follow our gaming highlights.</p>
-      <button onclick="toast('Instagram opened')">Follow</button>
-    </div>
+<div class="glass card">
+  <h3><i class="fab fa-whatsapp"></i> WhatsApp</h3>
+  <p>Online</p>
+  <button>Chat Now</button>
+</div>
 
-    <div class="card glass">
-      <h3>Wi-Fi Password</h3>
-      <p>Click to copy our secure password.</p>
-      <button onclick="copyText('NetLand123')">Copy</button>
-    </div>
-
-    <div class="card glass">
-      <h3>Gaming Stations</h3>
-      <p><span id="stations">8</span> PCs Available</p>
-      <button onclick="toggleStations()">Simulate</button>
-    </div>
-
+<div class="glass card">
+  <h3><i class="fas fa-map-marker-alt"></i> Location</h3>
+  <div class="rtl">
+    تهران، شهرک قائم، بلوار الغدیر، خیابان نهم، پلاک ۱۲
   </div>
-</section>
+  <button onclick="window.open('https://maps.app.goo.gl/EyN3tSQcHtB58h2r8','_blank')">
+    Open in Google Maps
+  </button>
+</div>
 
-<footer>
-  © 2026 NetLand Internet Cafe. All rights reserved.
-</footer>
+<div class="glass card">
+  <h3><i class="fas fa-phone"></i> Contact</h3>
+  <p>+98 21 1234 5678</p>
+  <button onclick="navigator.clipboard.writeText('+98 21 1234 5678')">Copy</button>
+</div>
+
+<div class="glass card">
+  <h3><i class="fas fa-clock"></i> Working Hours</h3>
+  <p>09:00 - 23:00 Daily</p>
+  <p>Fri: 14:00 - 23:00</p>
+</div>
+
+<div class="glass card">
+  <h3><i class="fas fa-wifi"></i> WiFi Password</h3>
+  <p id="wifi" style="display:none;">NetLand@2026</p>
+  <button onclick="toggleWifi()">Reveal</button>
+  <button onclick="navigator.clipboard.writeText('NetLand@2026')">Copy</button>
+</div>
+
+<div class="glass card">
+  <h3><i class="fas fa-gamepad"></i> Gaming Stations</h3>
+  <p id="stations">24 Available</p>
+  <button onclick="refreshStations()">Refresh</button>
+</div>
+
+</main>
+</div>
 
 <script>
-/* ========================
-   THEME SYSTEM
-   ======================== */
-
-const toggle=document.getElementById("themeToggle");
-
-if(localStorage.getItem("theme")==="dark"){
-  document.documentElement.setAttribute("data-theme","dark");
+function toggleWifi(){
+  const el=document.getElementById("wifi");
+  el.style.display=el.style.display==="none"?"block":"none";
 }
 
-toggle.addEventListener("click",()=>{
-  if(document.documentElement.getAttribute("data-theme")==="dark"){
-    document.documentElement.removeAttribute("data-theme");
-    localStorage.setItem("theme","light");
-  }else{
-    document.documentElement.setAttribute("data-theme","dark");
-    localStorage.setItem("theme","dark");
-  }
-});
-
-/* ========================
-   TOAST SYSTEM
-   ======================== */
-
-function toast(message){
-  const t=document.createElement("div");
-  t.textContent=message;
-  t.style.position="fixed";
-  t.style.bottom="20px";
-  t.style.left="50%";
-  t.style.transform="translateX(-50%)";
-  t.style.padding="0.8rem 1.2rem";
-  t.style.borderRadius="12px";
-  t.style.background="rgba(0,0,0,0.8)";
-  t.style.color="#fff";
-  t.style.zIndex="999";
-  t.style.animation="fadeIn .3s ease";
-  document.body.appendChild(t);
-  setTimeout(()=>t.remove(),2000);
+function refreshStations(){
+  document.getElementById("stations").innerText=
+    Math.floor(Math.random()*30)+1+" Available";
 }
-
-/* ========================
-   COPY FUNCTION
-   ======================== */
-
-function copyText(text){
-  navigator.clipboard.writeText(text);
-  toast("Copied to clipboard!");
-}
-
-/* ========================
-   SIMULATED GAMING STATIONS
-   ======================== */
-
-function toggleStations(){
-  const el=document.getElementById("stations");
-  el.textContent=Math.floor(Math.random()*10);
-}
-
-/* ========================
-   VISITOR COUNTER
-   ======================== */
-
-let visitors=120;
-setInterval(()=>{
-  visitors+=Math.floor(Math.random()*3);
-  document.title="("+visitors+" Online) NetLand Internet Cafe";
-},3000);
 </script>
 
 </body>
