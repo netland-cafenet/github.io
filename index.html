@@ -13,6 +13,7 @@
     /* ------------------------------------------------------------
        NETLAND — ULTIMATE GLASS + LIVING ORBS + SILKY TOGGLE
        iOS SF Pro · Windows 11 Mica fusion · Pure cinematic atmosphere
+       HEADER ABSOLUTELY STABLE — NO HOVER MOVEMENT EVER
        ------------------------------------------------------------ */
     
     /* ---------- TYPOGRAPHY (EXACT SF PRO STACK) ---------- */
@@ -43,7 +44,7 @@
       --shadow-1: 0 18px 30px -12px rgba(0,20,40,0.08);
       --shadow-2: 0 6px 14px -6px rgba(0,0,0,0.02);
       --shadow-3: 0 0 0 0.5px rgba(255,255,255,0.7) inset;
-      --shadow-4: none; /* no colored glow in light — pure clean glass */
+      --shadow-4: none;
       
       --accent: #0077cc;
       --toggle-track: rgba(220,235,250,0.6);
@@ -147,7 +148,6 @@
       opacity: 0.3;
     }
 
-    /* dark mode orbs – deep cool tones, still neutral */
     [data-theme="dark"] .orb:nth-child(1) {
       background: radial-gradient(circle at 30% 30%, #1e3347, #101a26);
     }
@@ -187,21 +187,24 @@
       transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1);
     }
 
-    /* header NEVER scales on hover – absolute stability */
+    /* ----- HEADER: ABSOLUTELY NO TRANSFORM ON HOVER ----- */
     header.glass {
-      transition: box-shadow 0.3s ease, background 0.4s ease;
+      transition: box-shadow 0.3s ease, background 0.4s ease, backdrop-filter 0.3s ease;
+      transform: translateX(-50%) !important; /* FIXED: prevent transform override */
     }
+    
     header.glass:hover {
-      transform: none !important;
+      transform: translateX(-50%) !important; /* CRITICAL: stays exactly at center, no right shift */
       box-shadow: 
         var(--shadow-1),
         var(--shadow-2),
         var(--shadow-3),
         var(--shadow-4);
       backdrop-filter: blur(26px) saturate(170%);
+      background: var(--glass-bg); /* no change */
     }
 
-    /* card hover – subtle lift, no aggressive scale */
+    /* card hover – subtle lift, no horizontal transform */
     .card.glass:hover {
       transform: translateY(-6px);
       box-shadow: 
@@ -265,7 +268,6 @@
       justify-content: center;
     }
 
-    /* sun / moon icons via pseudo (pure css) */
     .slider:after {
       position: absolute;
       content: "☀️";
@@ -294,7 +296,6 @@
       transition: all 0.45s cubic-bezier(0.34, 1.2, 0.64, 1);
     }
 
-    /* dark mode toggle aesthetics */
     [data-theme="dark"] .slider {
       background: rgba(45,60,80,0.8);
       border-color: rgba(255,255,255,0.2);
@@ -303,12 +304,12 @@
       background: #f0f3fa;
     }
 
-    /* ---------- HEADER (ROCK SOLID) ---------- */
+    /* ---------- HEADER (ROCK SOLID - NO MOVEMENT) ---------- */
     header {
       position: fixed;
       top: 20px;
       left: 50%;
-      transform: translateX(-50%);
+      transform: translateX(-50%) !important; /* critical - forces exact centering */
       width: calc(100% - 40px);
       max-width: 1280px;
       padding: 14px 28px;
@@ -320,6 +321,15 @@
       backdrop-filter: blur(28px);
       border: 0.6px solid var(--glass-border);
       border-radius: 48px;
+      will-change: transform; /* optimize but prevent changes */
+    }
+
+    /* extra specificity to prevent any hover transform */
+    body header.glass,
+    body header.glass:hover,
+    body header.glass:focus,
+    body header.glass:active {
+      transform: translateX(-50%) !important;
     }
 
     .logo {
@@ -382,7 +392,6 @@
       gap: 22px;
     }
 
-    /* card – minimalist, compact, pure glass */
     .card {
       padding: 20px 20px 22px;
       min-height: 160px;
@@ -437,7 +446,6 @@
       transform: scale(0.98);
     }
 
-    /* location specific RTL */
     .rtl-text {
       direction: rtl;
       text-align: right;
@@ -460,7 +468,6 @@
       .logo { font-size: 1.4rem; }
     }
 
-    /* bottom nav – only mobile */
     .bottom-nav {
       display: none;
       position: fixed;
@@ -485,7 +492,6 @@
       color: var(--text-secondary);
     }
 
-    /* toast notification */
     .toast {
       position: fixed;
       bottom: 90px;
@@ -507,7 +513,6 @@
       100% { opacity: 1; transform: translate(-50%, 0); }
     }
 
-    /* visitor badge – minimal */
     .visitor-badge {
       background: var(--glass-bg);
       padding: 6px 14px;
@@ -515,12 +520,6 @@
       font-size: 0.75rem;
       border: 0.5px solid var(--glass-border);
       margin-right: 10px;
-    }
-
-    /* copy button for wifi */
-    .hidden-pass {
-      filter: blur(3px);
-      user-select: none;
     }
   </style>
 </head>
@@ -532,7 +531,7 @@
   <div class="orb"></div>
   <div class="orb"></div>
 
-  <!-- HEADER – ABSOLUTELY STABLE, NO HOVER SHIFT -->
+  <!-- HEADER – ABSOLUTELY STABLE, NO HOVER SHIFT - FIXED -->
   <header class="glass">
     <div class="logo">NetLand</div>
     <div class="nav-links">
@@ -544,7 +543,6 @@
     </div>
     <div style="display: flex; align-items: center;">
       <span class="visitor-badge glass" id="visitorBadge">👥 144 online</span>
-      <!-- SILKY TOGGLE – EXACT YOUTUBE STYLE (PURE CSS, spring motion) -->
       <label class="theme-switch">
         <input type="checkbox" id="themeToggleCheckbox">
         <span class="slider"></span>
@@ -558,10 +556,9 @@
     <p>Pure glass · Fluid orbs · Instant connectivity</p>
   </section>
 
-  <!-- 8 CARD GRID – FULLY MINIMAL, ALL SOCIAL CARDS + LOCATION -->
+  <!-- 8 CARD GRID -->
   <section class="section">
     <div class="grid">
-
       <!-- 1. Telegram -->
       <div class="card glass">
         <i class="fab fa-telegram-plane"></i>
@@ -638,10 +635,9 @@
   </div>
 
   <script>
-    // ================== THEME TOGGLE — SILKY, PERSISTENT ==================
+    // ================== THEME TOGGLE ==================
     const toggleCheckbox = document.getElementById('themeToggleCheckbox');
     
-    // set initial state based on localStorage
     if (localStorage.getItem('theme') === 'dark') {
       document.documentElement.setAttribute('data-theme', 'dark');
       toggleCheckbox.checked = true;
@@ -674,9 +670,8 @@
       showToast('📋 Copied!');
     }
 
-    // WiFi reveal toggle
-    const wifiEl = document.getElementById('wifiDisplay');
     window.revealWifi = function() {
+      const wifiEl = document.getElementById('wifiDisplay');
       if (wifiEl.style.filter === 'blur(5px)') {
         wifiEl.style.filter = 'none';
         showToast('🔓 WiFi password visible');
@@ -686,25 +681,21 @@
       }
     }
 
-    // Gaming stations – live simulation
     window.updateStations = function() {
-      const available = Math.floor(Math.random() * 18) + 12; // 12–30
+      const available = Math.floor(Math.random() * 18) + 12;
       document.getElementById('stationCount').innerText = `${available} PCs available`;
       showToast(`🕹️ Stations updated: ${available} ready`);
     }
 
-    // visitor counter – subtle, live feeling
     let visitors = 144;
     setInterval(() => {
-      visitors += Math.floor(Math.random() * 4) - 1; // -1 to +2
+      visitors += Math.floor(Math.random() * 4) - 1;
       if (visitors < 130) visitors = 144;
       document.getElementById('visitorBadge').innerHTML = `👥 ${visitors} online`;
     }, 5800);
 
-    // initial call to set wifi hidden by default
     window.onload = function() {
-      wifiEl.style.filter = 'blur(5px)';
-      // ensure toggle state is perfect
+      document.getElementById('wifiDisplay').style.filter = 'blur(5px)';
       if (document.documentElement.getAttribute('data-theme') === 'dark') {
         toggleCheckbox.checked = true;
       }
