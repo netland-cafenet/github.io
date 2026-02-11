@@ -1,428 +1,363 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="dark">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NetLand Internet Cafe | Your Digital Gateway</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>NetLand Internet Cafe</title>
 
-<meta name="description" content="NetLand Internet Cafe – Premium gaming stations, high-speed WiFi, futuristic glass design experience.">
-<meta property="og:title" content="NetLand Internet Cafe">
-<meta property="og:description" content="Experience premium gaming and ultra-fast connectivity in a futuristic atmosphere.">
-<meta property="og:type" content="website">
-<meta name="theme-color" content="#0ea5e9">
+<!-- Prevent theme flash -->
+<script>
+(function () {
+  const saved = localStorage.getItem("theme");
+  if (saved) {
+    document.documentElement.setAttribute("data-theme", saved);
+  }
+})();
+</script>
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
-/* ==========================================================
-   NETLAND INTERNET CAFE 2026
-   COMPLETE REARCHITECTURE
-   ========================================================== */
-
-/* =============================
-   iOS TYPOGRAPHY SYSTEM
-   ============================= */
-body{
-  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Helvetica Neue",sans-serif;
-  -webkit-font-smoothing:antialiased;
-  -moz-osx-font-smoothing:grayscale;
-  letter-spacing:-0.01em;
-}
-
-/* =============================
-   ROOT THEME VARIABLES
-   ============================= */
 :root{
-
-  --bg-gradient:linear-gradient(135deg,#f0f9ff,#e0f2fe);
-  --text-primary:#0f172a;
-  --text-secondary:#475569;
-
-  --glass-bg:linear-gradient(135deg,rgba(255,255,255,0.4),rgba(255,255,255,0.2));
-  --glass-border:rgba(255,255,255,0.6);
-
-  --shadow-ambient:0 25px 45px -15px rgba(0,0,0,0.15);
-  --shadow-directional:0 8px 20px -5px rgba(0,0,0,0.08);
-  --shadow-glow:0 5px 20px rgba(59,130,246,0.25);
-
-  --accent:#0ea5e9;
+  --radius: 22px;
+  --transition: 0.5s ease-in-out;
+  --spring: cubic-bezier(0.34,1.56,0.64,1);
 }
 
-[data-theme="dark"]{
-
-  --bg-gradient:linear-gradient(135deg,#0a0f1c,#101720);
-  --text-primary:#f1f5f9;
-  --text-secondary:#94a3b8;
-
-  --glass-bg:linear-gradient(135deg,rgba(20,30,45,0.55),rgba(15,25,35,0.45));
-  --glass-border:rgba(255,255,255,0.15);
-
-  --shadow-ambient:0 25px 50px -15px rgba(0,0,0,0.6);
-  --shadow-directional:0 10px 25px -8px rgba(0,0,0,0.4);
-  --shadow-glow:0 5px 25px rgba(0,229,255,0.25);
-
-  --accent:#00e5ff;
+/* =========================
+   THEME VARIABLES
+========================= */
+html[data-theme="dark"]{
+  --bg-gradient: radial-gradient(circle at 20% 20%, #0f1724, #0b111a 40%, #070b12);
+  --glass-bg: linear-gradient(135deg, rgba(25,35,50,0.65), rgba(20,30,45,0.55));
+  --glass-border: 0.5px solid rgba(255,255,255,0.12);
+  --glass-shadow:
+    inset 0 0 0 1px rgba(255,255,255,0.05),
+    0 35px 55px -20px rgba(0,0,0,0.65),
+    0 15px 25px -12px rgba(0,0,0,0.4),
+    0 0 15px rgba(0,229,255,0.15);
+  --text: #f1f5f9;
+  --muted: #94a3b8;
 }
 
-/* =============================
-   GLOBAL RESET
-   ============================= */
-*{margin:0;padding:0;box-sizing:border-box}
+html[data-theme="light"]{
+  --bg-gradient: radial-gradient(circle at 20% 20%, #dbeafe, #f8fafc 40%, #eef2ff);
+  --glass-bg: linear-gradient(135deg, rgba(255,255,255,0.6), rgba(255,255,255,0.4));
+  --glass-border: 0.5px solid rgba(255,255,255,0.8);
+  --glass-shadow:
+    inset 0 0 0 1px rgba(255,255,255,0.7),
+    0 30px 50px -20px rgba(0,20,40,0.25),
+    0 10px 20px -8px rgba(0,0,0,0.08),
+    0 0 0 0.5px rgba(255,255,255,0.5) inset;
+  --text: #0f172a;
+  --muted: #475569;
+}
+
+/* =========================
+   GLOBAL
+========================= */
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
 
 body{
+  font-family:'Inter',sans-serif;
   background:var(--bg-gradient);
-  color:var(--text-primary);
-  transition:background .6s ease,color .3s ease;
+  color:var(--text);
   min-height:100vh;
+  transition: background var(--transition), color var(--transition);
   overflow-x:hidden;
+  letter-spacing:0.2px;
 }
 
-/* =============================
-   LIVING ORB SYSTEM
-   ============================= */
+h1,h2,h3{
+  font-weight:700;
+  letter-spacing:-0.3px;
+}
+
+p{
+  font-weight:500;
+  color:var(--muted);
+  line-height:1.6;
+}
+
+main{
+  padding:140px 20px 120px;
+  max-width:1200px;
+  margin:auto;
+}
+
+/* =========================
+   BACKGROUND ORBS
+========================= */
 .orb{
   position:fixed;
   border-radius:50%;
-  filter:blur(60px);
-  opacity:.2;
-  animation:floatOrb linear infinite;
-  z-index:-1;
+  filter:blur(120px);
+  opacity:0.25;
+  pointer-events:none;
+  will-change: transform, filter;
+  animation-timing-function:cubic-bezier(0.45,0,0.55,1);
+  animation-iteration-count:infinite;
+  animation-direction:alternate;
 }
 
-@keyframes floatOrb{
-  0%{transform:translate(0,0) scale(1)}
-  50%{transform:translate(120px,-100px) scale(1.2)}
-  100%{transform:translate(-80px,120px) scale(.9)}
+html[data-theme="dark"] .orb:nth-child(1){background:#00e5ff;}
+html[data-theme="dark"] .orb:nth-child(2){background:#7c3aed;}
+html[data-theme="dark"] .orb:nth-child(3){background:#2563eb;}
+
+html[data-theme="light"] .orb:nth-child(1){background:#f59e0b;}
+html[data-theme="light"] .orb:nth-child(2){background:#38bdf8;}
+html[data-theme="light"] .orb:nth-child(3){background:#c084fc;}
+
+.orb1{width:400px;height:400px;top:10%;left:-10%;animation:float1 30s;}
+.orb2{width:500px;height:500px;bottom:-10%;right:-10%;animation:float2 25s;}
+.orb3{width:350px;height:350px;top:50%;left:40%;animation:float3 35s;}
+
+@keyframes float1{
+  from{transform:translateY(-40px) translateX(0);}
+  to{transform:translateY(60px) translateX(60px);}
+}
+@keyframes float2{
+  from{transform:translateY(0) translateX(0);}
+  to{transform:translateY(-80px) translateX(-60px);}
+}
+@keyframes float3{
+  from{transform:translateY(30px) translateX(-40px);}
+  to{transform:translateY(-50px) translateX(40px);}
 }
 
-/* Light Mode Orbs */
-.orb.light1{background:#fbbf24;width:120px;height:120px;top:10%;left:5%;animation-duration:18s}
-.orb.light2{background:#22d3ee;width:150px;height:150px;top:40%;left:80%;animation-duration:22s}
-.orb.light3{background:#c084fc;width:100px;height:100px;top:70%;left:20%;animation-duration:20s}
-
-/* Dark Mode Orbs */
-[data-theme="dark"] .light1{background:#00e5ff}
-[data-theme="dark"] .light2{background:#22e6b3}
-[data-theme="dark"] .light3{background:#a78bfa}
-
-/* =============================
-   GLASS SYSTEM
-   ============================= */
+/* =========================
+   GLASS BASE
+========================= */
 .glass{
   background:var(--glass-bg);
-  backdrop-filter:blur(30px) saturate(160%);
-  -webkit-backdrop-filter:blur(30px) saturate(160%);
-  border:1px solid var(--glass-border);
-  box-shadow:
-    var(--shadow-ambient),
-    var(--shadow-directional),
-    var(--shadow-glow);
-  border-radius:22px;
-  transition:all .3s cubic-bezier(.4,0,.2,1);
-  position:relative;
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  border-radius:var(--radius);
+  border:var(--glass-border);
+  box-shadow:var(--glass-shadow);
+  transition: all var(--transition);
+  transform-origin:center;
 }
 
-.glass:hover{
-  transform:scale(1.03) translateY(-6px);
-  box-shadow:
-    0 35px 60px -15px rgba(0,0,0,0.25),
-    var(--shadow-directional),
-    0 0 30px var(--accent);
-}
-
-/* =============================
-   HEADER NAV
-   ============================= */
-header{
+/* =========================
+   HEADER (ROCK SOLID)
+========================= */
+.glass-header{
   position:fixed;
   top:20px;
   left:50%;
   transform:translateX(-50%);
-  width:95%;
-  max-width:1300px;
-  padding:14px 24px;
+  z-index:1000;
+  isolation:isolate;
+  width:90%;
+  max-width:1000px;
+  padding:16px 24px;
   display:flex;
   justify-content:space-between;
   align-items:center;
-  z-index:100;
 }
 
-.logo{font-weight:700;font-size:1.4rem;letter-spacing:-0.02em}
+.glass-header:hover{
+  transform:translateX(-50%); /* NO SCALE EVER */
+}
+
+.logo{
+  font-weight:800;
+  font-size:20px;
+  letter-spacing:1px;
+}
 
 .visitor-badge{
-  padding:6px 12px;
-  font-size:.85rem;
-  border-radius:14px;
+  padding:6px 14px;
+  border-radius:999px;
+  font-size:13px;
+  font-weight:600;
+  background:rgba(255,255,255,0.1);
+  backdrop-filter:blur(10px);
 }
 
-/* =============================
-   HERO
-   ============================= */
-.hero{
-  padding:160px 20px 80px;
-  text-align:center;
+/* =========================
+   THEME TOGGLE SWITCH
+========================= */
+.theme-switch{
+  position:relative;
+  width:60px;
+  height:30px;
+  border-radius:30px;
+  background:var(--glass-bg);
+  border:var(--glass-border);
+  box-shadow:var(--glass-shadow);
+  cursor:pointer;
+  transition:all var(--transition);
 }
 
-.hero h1{
-  font-size:clamp(2rem,4vw,4rem);
-  font-weight:700;
-  letter-spacing:-0.02em;
-  background:linear-gradient(90deg,#0ea5e9,#6366f1);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
+.switch-thumb{
+  position:absolute;
+  top:3px;
+  left:3px;
+  width:24px;
+  height:24px;
+  border-radius:50%;
+  background:white;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:14px;
+  transition:all 0.5s var(--spring);
 }
 
-.hero p{color:var(--text-secondary);margin-top:20px}
-
-/* =============================
-   GRID SYSTEM
-   ============================= */
-.section{max-width:1300px;margin:auto;padding:40px 20px}
-
-.grid{display:grid;gap:30px}
-
-/* Desktop 4 columns */
-@media(min-width:1200px){
-  .grid{grid-template-columns:repeat(4,1fr)}
+html[data-theme="dark"] .switch-thumb{
+  transform:translateX(30px) rotate(360deg) scale(1.2);
 }
 
-/* Tablet 2 columns */
-@media(min-width:768px) and (max-width:1199px){
-  .grid{grid-template-columns:repeat(2,1fr)}
+html[data-theme="light"] .switch-thumb{
+  transform:translateX(0) rotate(0deg) scale(1);
 }
 
-/* Mobile 1 column */
-@media(max-width:767px){
-  .grid{grid-template-columns:1fr}
-}
-
-/* =============================
-   CARD STYLE
-   ============================= */
+/* =========================
+   CARDS
+========================= */
 .card{
   padding:30px;
-  min-height:220px;
-  display:flex;
-  flex-direction:column;
-  justify-content:space-between;
-  animation:floatCard 6s ease-in-out infinite;
+  margin-bottom:30px;
 }
 
-@keyframes floatCard{
-  0%,100%{transform:translateY(-3px)}
-  50%{transform:translateY(3px)}
+.card:hover{
+  transform:translateY(-6px);
 }
 
-.card h3{font-weight:600}
-.card p{color:var(--text-secondary);margin:10px 0}
-
-/* Buttons */
-.btn{
-  padding:10px 16px;
-  border-radius:10px;
-  background:var(--accent);
-  color:#fff;
-  border:none;
-  cursor:pointer;
-  transition:.2s;
-}
-.btn:active{transform:scale(.97)}
-
-/* =============================
-   BOTTOM NAV (Mobile/Tablet)
-   ============================= */
+/* =========================
+   BOTTOM NAV
+========================= */
 .bottom-nav{
   position:fixed;
-  bottom:15px;
+  bottom:20px;
   left:50%;
   transform:translateX(-50%);
-  width:95%;
-  max-width:600px;
+  width:90%;
+  max-width:500px;
   display:flex;
   justify-content:space-around;
-  padding:10px;
-  z-index:200;
-}
-
-.bottom-nav i{font-size:1.2rem}
-
-@media(min-width:1200px){
-  .bottom-nav{display:none}
-}
-
-/* =============================
-   TOAST
-   ============================= */
-.toast{
-  position:fixed;
-  bottom:40px;
-  left:50%;
-  transform:translateX(-50%);
-  padding:14px 20px;
-  border-radius:14px;
-  background:rgba(0,0,0,0.75);
-  color:#fff;
-  animation:slideIn .4s ease, fadeOut .4s ease 2.6s forwards;
+  padding:14px;
   z-index:999;
 }
 
-@keyframes slideIn{
-  from{opacity:0;transform:translate(-50%,20px)}
-  to{opacity:1;transform:translate(-50%,0)}
-}
-@keyframes fadeOut{
-  to{opacity:0}
+.bottom-nav a{
+  text-decoration:none;
+  color:var(--muted);
+  font-weight:600;
+  transition:all 0.3s;
 }
 
+.bottom-nav a:hover,
+.bottom-nav a.active{
+  color:var(--text);
+}
+
+/* =========================
+   FOCUS STATES
+========================= */
+:focus-visible{
+  outline:2px solid #00e5ff;
+  outline-offset:2px;
+  border-radius:6px;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media(max-width:768px){
+  .glass-header{
+    flex-direction:column;
+    gap:12px;
+  }
+}
 </style>
 </head>
 
 <body>
 
-<!-- ORBS -->
-<div class="orb light1"></div>
-<div class="orb light2"></div>
-<div class="orb light3"></div>
+<div class="orb orb1"></div>
+<div class="orb orb2"></div>
+<div class="orb orb3"></div>
 
-<header class="glass">
+<header class="glass glass-header">
   <div class="logo">NetLand</div>
-  <div class="visitor-badge glass">👥 <span id="visitors">124</span> Online</div>
-  <button id="themeToggle" class="glass btn" aria-label="Toggle theme">
-    <i class="fas fa-sun"></i>
-  </button>
+
+  <div style="display:flex;align-items:center;gap:16px;">
+    <div class="visitor-badge" aria-live="polite">
+      👥 <span id="visitorCount">1247</span> Visitors
+    </div>
+
+    <div class="theme-switch" role="switch" aria-checked="true" tabindex="0" id="themeToggle">
+      <div class="switch-thumb" id="thumb">🌙</div>
+    </div>
+  </div>
 </header>
 
-<section class="hero">
-  <h1>NetLand — Your Digital Gateway</h1>
-  <p>Premium Gaming • Ultra Fast WiFi • Futuristic Atmosphere</p>
-</section>
+<main>
+  <section class="glass card">
+    <h2>Ultra Fast Gaming</h2>
+    <p>RTX-powered PCs, 240Hz monitors, zero latency environment.</p>
+  </section>
 
-<section class="section">
-  <div class="grid">
+  <section class="glass card">
+    <h2>Premium Lounge</h2>
+    <p>Relax in cyberpunk-inspired neon comfort zones.</p>
+  </section>
 
-    <div class="card glass">
-      <h3><i class="fab fa-telegram"></i> Telegram</h3>
-      <p>Join Our Channel • 2,540 Members</p>
-      <button class="btn" onclick="toast('Opening Telegram...')">Join</button>
-    </div>
+  <section class="glass card">
+    <h2>Location</h2>
+    <iframe 
+      src="https://maps.google.com/maps?q=Singapore&t=&z=13&ie=UTF8&iwloc=&output=embed"
+      width="100%" height="250" style="border:0;border-radius:18px;">
+    </iframe>
+  </section>
+</main>
 
-    <div class="card glass">
-      <h3><i class="fab fa-instagram"></i> Instagram</h3>
-      <p>Follow Us • 8,320 Followers</p>
-      <button class="btn" onclick="toast('Following NetLand')">Follow</button>
-    </div>
-
-    <div class="card glass">
-      <h3><i class="fab fa-whatsapp"></i> WhatsApp</h3>
-      <p>Status: <span style="color:lime">Online</span></p>
-      <button class="btn" onclick="toast('Opening WhatsApp...')">Chat Now</button>
-    </div>
-
-    <div class="card glass">
-      <h3><i class="fas fa-map-marker-alt"></i> Location</h3>
-      <p>Unit 12, Digital District, Tech City</p>
-      <button class="btn" onclick="toast('Loading Directions...')">Get Directions</button>
-    </div>
-
-    <div class="card glass">
-      <h3><i class="fas fa-phone"></i> Contact</h3>
-      <p>+98 21 1234 5678</p>
-      <button class="btn" onclick="copyText('+982112345678')">Copy Number</button>
-    </div>
-
-    <div class="card glass">
-      <h3><i class="fas fa-clock"></i> Working Hours</h3>
-      <p>Daily: 09:00 - 23:00<br>Friday: 14:00 - 23:00</p>
-    </div>
-
-    <div class="card glass">
-      <h3><i class="fas fa-wifi"></i> WiFi Password</h3>
-      <p id="wifiPass">••••••••••</p>
-      <button class="btn" onclick="revealWifi()">Reveal</button>
-    </div>
-
-    <div class="card glass">
-      <h3><i class="fas fa-gamepad"></i> Gaming Stations</h3>
-      <p><span id="stations">24</span> Available</p>
-      <button class="btn" onclick="updateStations()">Refresh</button>
-    </div>
-
-  </div>
-</section>
-
-<nav class="bottom-nav glass">
-  <i class="fas fa-home"></i>
-  <i class="fas fa-hashtag"></i>
-  <i class="fas fa-map"></i>
-  <i class="fas fa-phone"></i>
-  <i class="fas fa-user"></i>
+<nav class="glass bottom-nav">
+  <a href="#" class="active">Home</a>
+  <a href="#">Games</a>
+  <a href="#">Pricing</a>
+  <a href="#">Contact</a>
 </nav>
 
 <script>
-/* ============================
-   THEME TOGGLE
-   ============================ */
-const toggle=document.getElementById("themeToggle");
-const icon=toggle.querySelector("i");
+const toggle = document.getElementById("themeToggle");
+const thumb = document.getElementById("thumb");
+const html = document.documentElement;
 
-if(localStorage.getItem("theme")==="dark"){
-  document.documentElement.setAttribute("data-theme","dark");
-  icon.className="fas fa-moon";
+function setTheme(theme){
+  html.setAttribute("data-theme",theme);
+  localStorage.setItem("theme",theme);
+  toggle.setAttribute("aria-checked", theme==="dark");
+  thumb.textContent = theme==="dark" ? "🌙" : "☀️";
 }
 
 toggle.addEventListener("click",()=>{
-  document.documentElement.toggleAttribute("data-theme","dark");
-  const dark=document.documentElement.hasAttribute("data-theme");
-  icon.className=dark?"fas fa-moon":"fas fa-sun";
-  localStorage.setItem("theme",dark?"dark":"light");
+  const current = html.getAttribute("data-theme");
+  setTheme(current==="dark" ? "light":"dark");
 });
 
-/* ============================
-   VISITOR COUNTER
-   ============================ */
-setInterval(()=>{
-  const el=document.getElementById("visitors");
-  el.textContent=parseInt(el.textContent)+Math.floor(Math.random()*3);
-},4000);
-
-/* ============================
-   TOAST FUNCTION
-   ============================ */
-function toast(msg){
-  const t=document.createElement("div");
-  t.className="toast";
-  t.textContent=msg;
-  document.body.appendChild(t);
-  setTimeout(()=>t.remove(),3000);
-}
-
-/* ============================
-   COPY FUNCTION
-   ============================ */
-function copyText(text){
-  navigator.clipboard.writeText(text);
-  toast("Copied Successfully");
-}
-
-/* ============================
-   WIFI REVEAL
-   ============================ */
-function revealWifi(){
-  const el=document.getElementById("wifiPass");
-  if(el.textContent==="••••••••••"){
-    el.textContent="NetLand@2026";
-  }else{
-    el.textContent="••••••••••";
+toggle.addEventListener("keydown",(e)=>{
+  if(e.key==="Enter"||e.key===" "){
+    e.preventDefault();
+    toggle.click();
   }
-}
+});
 
-/* ============================
-   STATION UPDATE
-   ============================ */
-function updateStations(){
-  document.getElementById("stations").textContent=Math.floor(Math.random()*30);
-  toast("Station Availability Updated");
-}
+/* Visitor counter realistic increment */
+let count = 1247;
+setInterval(()=>{
+  if(Math.random() > 0.7){
+    count += 1;
+    document.getElementById("visitorCount").textContent = count;
+  }
+}, 5000);
 </script>
 
 </body>
