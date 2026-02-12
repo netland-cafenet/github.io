@@ -582,54 +582,59 @@
   </div>
 
   <script>
-    // ======================== سیستم تم (دارک/لایت) ========================
+    // ======================== سیستم تم (دارک/لایت) - کاملاً کاربردی ========================
     const themeToggle = document.getElementById('themeToggleCheckbox');
     
-    // بازیابی تم ذخیره شده
+    // بازیابی تم ذخیره شده از localStorage
     if (localStorage.getItem('theme') === 'dark') {
       document.documentElement.setAttribute('data-theme', 'dark');
       themeToggle.checked = true;
     } else {
-      document.documentElement.removeAttribute('data-theme');
+      document.documentElement.setAttribute('data-theme', 'light');
       themeToggle.checked = false;
     }
 
-    // رویداد تغییر تم
+    // رویداد تغییر تم با کلیک
     themeToggle.addEventListener('change', function(e) {
       if (this.checked) {
         document.documentElement.setAttribute('data-theme', 'dark');
         localStorage.setItem('theme', 'dark');
       } else {
-        document.documentElement.removeAttribute('data-theme');
+        document.documentElement.setAttribute('data-theme', 'light');
         localStorage.setItem('theme', 'light');
       }
     });
 
-    // ======================== سیستم زبان (فارسی/انگلیسی) ========================
+    // ======================== سیستم زبان (فارسی/انگلیسی) - کامل و بی‌نقص ========================
     const langToggle = document.getElementById('langToggleCheckbox');
     const langLabel = document.getElementById('langLabel');
 
-    // آبجکت کامل ترجمه - همه متون سایت
+    // آبجکت کامل ترجمه - همه متون سایت به صورت کامل
     const translations = {
-      // نویگیشن
+      // نویگیشن هدر
       navHome: { fa: 'خانه', en: 'Home' },
       navGaming: { fa: 'گیمر', en: 'Gaming' },
       navServices: { fa: 'خدمات', en: 'Services' },
       navContact: { fa: 'تماس', en: 'Contact' },
       navLogin: { fa: 'ورود', en: 'Login' },
+      
       // هیرو
       heroSub: { fa: 'خدمات اینترنتی، دیجیتال و گرافیک', en: 'Internet, Digital & Graphic Services' },
+      
       // کارت ۱: تلگرام
       card1Title: { fa: 'تلگرام', en: 'Telegram' },
       card1Desc: { fa: 'عضویت در کانال · ۲,۵۰۰ عضو', en: 'Join Channel · 2.5K members' },
       card1Btn: { fa: 'عضویت', en: 'Join' },
+      
       // کارت ۲: اینستاگرام
       card2Title: { fa: 'اینستاگرام', en: 'Instagram' },
       card2Desc: { fa: 'دنبال کنید · ۸,۳۰۰ دنبال‌کننده', en: 'Follow us · 8.3K followers' },
       card2Btn: { fa: 'دنبال کردن', en: 'Follow' },
+      
       // کارت ۳: واتساپ
       card3Title: { fa: 'واتساپ', en: 'WhatsApp' },
       card3Btn: { fa: 'گفتگو', en: 'Chat' },
+      
       // کارت ۴: لوکیشن
       card4Title: { fa: 'لوکیشن', en: 'Location' },
       card4Address: { 
@@ -637,56 +642,64 @@
         en: 'Tehran - Pakdasht - Forunabad - End of Velayat St. - Shohadaye Gomanam St. - NetLand CafeNet' 
       },
       card4Btn: { fa: 'مسیریابی', en: 'Directions' },
+      
       // کارت ۵: تماس
       card5Title: { fa: 'تماس', en: 'Contact' },
       card5Btn: { fa: 'کپی شماره', en: 'Copy number' },
+      
       // کارت ۶: ساعت کاری
       card6Title: { fa: 'ساعت کاری', en: 'Hours' },
       card6Desc: { 
         fa: 'روزانه ۰۹:۰۰ – ۲۳:۰۰<br>جمعه ۱۴:۰۰ – ۲۳:۰۰', 
         en: 'Daily 09:00 – 23:00<br>Fri 14:00 – 23:00' 
       },
+      
       // کارت ۷: وای‌فای
       card7Title: { fa: 'رمز وای‌فای', en: 'WiFi Password' },
       card7Btn1: { fa: 'نمایش', en: 'Reveal' },
       card7Btn2: { fa: 'کپی', en: 'Copy' },
+      
       // کارت ۸: گیمینگ
       card8Title: { fa: 'ایستگاه‌های گیمینگ', en: 'Gaming Stations' },
       card8Btn: { fa: 'بروزرسانی', en: 'Refresh' },
+      
       // ویزیتر
       visitorBadge: { fa: '👥 ۱۴۴ آنلاین', en: '👥 144 online' }
     };
 
-    // تابع تغییر زبان
+    // تابع اصلی تغییر زبان
     function setLanguage(lang) {
       const isRTL = (lang === 'fa');
       
-      // تغییر دایرکشن و lang
+      // تغییر دایرکشن و lang سند
       document.documentElement.dir = isRTL ? 'rtl' : 'ltr';
       document.documentElement.lang = lang;
       
       // تغییر لیبل سوئیچ
       langLabel.textContent = isRTL ? 'FA' : 'EN';
       
-      // اعمال ترجمه به المان‌ها
+      // اعمال ترجمه به المان‌های نویگیشن
       document.querySelector('.nav-home').textContent = translations.navHome[lang];
       document.querySelector('.nav-gaming').textContent = translations.navGaming[lang];
       document.querySelector('.nav-services').textContent = translations.navServices[lang];
       document.querySelector('.nav-contact').textContent = translations.navContact[lang];
       document.querySelector('.nav-login').textContent = translations.navLogin[lang];
       
+      // اعمال ترجمه به هیرو
       document.getElementById('heroSub').textContent = translations.heroSub[lang];
       
+      // اعمال ترجمه به کارت ۱
       document.getElementById('card1Title').textContent = translations.card1Title[lang];
       document.getElementById('card1Desc').textContent = translations.card1Desc[lang];
       document.getElementById('card1Btn').textContent = translations.card1Btn[lang];
       
+      // اعمال ترجمه به کارت ۲
       document.getElementById('card2Title').textContent = translations.card2Title[lang];
       document.getElementById('card2Desc').textContent = translations.card2Desc[lang];
       document.getElementById('card2Btn').textContent = translations.card2Btn[lang];
       
+      // اعمال ترجمه به کارت ۳ (واتساپ با وضعیت)
       document.getElementById('card3Title').textContent = translations.card3Title[lang];
-      // وضعیت واتساپ با رنگ
       if (lang === 'fa') {
         document.getElementById('card3Desc').innerHTML = 'وضعیت: <span style="color: #2ecc71;">آنلاین</span> · گفتگو';
       } else {
@@ -694,20 +707,144 @@
       }
       document.getElementById('card3Btn').textContent = translations.card3Btn[lang];
       
+      // اعمال ترجمه به کارت ۴ (لوکیشن)
       document.getElementById('card4Title').textContent = translations.card4Title[lang];
       document.getElementById('card4Address').textContent = translations.card4Address[lang];
       document.getElementById('card4Btn').textContent = translations.card4Btn[lang];
       
+      // اعمال ترجمه به کارت ۵ (تماس)
       document.getElementById('card5Title').textContent = translations.card5Title[lang];
       document.getElementById('card5Btn').textContent = translations.card5Btn[lang];
       
+      // اعمال ترجمه به کارت ۶ (ساعت کاری)
       document.getElementById('card6Title').textContent = translations.card6Title[lang];
       document.getElementById('card6Desc').innerHTML = translations.card6Desc[lang];
       
+      // اعمال ترجمه به کارت ۷ (وای‌فای)
       document.getElementById('card7Title').textContent = translations.card7Title[lang];
       document.getElementById('card7Btn1').textContent = translations.card7Btn1[lang];
       document.getElementById('card7Btn2').textContent = translations.card7Btn2[lang];
       
+      // اعمال ترجمه به کارت ۸ (گیمینگ)
       document.getElementById('card8Title').textContent = translations.card8Title[lang];
-      // حفظ عدد فعلی ایستگاه‌ها
-      const stationEl =
+      const stationEl = document.getElementById('stationCount');
+      const currentNumber = stationEl.textContent.match(/\d+/)[0];
+      if (lang === 'fa') {
+        stationEl.textContent = `${currentNumber} دستگاه آماده`;
+      } else {
+        stationEl.textContent = `${currentNumber} PCs available`;
+      }
+      document.getElementById('card8Btn').textContent = translations.card8Btn[lang];
+      
+      // اعمال ترجمه به ویزیتر
+      document.getElementById('visitorBadge').innerHTML = translations.visitorBadge[lang];
+    }
+
+    // بازیابی زبان ذخیره شده از localStorage
+    if (localStorage.getItem('language') === 'en') {
+      langToggle.checked = false;
+      setLanguage('en');
+    } else {
+      langToggle.checked = true;
+      setLanguage('fa');
+    }
+
+    // رویداد تغییر زبان با کلیک
+    langToggle.addEventListener('change', function(e) {
+      if (this.checked) {
+        setLanguage('fa');
+        localStorage.setItem('language', 'fa');
+      } else {
+        setLanguage('en');
+        localStorage.setItem('language', 'en');
+      }
+    });
+
+    // ======================== توابع کاربردی ========================
+    
+    // تابع نمایش toast
+    function showToast(msg) {
+      const toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.textContent = msg;
+      document.body.appendChild(toast);
+      setTimeout(() => { toast.remove(); }, 2400);
+    }
+
+    // تابع کپی در کلیپ‌بورد
+    function copyToClipboard(text) {
+      navigator.clipboard.writeText(text);
+      const currentLang = document.documentElement.lang;
+      const message = currentLang === 'fa' ? '📋 کپی شد!' : '📋 Copied!';
+      showToast(message);
+    }
+
+    // تابع نمایش/مخفی کردن رمز وای‌فای
+    window.revealWifi = function() {
+      const wifiEl = document.getElementById('wifiDisplay');
+      const currentLang = document.documentElement.lang;
+      if (wifiEl.style.filter === 'blur(5px)') {
+        wifiEl.style.filter = 'none';
+        const msg = currentLang === 'fa' ? '🔓 رمز نمایش داده شد' : '🔓 Password revealed';
+        showToast(msg);
+      } else {
+        wifiEl.style.filter = 'blur(5px)';
+        const msg = currentLang === 'fa' ? '🔒 رمز مخفی شد' : '🔒 Password hidden';
+        showToast(msg);
+      }
+    };
+
+    // تابع بروزرسانی ایستگاه‌های گیمینگ
+    window.updateStations = function() {
+      const available = Math.floor(Math.random() * 18) + 12;
+      const stationEl = document.getElementById('stationCount');
+      const currentLang = document.documentElement.lang;
+      if (currentLang === 'fa') {
+        stationEl.textContent = `${available} دستگاه آماده`;
+        showToast(`🕹️ ایستگاه‌ها بروزرسانی شد: ${available} دستگاه آماده`);
+      } else {
+        stationEl.textContent = `${available} PCs available`;
+        showToast(`🕹️ Stations updated: ${available} ready`);
+      }
+    };
+
+    // ======================== سیستم شمارنده بازدیدکنندگان ========================
+    let visitors = 144;
+    setInterval(() => {
+      visitors += Math.floor(Math.random() * 4) - 1;
+      if (visitors < 130) visitors = 144;
+      const currentLang = document.documentElement.lang;
+      const badge = document.getElementById('visitorBadge');
+      if (currentLang === 'fa') {
+        badge.innerHTML = `👥 ${visitors} آنلاین`;
+      } else {
+        badge.innerHTML = `👥 ${visitors} online`;
+      }
+    }, 5800);
+
+    // ======================== تنظیمات اولیه ========================
+    window.onload = function() {
+      // اطمینان از نمایش رمز به صورت محو شده
+      document.getElementById('wifiDisplay').style.filter = 'blur(5px)';
+      
+      // اطمینان از اعمال تم ذخیره شده
+      if (localStorage.getItem('theme') === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        themeToggle.checked = true;
+      } else {
+        document.documentElement.setAttribute('data-theme', 'light');
+        themeToggle.checked = false;
+      }
+      
+      // اطمینان از اعمال زبان ذخیره شده
+      if (localStorage.getItem('language') === 'en') {
+        langToggle.checked = false;
+        setLanguage('en');
+      } else {
+        langToggle.checked = true;
+        setLanguage('fa');
+      }
+    };
+  </script>
+</body>
+</html>
