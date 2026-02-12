@@ -12,7 +12,7 @@
   <style>
     /* ------------------------------------------------------------
        NETLAND CAFENET — نسخه نهایی و کامل
-       دو زبانه (فارسی/انگلیسی) · سوئیچ تم دارک/لایت · سوئیچ زبان چرخان
+       دو زبانه (فارسی/انگلیسی) · سوئیچ تم دارک/لایت · چرخنده تنظیمات با منوی زبان
        اورب‌های شناور · گلس مطلق · هدر ثابت بدون حرکت
        ------------------------------------------------------------ */
     
@@ -179,6 +179,7 @@
       display: flex;
       align-items: center;
       gap: 12px;
+      position: relative;
     }
 
     .visitor-badge {
@@ -250,52 +251,97 @@
       transform: translateX(28px);
     }
 
-    /* ---------- سوئیچ زبان (چرخان حرفه‌ای) ---------- */
-    .lang-switch {
+    /* ---------- چرخنده تنظیمات با منوی زبان ---------- */
+    .settings-dropdown {
       position: relative;
       display: inline-block;
-      width: 58px;
-      height: 30px;
-      flex-shrink: 0;
     }
-    .lang-switch input {
-      opacity: 0;
-      width: 0;
-      height: 0;
-    }
-    .lang-slider {
-      position: absolute;
-      cursor: pointer;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: var(--toggle-track);
+
+    .settings-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--glass-bg);
       backdrop-filter: blur(16px);
       border: 0.5px solid var(--glass-border);
-      border-radius: 34px;
-      transition: all 0.45s cubic-bezier(0.34, 1.2, 0.64, 1);
-      box-shadow: inset 0 1px 4px rgba(0,0,0,0.04);
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 4px;
-    }
-    .lang-slider i {
-      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
       color: var(--text-primary);
+    }
+    .settings-btn i {
+      font-size: 1.2rem;
       transition: transform 0.6s cubic-bezier(0.34, 1.4, 0.64, 1);
     }
-    .lang-switch:hover .lang-slider i {
+    .settings-btn:hover i {
       transform: rotate(180deg);
     }
-    .lang-slider span {
-      font-size: 0.75rem;
-      font-weight: 600;
-      color: var(--text-primary);
+    .settings-btn:hover {
+      background: var(--glass-bg);
+      border-color: var(--accent);
     }
-    input:checked + .lang-slider i {
-      transform: rotate(360deg);
+
+    /* منوی کشویی زبان - طراحی گلس */
+    .language-menu {
+      position: absolute;
+      top: 50px;
+      left: 0;
+      width: 160px;
+      background: var(--glass-bg);
+      backdrop-filter: blur(24px);
+      border: 0.6px solid var(--glass-border);
+      border-radius: 16px;
+      box-shadow: var(--shadow-1), var(--shadow-2);
+      padding: 8px;
+      display: none;
+      z-index: 1000;
+    }
+    html[dir="ltr"] .language-menu {
+      left: 0;
+      right: auto;
+    }
+    html[dir="rtl"] .language-menu {
+      left: auto;
+      right: 0;
+    }
+
+    .language-menu.show {
+      display: block;
+      animation: fadeIn 0.2s ease;
+    }
+
+    .lang-option {
+      padding: 10px 16px;
+      border-radius: 12px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--text-primary);
+      transition: all 0.2s ease;
+      margin-bottom: 4px;
+    }
+    .lang-option:last-child {
+      margin-bottom: 0;
+    }
+    .lang-option:hover {
+      background: rgba(255,255,255,0.2);
+      backdrop-filter: blur(8px);
+    }
+    .lang-option i {
+      width: 20px;
+      color: var(--accent);
+    }
+    .lang-option.active {
+      background: rgba(0,119,204,0.15);
+      border: 0.5px solid rgba(0,119,204,0.3);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     /* ---------- هیرو (عنوان و زیرنویس) ---------- */
@@ -476,7 +522,7 @@
       <a href="#" class="nav-login">ورود</a>
     </div>
     
-    <!-- بخش راست: ویزیتر + سوئیچ تم + سوئیچ زبان -->
+    <!-- بخش راست: ویزیتر + سوئیچ تم + چرخنده تنظیمات با منوی زبان -->
     <div class="header-actions">
       <span class="visitor-badge glass" id="visitorBadge">👥 ۱۴۴ آنلاین</span>
       
@@ -486,14 +532,22 @@
         <span class="slider"></span>
       </label>
 
-      <!-- سوئیچ زبان (فارسی/انگلیسی) با چرخش -->
-      <label class="lang-switch">
-        <input type="checkbox" id="langToggleCheckbox" checked>
-        <span class="lang-slider glass">
-          <i class="fas fa-globe"></i>
-          <span id="langLabel">FA</span>
-        </span>
-      </label>
+      <!-- چرخنده تنظیمات با منوی زبان -->
+      <div class="settings-dropdown" id="settingsDropdown">
+        <div class="settings-btn glass" id="settingsBtn">
+          <i class="fas fa-cog"></i>
+        </div>
+        <div class="language-menu glass" id="languageMenu">
+          <div class="lang-option active" data-lang="fa" id="langFaOption">
+            <i class="fas fa-check-circle"></i>
+            <span>فارسی</span>
+          </div>
+          <div class="lang-option" data-lang="en" id="langEnOption">
+            <i class="fas fa-circle"></i>
+            <span>English</span>
+          </div>
+        </div>
+      </div>
     </div>
   </header>
 
@@ -582,10 +636,10 @@
   </div>
 
   <script>
-    // ======================== سیستم تم (دارک/لایت) - کاملاً کاربردی ========================
+    // ======================== سیستم تم (دارک/لایت) ========================
     const themeToggle = document.getElementById('themeToggleCheckbox');
     
-    // بازیابی تم ذخیره شده از localStorage
+    // بازیابی تم ذخیره شده
     if (localStorage.getItem('theme') === 'dark') {
       document.documentElement.setAttribute('data-theme', 'dark');
       themeToggle.checked = true;
@@ -594,7 +648,6 @@
       themeToggle.checked = false;
     }
 
-    // رویداد تغییر تم با کلیک
     themeToggle.addEventListener('change', function(e) {
       if (this.checked) {
         document.documentElement.setAttribute('data-theme', 'dark');
@@ -605,127 +658,134 @@
       }
     });
 
-    // ======================== سیستم زبان (فارسی/انگلیسی) - کامل و بی‌نقص ========================
-    const langToggle = document.getElementById('langToggleCheckbox');
-    const langLabel = document.getElementById('langLabel');
+    // ======================== سیستم زبان با منوی کشویی ========================
+    const settingsBtn = document.getElementById('settingsBtn');
+    const languageMenu = document.getElementById('languageMenu');
+    const langFaOption = document.getElementById('langFaOption');
+    const langEnOption = document.getElementById('langEnOption');
 
-    // آبجکت کامل ترجمه - همه متون سایت به صورت کامل
+    // باز و بسته کردن منوی زبان با کلیک روی چرخنده
+    settingsBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      languageMenu.classList.toggle('show');
+    });
+
+    // بستن منو با کلیک خارج از آن
+    document.addEventListener('click', function(e) {
+      if (!settingsBtn.contains(e.target) && !languageMenu.contains(e.target)) {
+        languageMenu.classList.remove('show');
+      }
+    });
+
+    // آبجکت کامل ترجمه
     const translations = {
-      // نویگیشن هدر
       navHome: { fa: 'خانه', en: 'Home' },
       navGaming: { fa: 'گیمر', en: 'Gaming' },
       navServices: { fa: 'خدمات', en: 'Services' },
       navContact: { fa: 'تماس', en: 'Contact' },
       navLogin: { fa: 'ورود', en: 'Login' },
-      
-      // هیرو
       heroSub: { fa: 'خدمات اینترنتی، دیجیتال و گرافیک', en: 'Internet, Digital & Graphic Services' },
-      
-      // کارت ۱: تلگرام
       card1Title: { fa: 'تلگرام', en: 'Telegram' },
       card1Desc: { fa: 'عضویت در کانال · ۲,۵۰۰ عضو', en: 'Join Channel · 2.5K members' },
       card1Btn: { fa: 'عضویت', en: 'Join' },
-      
-      // کارت ۲: اینستاگرام
       card2Title: { fa: 'اینستاگرام', en: 'Instagram' },
       card2Desc: { fa: 'دنبال کنید · ۸,۳۰۰ دنبال‌کننده', en: 'Follow us · 8.3K followers' },
       card2Btn: { fa: 'دنبال کردن', en: 'Follow' },
-      
-      // کارت ۳: واتساپ
       card3Title: { fa: 'واتساپ', en: 'WhatsApp' },
       card3Btn: { fa: 'گفتگو', en: 'Chat' },
-      
-      // کارت ۴: لوکیشن
       card4Title: { fa: 'لوکیشن', en: 'Location' },
       card4Address: { 
         fa: 'تهران - پاکدشت - فرون‌آباد - انتهای خیابان ولایت _ خیابان شهدای گمنام - کافی‌نت نت‌لند (NetLand CafeNet)', 
         en: 'Tehran - Pakdasht - Forunabad - End of Velayat St. - Shohadaye Gomanam St. - NetLand CafeNet' 
       },
       card4Btn: { fa: 'مسیریابی', en: 'Directions' },
-      
-      // کارت ۵: تماس
       card5Title: { fa: 'تماس', en: 'Contact' },
       card5Btn: { fa: 'کپی شماره', en: 'Copy number' },
-      
-      // کارت ۶: ساعت کاری
       card6Title: { fa: 'ساعت کاری', en: 'Hours' },
       card6Desc: { 
         fa: 'روزانه ۰۹:۰۰ – ۲۳:۰۰<br>جمعه ۱۴:۰۰ – ۲۳:۰۰', 
         en: 'Daily 09:00 – 23:00<br>Fri 14:00 – 23:00' 
       },
-      
-      // کارت ۷: وای‌فای
       card7Title: { fa: 'رمز وای‌فای', en: 'WiFi Password' },
       card7Btn1: { fa: 'نمایش', en: 'Reveal' },
       card7Btn2: { fa: 'کپی', en: 'Copy' },
-      
-      // کارت ۸: گیمینگ
       card8Title: { fa: 'ایستگاه‌های گیمینگ', en: 'Gaming Stations' },
       card8Btn: { fa: 'بروزرسانی', en: 'Refresh' },
-      
-      // ویزیتر
-      visitorBadge: { fa: '👥 ۱۴۴ آنلاین', en: '👥 144 online' }
+      visitorBadge: { fa: '👥 ۱۴۴ آنلاین', en: '👥 144 online' },
+      statusOnline: { fa: 'آنلاین', en: 'Online' },
+      statusChat: { fa: 'گفتگو', en: 'Chat now' }
     };
 
-    // تابع اصلی تغییر زبان
+    // تابع تغییر زبان
     function setLanguage(lang) {
       const isRTL = (lang === 'fa');
       
-      // تغییر دایرکشن و lang سند
+      // تغییر دایرکشن و lang
       document.documentElement.dir = isRTL ? 'rtl' : 'ltr';
       document.documentElement.lang = lang;
       
-      // تغییر لیبل سوئیچ
-      langLabel.textContent = isRTL ? 'FA' : 'EN';
+      // آپدیت وضعیت فعال در منو
+      if (lang === 'fa') {
+        langFaOption.classList.add('active');
+        langEnOption.classList.remove('active');
+        langFaOption.querySelector('i').className = 'fas fa-check-circle';
+        langEnOption.querySelector('i').className = 'fas fa-circle';
+      } else {
+        langEnOption.classList.add('active');
+        langFaOption.classList.remove('active');
+        langEnOption.querySelector('i').className = 'fas fa-check-circle';
+        langFaOption.querySelector('i').className = 'fas fa-circle';
+      }
       
-      // اعمال ترجمه به المان‌های نویگیشن
+      // بستن منو بعد از انتخاب
+      languageMenu.classList.remove('show');
+      
+      // اعمال ترجمه به نویگیشن
       document.querySelector('.nav-home').textContent = translations.navHome[lang];
       document.querySelector('.nav-gaming').textContent = translations.navGaming[lang];
       document.querySelector('.nav-services').textContent = translations.navServices[lang];
       document.querySelector('.nav-contact').textContent = translations.navContact[lang];
       document.querySelector('.nav-login').textContent = translations.navLogin[lang];
       
-      // اعمال ترجمه به هیرو
+      // هیرو
       document.getElementById('heroSub').textContent = translations.heroSub[lang];
       
-      // اعمال ترجمه به کارت ۱
+      // کارت ۱
       document.getElementById('card1Title').textContent = translations.card1Title[lang];
       document.getElementById('card1Desc').textContent = translations.card1Desc[lang];
       document.getElementById('card1Btn').textContent = translations.card1Btn[lang];
       
-      // اعمال ترجمه به کارت ۲
+      // کارت ۲
       document.getElementById('card2Title').textContent = translations.card2Title[lang];
       document.getElementById('card2Desc').textContent = translations.card2Desc[lang];
       document.getElementById('card2Btn').textContent = translations.card2Btn[lang];
       
-      // اعمال ترجمه به کارت ۳ (واتساپ با وضعیت)
+      // کارت ۳ (واتساپ)
       document.getElementById('card3Title').textContent = translations.card3Title[lang];
-      if (lang === 'fa') {
-        document.getElementById('card3Desc').innerHTML = 'وضعیت: <span style="color: #2ecc71;">آنلاین</span> · گفتگو';
-      } else {
-        document.getElementById('card3Desc').innerHTML = 'Status: <span style="color: #2ecc71;">Online</span> · Chat now';
-      }
+      const statusOnline = translations.statusOnline[lang];
+      const statusChat = translations.statusChat[lang];
+      document.getElementById('card3Desc').innerHTML = `وضعیت: <span style="color: #2ecc71;">${statusOnline}</span> · ${statusChat}`;
       document.getElementById('card3Btn').textContent = translations.card3Btn[lang];
       
-      // اعمال ترجمه به کارت ۴ (لوکیشن)
+      // کارت ۴ (لوکیشن)
       document.getElementById('card4Title').textContent = translations.card4Title[lang];
       document.getElementById('card4Address').textContent = translations.card4Address[lang];
       document.getElementById('card4Btn').textContent = translations.card4Btn[lang];
       
-      // اعمال ترجمه به کارت ۵ (تماس)
+      // کارت ۵ (تماس)
       document.getElementById('card5Title').textContent = translations.card5Title[lang];
       document.getElementById('card5Btn').textContent = translations.card5Btn[lang];
       
-      // اعمال ترجمه به کارت ۶ (ساعت کاری)
+      // کارت ۶ (ساعت کاری)
       document.getElementById('card6Title').textContent = translations.card6Title[lang];
       document.getElementById('card6Desc').innerHTML = translations.card6Desc[lang];
       
-      // اعمال ترجمه به کارت ۷ (وای‌فای)
+      // کارت ۷ (وای‌فای)
       document.getElementById('card7Title').textContent = translations.card7Title[lang];
       document.getElementById('card7Btn1').textContent = translations.card7Btn1[lang];
       document.getElementById('card7Btn2').textContent = translations.card7Btn2[lang];
       
-      // اعمال ترجمه به کارت ۸ (گیمینگ)
+      // کارت ۸ (گیمینگ)
       document.getElementById('card8Title').textContent = translations.card8Title[lang];
       const stationEl = document.getElementById('stationCount');
       const currentNumber = stationEl.textContent.match(/\d+/)[0];
@@ -736,33 +796,37 @@
       }
       document.getElementById('card8Btn').textContent = translations.card8Btn[lang];
       
-      // اعمال ترجمه به ویزیتر
-      document.getElementById('visitorBadge').innerHTML = translations.visitorBadge[lang];
+      // ویزیتر
+      const visitorBadge = document.getElementById('visitorBadge');
+      const visitorNumber = visitorBadge.textContent.match(/\d+/)[0];
+      if (lang === 'fa') {
+        visitorBadge.innerHTML = `👥 ${visitorNumber} آنلاین`;
+      } else {
+        visitorBadge.innerHTML = `👥 ${visitorNumber} online`;
+      }
+      
+      // ذخیره در localStorage
+      localStorage.setItem('language', lang);
     }
 
-    // بازیابی زبان ذخیره شده از localStorage
-    if (localStorage.getItem('language') === 'en') {
-      langToggle.checked = false;
+    // رویدادهای کلیک روی گزینه‌های زبان
+    langFaOption.addEventListener('click', function() {
+      setLanguage('fa');
+    });
+
+    langEnOption.addEventListener('click', function() {
+      setLanguage('en');
+    });
+
+    // بازیابی زبان ذخیره شده
+    const savedLang = localStorage.getItem('language');
+    if (savedLang === 'en') {
       setLanguage('en');
     } else {
-      langToggle.checked = true;
       setLanguage('fa');
     }
 
-    // رویداد تغییر زبان با کلیک
-    langToggle.addEventListener('change', function(e) {
-      if (this.checked) {
-        setLanguage('fa');
-        localStorage.setItem('language', 'fa');
-      } else {
-        setLanguage('en');
-        localStorage.setItem('language', 'en');
-      }
-    });
-
     // ======================== توابع کاربردی ========================
-    
-    // تابع نمایش toast
     function showToast(msg) {
       const toast = document.createElement('div');
       toast.className = 'toast';
@@ -771,7 +835,6 @@
       setTimeout(() => { toast.remove(); }, 2400);
     }
 
-    // تابع کپی در کلیپ‌بورد
     function copyToClipboard(text) {
       navigator.clipboard.writeText(text);
       const currentLang = document.documentElement.lang;
@@ -779,7 +842,6 @@
       showToast(message);
     }
 
-    // تابع نمایش/مخفی کردن رمز وای‌فای
     window.revealWifi = function() {
       const wifiEl = document.getElementById('wifiDisplay');
       const currentLang = document.documentElement.lang;
@@ -794,7 +856,6 @@
       }
     };
 
-    // تابع بروزرسانی ایستگاه‌های گیمینگ
     window.updateStations = function() {
       const available = Math.floor(Math.random() * 18) + 12;
       const stationEl = document.getElementById('stationCount');
@@ -808,7 +869,7 @@
       }
     };
 
-    // ======================== سیستم شمارنده بازدیدکنندگان ========================
+    // شمارنده بازدیدکنندگان
     let visitors = 144;
     setInterval(() => {
       visitors += Math.floor(Math.random() * 4) - 1;
@@ -822,9 +883,8 @@
       }
     }, 5800);
 
-    // ======================== تنظیمات اولیه ========================
+    // تنظیمات اولیه
     window.onload = function() {
-      // اطمینان از نمایش رمز به صورت محو شده
       document.getElementById('wifiDisplay').style.filter = 'blur(5px)';
       
       // اطمینان از اعمال تم ذخیره شده
@@ -837,11 +897,10 @@
       }
       
       // اطمینان از اعمال زبان ذخیره شده
-      if (localStorage.getItem('language') === 'en') {
-        langToggle.checked = false;
+      const savedLanguage = localStorage.getItem('language');
+      if (savedLanguage === 'en') {
         setLanguage('en');
       } else {
-        langToggle.checked = true;
         setLanguage('fa');
       }
     };
