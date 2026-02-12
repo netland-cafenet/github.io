@@ -11,9 +11,8 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <style>
     /* ------------------------------------------------------------
-       NETLAND CAFENET — نسخه نهایی و کامل
-       دو زبانه (فارسی/انگلیسی) · سوئیچ تم دارک/لایت · چرخنده تنظیمات با منوی زبان
-       اورب‌های شناور · گلس مطلق · هدر ثابت بدون حرکت
+       NETLAND CAFENET — نسخه نهایی با طراحی ماکروسافت و macOS
+       گلسمورفیسم فوق‌پremium · اورب‌های متحرک عمیق · منوی زبان شیشه‌ای
        ------------------------------------------------------------ */
     
     /* ---------- تایپوگرافی (SF Pro + وزیر فارسی) ---------- */
@@ -28,43 +27,147 @@
       letter-spacing: -0.012em;
     }
 
-    /* ---------- متغیرهای تم (لایت/دارک) ---------- */
+    /* ---------- متغیرهای تم (لایت/دارک) با طراحی پریمیوم ---------- */
     :root {
-      --bg-start: #f6fafd;
-      --bg-end:   #ecf3f9;
-      --bg-gradient: linear-gradient(145deg, var(--bg-start), var(--bg-end));
-      --text-primary:   #0b1c2e;
-      --text-secondary: #3a4e62;
-      --glass-bg: linear-gradient(135deg, rgba(255,255,255,0.75), rgba(255,255,255,0.45));
-      --glass-border: rgba(255,255,255,0.9);
-      --shadow-1: 0 18px 30px -12px rgba(0,20,40,0.08);
-      --shadow-2: 0 6px 14px -6px rgba(0,0,0,0.02);
-      --shadow-3: 0 0 0 0.5px rgba(255,255,255,0.7) inset;
-      --accent: #0077cc;
-      --toggle-track: rgba(220,235,250,0.6);
+      --bg-start: #f8fafd;
+      --bg-end: #f1f5f9;
+      --bg-gradient: radial-gradient(circle at 20% 30%, var(--bg-start), var(--bg-end));
+      
+      --text-primary: #0a1a2b;
+      --text-secondary: #3e525e;
+      
+      --glass-bg: linear-gradient(145deg, rgba(255,255,255,0.75), rgba(255,255,255,0.55));
+      --glass-border: rgba(255,255,255,0.85);
+      --glass-border-dark: rgba(0,0,0,0.04);
+      
+      --shadow-1: 0 20px 35px -10px rgba(0,20,40,0.08);
+      --shadow-2: 0 8px 20px -8px rgba(0,0,0,0.02);
+      --shadow-3: 0 0 0 0.8px rgba(255,255,255,0.7) inset;
+      --shadow-4: 0 0 0 1px rgba(0,0,0,0.02) inset;
+      
+      --accent: #0066cc;
+      --accent-soft: rgba(0,102,204,0.1);
+      
+      --blob-1: rgba(180,200,230,0.25);
+      --blob-2: rgba(160,190,220,0.2);
+      --blob-3: rgba(140,180,210,0.18);
+      --blob-4: rgba(120,170,200,0.15);
     }
 
     [data-theme="dark"] {
-      --bg-start: #0d121c;
-      --bg-end:   #151e2a;
-      --bg-gradient: linear-gradient(145deg, var(--bg-start), var(--bg-end));
-      --text-primary:   #f0f6fc;
-      --text-secondary: #b0c4d9;
-      --glass-bg: linear-gradient(135deg, rgba(28,36,48,0.75), rgba(20,26,36,0.65));
-      --glass-border: rgba(255,255,255,0.14);
-      --shadow-1: 0 22px 38px -16px rgba(0,0,0,0.55);
-      --shadow-2: 0 12px 22px -12px rgba(0,0,0,0.4);
-      --shadow-3: inset 0 0 0 0.5px rgba(255,255,255,0.06);
+      --bg-start: #0a0e15;
+      --bg-end: #03060a;
+      --bg-gradient: radial-gradient(circle at 80% 70%, #0e141e, #020408);
+      
+      --text-primary: #f0f7ff;
+      --text-secondary: #b8ccdd;
+      
+      --glass-bg: linear-gradient(145deg, rgba(18,26,36,0.75), rgba(12,18,26,0.65));
+      --glass-border: rgba(255,255,255,0.1);
+      --glass-border-dark: rgba(0,0,0,0.3);
+      
+      --shadow-1: 0 25px 40px -15px rgba(0,0,0,0.6);
+      --shadow-2: 0 15px 25px -12px rgba(0,0,0,0.4);
+      --shadow-3: 0 0 0 0.6px rgba(255,255,255,0.06) inset;
+      --shadow-4: 0 0 0 1px rgba(0,0,0,0.2) inset;
+      
       --accent: #5aa9e6;
-      --toggle-track: rgba(40,52,68,0.8);
+      --accent-soft: rgba(90,169,230,0.15);
+      
+      --blob-1: rgba(70,130,200,0.35);
+      --blob-2: rgba(100,80,220,0.3);
+      --blob-3: rgba(40,160,210,0.28);
+      --blob-4: rgba(150,70,200,0.25);
     }
 
-    /* ---------- تنظیمات راست‌چین / چپ‌چین ---------- */
-    html[dir="rtl"] {
-      text-align: right;
+    /* ---------- اورب‌های متحرک عمیق و سینماتیک ---------- */
+    .atmosphere {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+      overflow: hidden;
+      pointer-events: none;
     }
-    html[dir="ltr"] {
-      text-align: left;
+
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.45;
+      animation: floatBlob 35s infinite alternate ease-in-out;
+      will-change: transform, opacity;
+    }
+
+    .blob1 {
+      width: 70vmax;
+      height: 70vmax;
+      background: var(--blob-1);
+      top: -15vh;
+      left: -20vw;
+      animation-duration: 42s;
+      animation-delay: -5s;
+    }
+    .blob2 {
+      width: 60vmax;
+      height: 60vmax;
+      background: var(--blob-2);
+      bottom: -20vh;
+      right: -15vw;
+      animation-duration: 38s;
+      animation-delay: -12s;
+    }
+    .blob3 {
+      width: 50vmax;
+      height: 50vmax;
+      background: var(--blob-3);
+      top: 40vh;
+      left: 30vw;
+      animation-duration: 45s;
+      animation-delay: -20s;
+    }
+    .blob4 {
+      width: 55vmax;
+      height: 55vmax;
+      background: var(--blob-4);
+      bottom: 10vh;
+      left: 15vw;
+      animation-duration: 50s;
+      animation-delay: -8s;
+    }
+    .blob5 {
+      width: 45vmax;
+      height: 45vmax;
+      background: var(--blob-1);
+      top: 20vh;
+      right: 10vw;
+      animation-duration: 55s;
+      animation-delay: -15s;
+    }
+
+    @keyframes floatBlob {
+      0% { transform: translate(0, 0) scale(1); opacity: 0.35; }
+      25% { transform: translate(5%, -8%) scale(1.15); opacity: 0.45; }
+      50% { transform: translate(-7%, 6%) scale(0.95); opacity: 0.4; }
+      75% { transform: translate(9%, 4%) scale(1.1); opacity: 0.5; }
+      100% { transform: translate(-5%, -3%) scale(1.05); opacity: 0.4; }
+    }
+
+    /* ---------- کلاس شیشه پریمیوم ---------- */
+    .glass {
+      background: var(--glass-bg);
+      backdrop-filter: blur(24px) saturate(180%);
+      -webkit-backdrop-filter: blur(24px) saturate(180%);
+      border: 0.8px solid var(--glass-border);
+      border-radius: 24px;
+      box-shadow: 
+        var(--shadow-1),
+        var(--shadow-2),
+        var(--shadow-3),
+        var(--shadow-4);
+      transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1);
     }
 
     * {
@@ -76,55 +179,13 @@
     body {
       background: var(--bg-gradient);
       color: var(--text-primary);
-      transition: background 0.7s ease, color 0.3s ease;
+      transition: background 0.7s ease, color 0.4s ease;
       min-height: 100vh;
       line-height: 1.5;
       overflow-x: hidden;
     }
 
-    /* ---------- اورب‌های شناور (۵ لایه، حرکت سیال) ---------- */
-    .orb {
-      position: fixed;
-      width: 70vmin;
-      height: 70vmin;
-      border-radius: 50%;
-      filter: blur(70px);
-      opacity: 0.38;
-      animation: liquidDrift 24s infinite alternate ease-in-out;
-      z-index: -1;
-      will-change: transform, opacity;
-    }
-    .orb:nth-child(1) { background: radial-gradient(circle at 30% 30%, #ffdbb5, #b8e1ff); top: -15vh; left: -10vw; width: 80vmin; height: 80vmin; animation-duration: 27s; }
-    .orb:nth-child(2) { background: radial-gradient(circle at 70% 20%, #c7eaff, #aad0f5); bottom: -10vh; right: -5vw; width: 75vmin; height: 75vmin; animation-duration: 31s; opacity: 0.32; }
-    .orb:nth-child(3) { background: radial-gradient(circle at 40% 70%, #ffe3c0, #f8f0d5); top: 40vh; left: 15vw; width: 60vmin; height: 60vmin; animation-duration: 19s; opacity: 0.28; }
-    .orb:nth-child(4) { background: radial-gradient(circle at 60% 50%, #b8dcff, #d4edff); bottom: 20vh; left: 25vw; width: 90vmin; height: 90vmin; animation-duration: 35s; opacity: 0.25; }
-    .orb:nth-child(5) { background: radial-gradient(circle at 20% 80%, #fff1d6, #ffe4c4); top: 60vh; right: 10vw; width: 55vmin; height: 55vmin; animation-duration: 22s; opacity: 0.3; }
-    [data-theme="dark"] .orb:nth-child(1) { background: radial-gradient(circle at 30% 30%, #1e3347, #101a26); }
-    [data-theme="dark"] .orb:nth-child(2) { background: radial-gradient(circle at 70% 20%, #1f2e42, #141f2e); }
-    [data-theme="dark"] .orb:nth-child(3) { background: radial-gradient(circle at 40% 70%, #1e2c3a, #0e1922); }
-    [data-theme="dark"] .orb:nth-child(4) { background: radial-gradient(circle at 60% 50%, #1f2f3f, #121c28); }
-    [data-theme="dark"] .orb:nth-child(5) { background: radial-gradient(circle at 20% 80%, #192a38, #0d1a24); }
-
-    @keyframes liquidDrift {
-      0% { transform: translate(0, 0) scale(1); }
-      25% { transform: translate(4%, -6%) scale(1.08); }
-      50% { transform: translate(-5%, 5%) scale(0.96); }
-      75% { transform: translate(7%, 3%) scale(1.04); }
-      100% { transform: translate(-3%, -4%) scale(1.02); }
-    }
-
-    /* ---------- کلاس شیشه (گلس) ---------- */
-    .glass {
-      background: var(--glass-bg);
-      backdrop-filter: blur(24px) saturate(160%);
-      -webkit-backdrop-filter: blur(24px) saturate(160%);
-      border: 0.6px solid var(--glass-border);
-      border-radius: 28px;
-      box-shadow: var(--shadow-1), var(--shadow-2), var(--shadow-3);
-      transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1);
-    }
-
-    /* ---------- هدر ثابت (هرگز حرکت نمی‌کند) ---------- */
+    /* ---------- هدر ثابت ---------- */
     header {
       position: fixed;
       top: 20px;
@@ -174,7 +235,7 @@
     }
     .nav-links a:hover { opacity: 1; }
 
-    /* ---------- بخش راست هدر (اکشن‌ها) ---------- */
+    /* ---------- بخش راست هدر ---------- */
     .header-actions {
       display: flex;
       align-items: center;
@@ -189,9 +250,10 @@
       font-size: 0.75rem;
       border: 0.5px solid var(--glass-border);
       white-space: nowrap;
+      backdrop-filter: blur(16px);
     }
 
-    /* ---------- سوئیچ تم (دارک/لایت) استایل یوتیوب ---------- */
+    /* ---------- سوئیچ تم ---------- */
     .theme-switch {
       position: relative;
       display: inline-block;
@@ -211,7 +273,7 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background: var(--toggle-track);
+      background: var(--glass-bg);
       backdrop-filter: blur(16px);
       border: 0.5px solid var(--glass-border);
       border-radius: 34px;
@@ -251,7 +313,7 @@
       transform: translateX(28px);
     }
 
-    /* ---------- چرخنده تنظیمات با منوی زبان ---------- */
+    /* ---------- چرخنده تنظیمات با منوی زبان شیشه‌ای جمع‌وجور ---------- */
     .settings-dropdown {
       position: relative;
       display: inline-block;
@@ -263,13 +325,14 @@
       border-radius: 50%;
       background: var(--glass-bg);
       backdrop-filter: blur(16px);
-      border: 0.5px solid var(--glass-border);
+      border: 0.8px solid var(--glass-border);
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
       transition: all 0.3s ease;
       color: var(--text-primary);
+      box-shadow: var(--shadow-2);
     }
     .settings-btn i {
       font-size: 1.2rem;
@@ -279,22 +342,22 @@
       transform: rotate(180deg);
     }
     .settings-btn:hover {
-      background: var(--glass-bg);
       border-color: var(--accent);
+      box-shadow: 0 0 0 2px var(--accent-soft);
     }
 
-    /* منوی کشویی زبان - طراحی گلس */
+    /* منوی کشویی زبان - شیشه‌ای، جمع‌وجور، حرفه‌ای */
     .language-menu {
       position: absolute;
       top: 50px;
       left: 0;
-      width: 160px;
+      min-width: 140px;
       background: var(--glass-bg);
-      backdrop-filter: blur(24px);
-      border: 0.6px solid var(--glass-border);
-      border-radius: 16px;
+      backdrop-filter: blur(24px) saturate(180%);
+      border: 0.8px solid var(--glass-border);
+      border-radius: 20px;
       box-shadow: var(--shadow-1), var(--shadow-2);
-      padding: 8px;
+      padding: 6px;
       display: none;
       z-index: 1000;
     }
@@ -309,42 +372,46 @@
 
     .language-menu.show {
       display: block;
-      animation: fadeIn 0.2s ease;
+      animation: menuFade 0.25s ease;
+    }
+
+    @keyframes menuFade {
+      from { opacity: 0; transform: translateY(-8px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .lang-option {
-      padding: 10px 16px;
-      border-radius: 12px;
+      padding: 8px 14px;
+      border-radius: 14px;
       cursor: pointer;
       display: flex;
       align-items: center;
       gap: 10px;
       color: var(--text-primary);
       transition: all 0.2s ease;
-      margin-bottom: 4px;
+      margin-bottom: 2px;
+      font-size: 0.85rem;
+      border: 0.5px solid transparent;
     }
     .lang-option:last-child {
       margin-bottom: 0;
     }
     .lang-option:hover {
-      background: rgba(255,255,255,0.2);
+      background: var(--accent-soft);
+      border-color: rgba(255,255,255,0.2);
       backdrop-filter: blur(8px);
     }
     .lang-option i {
-      width: 20px;
+      width: 16px;
+      font-size: 0.9rem;
       color: var(--accent);
     }
     .lang-option.active {
-      background: rgba(0,119,204,0.15);
-      border: 0.5px solid rgba(0,119,204,0.3);
+      background: var(--accent-soft);
+      border: 0.5px solid var(--accent);
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* ---------- هیرو (عنوان و زیرنویس) ---------- */
+    /* ---------- هیرو ---------- */
     .hero {
       padding: 160px 24px 60px;
       text-align: center;
@@ -356,7 +423,7 @@
       font-weight: 800;
       letter-spacing: -0.02em;
       color: var(--text-primary);
-      text-shadow: 0 2px 5px rgba(0,0,0,0.03);
+      text-shadow: 0 2px 10px rgba(0,0,0,0.03);
       line-height: 1.2;
     }
     .hero-sub {
@@ -367,7 +434,7 @@
       letter-spacing: 0.3px;
     }
 
-    /* ---------- گرید ۸ کارت ---------- */
+    /* ---------- گرید ۸ کارت با گلسمورفیسم ارتقا یافته ---------- */
     .section {
       max-width: 1280px;
       margin: 0 auto;
@@ -375,44 +442,50 @@
     }
     .grid {
       display: grid;
-      gap: 22px;
+      gap: 24px;
     }
     .card {
-      padding: 20px 20px 22px;
-      min-height: 160px;
+      padding: 22px 22px 24px;
+      min-height: 170px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       background: var(--glass-bg);
-      backdrop-filter: blur(24px);
-      border: 0.6px solid var(--glass-border);
-      border-radius: 26px;
-      transition: 0.3s ease;
+      backdrop-filter: blur(24px) saturate(180%);
+      border: 0.8px solid var(--glass-border);
+      border-radius: 24px;
+      transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1);
+      box-shadow: var(--shadow-1), var(--shadow-2), var(--shadow-3), var(--shadow-4);
     }
     .card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 28px 40px -14px rgba(0,0,0,0.12), var(--shadow-2), var(--shadow-3);
+      transform: translateY(-5px);
+      box-shadow: 0 30px 45px -15px rgba(0,0,0,0.15), var(--shadow-2), var(--shadow-3);
+      border-color: rgba(255,255,255,0.95);
+    }
+    [data-theme="dark"] .card:hover {
+      box-shadow: 0 35px 55px -18px rgba(0,0,0,0.7), 0 0 0 0.8px rgba(90,169,230,0.3) inset;
+      border-color: rgba(90,169,230,0.4);
     }
     .card i {
-      font-size: 1.5rem;
+      font-size: 1.6rem;
       color: var(--accent);
-      margin-bottom: 10px;
+      margin-bottom: 12px;
     }
     .card h3 {
       font-weight: 600;
       font-size: 1.1rem;
       letter-spacing: -0.01em;
-      margin-bottom: 4px;
+      margin-bottom: 6px;
     }
     .card p {
       font-size: 0.82rem;
-      line-height: 1.4;
+      line-height: 1.5;
       color: var(--text-secondary);
-      margin: 6px 0 8px;
+      margin: 4px 0 8px;
     }
     .card .btn {
       align-self: flex-start;
-      margin-top: 8px;
+      margin-top: 10px;
       padding: 8px 18px;
       border-radius: 40px;
       border: none;
@@ -424,14 +497,14 @@
       text-transform: uppercase;
       cursor: pointer;
       transition: 0.2s;
-      box-shadow: 0 2px 6px rgba(0,120,200,0.2);
+      box-shadow: 0 4px 10px rgba(0,102,204,0.2);
     }
     .card .btn:hover {
-      background: #0066b3;
-      transform: scale(0.98);
+      background: #0052a3;
+      transform: scale(0.97);
+      box-shadow: 0 6px 14px rgba(0,102,204,0.3);
     }
 
-    /* آدرس (راست‌چین ثابت) */
     .address-text {
       direction: rtl;
       text-align: right;
@@ -440,7 +513,7 @@
       margin-bottom: 6px;
     }
 
-    /* ---------- ریسپانسیو (سه حالت) ---------- */
+    /* ---------- ریسپانسیو ---------- */
     @media (min-width: 768px) and (max-width: 1199px) {
       .grid { grid-template-columns: repeat(2, 1fr); }
     }
@@ -455,7 +528,6 @@
       .header-actions { gap: 6px; }
     }
 
-    /* ---------- نویگیشن پایین (فقط موبایل) ---------- */
     .bottom-nav {
       display: none;
       position: fixed;
@@ -467,7 +539,7 @@
       padding: 10px 16px;
       background: var(--glass-bg);
       backdrop-filter: blur(28px);
-      border: 0.6px solid var(--glass-border);
+      border: 0.8px solid var(--glass-border);
       border-radius: 48px;
       justify-content: space-around;
       z-index: 99;
@@ -504,12 +576,14 @@
   </style>
 </head>
 <body>
-  <!-- اورب‌های شناور -->
-  <div class="orb"></div>
-  <div class="orb"></div>
-  <div class="orb"></div>
-  <div class="orb"></div>
-  <div class="orb"></div>
+  <!-- اورب‌های متحرک عمیق و سینماتیک - طراحی پریمیوم -->
+  <div class="atmosphere">
+    <div class="blob blob1"></div>
+    <div class="blob blob2"></div>
+    <div class="blob blob3"></div>
+    <div class="blob blob4"></div>
+    <div class="blob blob5"></div>
+  </div>
 
   <!-- ========== هدر ثابت ========== -->
   <header class="glass">
@@ -522,17 +596,15 @@
       <a href="#" class="nav-login">ورود</a>
     </div>
     
-    <!-- بخش راست: ویزیتر + سوئیچ تم + چرخنده تنظیمات با منوی زبان -->
     <div class="header-actions">
       <span class="visitor-badge glass" id="visitorBadge">👥 ۱۴۴ آنلاین</span>
       
-      <!-- سوئیچ تم (دارک/لایت) -->
       <label class="theme-switch">
         <input type="checkbox" id="themeToggleCheckbox">
         <span class="slider"></span>
       </label>
 
-      <!-- چرخنده تنظیمات با منوی زبان -->
+      <!-- چرخنده تنظیمات با منوی زبان شیشه‌ای جمع‌وجور -->
       <div class="settings-dropdown" id="settingsDropdown">
         <div class="settings-btn glass" id="settingsBtn">
           <i class="fas fa-cog"></i>
@@ -551,13 +623,13 @@
     </div>
   </header>
 
-  <!-- ========== هیرو (عنوان و زیرنویس) ========== -->
+  <!-- ========== هیرو ========== -->
   <section class="hero">
     <h1 id="heroTitle">NetLand CafeNet</h1>
     <p class="hero-sub" id="heroSub">خدمات اینترنتی، دیجیتال و گرافیک</p>
   </section>
 
-  <!-- ========== گرید ۸ کارت کامل ========== -->
+  <!-- ========== گرید ۸ کارت ========== -->
   <section class="section">
     <div class="grid">
       <!-- 1. تلگرام -->
@@ -581,7 +653,7 @@
         <p id="card3Desc">وضعیت: <span style="color: #2ecc71;">آنلاین</span> · گفتگو</p>
         <button class="btn" onclick="showToast('💬 باز شدن واتساپ')" id="card3Btn">گفتگو</button>
       </div>
-      <!-- 4. لوکیشن (آدرس دقیق جدید) -->
+      <!-- 4. لوکیشن -->
       <div class="card glass">
         <i class="fas fa-map-pin"></i>
         <h3 id="card4Title">لوکیشن</h3>
@@ -616,7 +688,7 @@
           <button class="btn" onclick="copyToClipboard('NetLand@2026')" id="card7Btn2">کپی</button>
         </div>
       </div>
-      <!-- 8. ایستگاه‌های گیمینگ -->
+      <!-- 8. گیمینگ -->
       <div class="card glass">
         <i class="fas fa-gamepad"></i>
         <h3 id="card8Title">ایستگاه‌های گیمینگ</h3>
@@ -636,10 +708,9 @@
   </div>
 
   <script>
-    // ======================== سیستم تم (دارک/لایت) ========================
+    // ======================== سیستم تم ========================
     const themeToggle = document.getElementById('themeToggleCheckbox');
     
-    // بازیابی تم ذخیره شده
     if (localStorage.getItem('theme') === 'dark') {
       document.documentElement.setAttribute('data-theme', 'dark');
       themeToggle.checked = true;
@@ -664,20 +735,17 @@
     const langFaOption = document.getElementById('langFaOption');
     const langEnOption = document.getElementById('langEnOption');
 
-    // باز و بسته کردن منوی زبان با کلیک روی چرخنده
     settingsBtn.addEventListener('click', function(e) {
       e.stopPropagation();
       languageMenu.classList.toggle('show');
     });
 
-    // بستن منو با کلیک خارج از آن
     document.addEventListener('click', function(e) {
       if (!settingsBtn.contains(e.target) && !languageMenu.contains(e.target)) {
         languageMenu.classList.remove('show');
       }
     });
 
-    // آبجکت کامل ترجمه
     const translations = {
       navHome: { fa: 'خانه', en: 'Home' },
       navGaming: { fa: 'گیمر', en: 'Gaming' },
@@ -716,15 +784,12 @@
       statusChat: { fa: 'گفتگو', en: 'Chat now' }
     };
 
-    // تابع تغییر زبان
     function setLanguage(lang) {
       const isRTL = (lang === 'fa');
       
-      // تغییر دایرکشن و lang
       document.documentElement.dir = isRTL ? 'rtl' : 'ltr';
       document.documentElement.lang = lang;
       
-      // آپدیت وضعیت فعال در منو
       if (lang === 'fa') {
         langFaOption.classList.add('active');
         langEnOption.classList.remove('active');
@@ -737,55 +802,44 @@
         langFaOption.querySelector('i').className = 'fas fa-circle';
       }
       
-      // بستن منو بعد از انتخاب
       languageMenu.classList.remove('show');
       
-      // اعمال ترجمه به نویگیشن
       document.querySelector('.nav-home').textContent = translations.navHome[lang];
       document.querySelector('.nav-gaming').textContent = translations.navGaming[lang];
       document.querySelector('.nav-services').textContent = translations.navServices[lang];
       document.querySelector('.nav-contact').textContent = translations.navContact[lang];
       document.querySelector('.nav-login').textContent = translations.navLogin[lang];
       
-      // هیرو
       document.getElementById('heroSub').textContent = translations.heroSub[lang];
       
-      // کارت ۱
       document.getElementById('card1Title').textContent = translations.card1Title[lang];
       document.getElementById('card1Desc').textContent = translations.card1Desc[lang];
       document.getElementById('card1Btn').textContent = translations.card1Btn[lang];
       
-      // کارت ۲
       document.getElementById('card2Title').textContent = translations.card2Title[lang];
       document.getElementById('card2Desc').textContent = translations.card2Desc[lang];
       document.getElementById('card2Btn').textContent = translations.card2Btn[lang];
       
-      // کارت ۳ (واتساپ)
       document.getElementById('card3Title').textContent = translations.card3Title[lang];
       const statusOnline = translations.statusOnline[lang];
       const statusChat = translations.statusChat[lang];
       document.getElementById('card3Desc').innerHTML = `وضعیت: <span style="color: #2ecc71;">${statusOnline}</span> · ${statusChat}`;
       document.getElementById('card3Btn').textContent = translations.card3Btn[lang];
       
-      // کارت ۴ (لوکیشن)
       document.getElementById('card4Title').textContent = translations.card4Title[lang];
       document.getElementById('card4Address').textContent = translations.card4Address[lang];
       document.getElementById('card4Btn').textContent = translations.card4Btn[lang];
       
-      // کارت ۵ (تماس)
       document.getElementById('card5Title').textContent = translations.card5Title[lang];
       document.getElementById('card5Btn').textContent = translations.card5Btn[lang];
       
-      // کارت ۶ (ساعت کاری)
       document.getElementById('card6Title').textContent = translations.card6Title[lang];
       document.getElementById('card6Desc').innerHTML = translations.card6Desc[lang];
       
-      // کارت ۷ (وای‌فای)
       document.getElementById('card7Title').textContent = translations.card7Title[lang];
       document.getElementById('card7Btn1').textContent = translations.card7Btn1[lang];
       document.getElementById('card7Btn2').textContent = translations.card7Btn2[lang];
       
-      // کارت ۸ (گیمینگ)
       document.getElementById('card8Title').textContent = translations.card8Title[lang];
       const stationEl = document.getElementById('stationCount');
       const currentNumber = stationEl.textContent.match(/\d+/)[0];
@@ -796,7 +850,6 @@
       }
       document.getElementById('card8Btn').textContent = translations.card8Btn[lang];
       
-      // ویزیتر
       const visitorBadge = document.getElementById('visitorBadge');
       const visitorNumber = visitorBadge.textContent.match(/\d+/)[0];
       if (lang === 'fa') {
@@ -805,11 +858,9 @@
         visitorBadge.innerHTML = `👥 ${visitorNumber} online`;
       }
       
-      // ذخیره در localStorage
       localStorage.setItem('language', lang);
     }
 
-    // رویدادهای کلیک روی گزینه‌های زبان
     langFaOption.addEventListener('click', function() {
       setLanguage('fa');
     });
@@ -818,7 +869,6 @@
       setLanguage('en');
     });
 
-    // بازیابی زبان ذخیره شده
     const savedLang = localStorage.getItem('language');
     if (savedLang === 'en') {
       setLanguage('en');
@@ -869,7 +919,6 @@
       }
     };
 
-    // شمارنده بازدیدکنندگان
     let visitors = 144;
     setInterval(() => {
       visitors += Math.floor(Math.random() * 4) - 1;
@@ -883,11 +932,9 @@
       }
     }, 5800);
 
-    // تنظیمات اولیه
     window.onload = function() {
       document.getElementById('wifiDisplay').style.filter = 'blur(5px)';
       
-      // اطمینان از اعمال تم ذخیره شده
       if (localStorage.getItem('theme') === 'dark') {
         document.documentElement.setAttribute('data-theme', 'dark');
         themeToggle.checked = true;
@@ -896,7 +943,6 @@
         themeToggle.checked = false;
       }
       
-      // اطمینان از اعمال زبان ذخیره شده
       const savedLanguage = localStorage.getItem('language');
       if (savedLanguage === 'en') {
         setLanguage('en');
