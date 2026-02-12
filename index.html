@@ -11,8 +11,10 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <style>
     /* ------------------------------------------------------------
-       NETLAND CAFENET — نسخه نهایی با طراحی ماکروسافت و macOS
-       گلسمورفیسم فوق‌پremium · اورب‌های متحرک عمیق · منوی زبان شیشه‌ای
+       NETLAND CAFENET — نسخه نهایی پریمیوم
+       دارک مود و لایت مود با کیفیت بصری کاملاً برابر
+       اورب‌های متحرک عمیق برای هر دو حالت
+       گلسمورفیسم macOS + Fintech
        ------------------------------------------------------------ */
     
     /* ---------- تایپوگرافی (SF Pro + وزیر فارسی) ---------- */
@@ -27,60 +29,74 @@
       letter-spacing: -0.012em;
     }
 
-    /* ---------- متغیرهای تم (لایت/دارک) با طراحی پریمیوم ---------- */
+    /* ---------- متغیرهای تم دارک و لایت - کاملاً متقارن ---------- */
     :root {
-      --bg-start: #f8fafd;
-      --bg-end: #f1f5f9;
-      --bg-gradient: radial-gradient(circle at 20% 30%, var(--bg-start), var(--bg-end));
+      /* لایت مود - با عمق و لایه‌های متحرک */
+      --bg-start: #ffffff;
+      --bg-end: #f5f9ff;
+      --bg-gradient: radial-gradient(circle at 30% 40%, #ffffff, #f0f5fc);
       
       --text-primary: #0a1a2b;
-      --text-secondary: #3e525e;
+      --text-secondary: #3e5a6b;
+      --text-tertiary: #6b7f8c;
       
-      --glass-bg: linear-gradient(145deg, rgba(255,255,255,0.75), rgba(255,255,255,0.55));
-      --glass-border: rgba(255,255,255,0.85);
-      --glass-border-dark: rgba(0,0,0,0.04);
+      --glass-bg: linear-gradient(145deg, rgba(255,255,255,0.8), rgba(255,255,255,0.6));
+      --glass-bg-hover: linear-gradient(145deg, rgba(255,255,255,0.9), rgba(255,255,255,0.7));
+      --glass-border: rgba(255,255,255,0.9);
+      --glass-border-strong: rgba(255,255,255,1);
       
-      --shadow-1: 0 20px 35px -10px rgba(0,20,40,0.08);
-      --shadow-2: 0 8px 20px -8px rgba(0,0,0,0.02);
-      --shadow-3: 0 0 0 0.8px rgba(255,255,255,0.7) inset;
+      --shadow-1: 0 25px 40px -18px rgba(0,20,50,0.12);
+      --shadow-2: 0 10px 20px -12px rgba(0,0,0,0.05);
+      --shadow-3: 0 0 0 0.8px rgba(255,255,255,0.8) inset;
       --shadow-4: 0 0 0 1px rgba(0,0,0,0.02) inset;
+      --shadow-5: 0 15px 30px -15px rgba(0,0,0,0.08);
       
       --accent: #0066cc;
-      --accent-soft: rgba(0,102,204,0.1);
+      --accent-soft: rgba(0,102,204,0.08);
+      --accent-glow: rgba(0,102,204,0.15);
       
-      --blob-1: rgba(180,200,230,0.25);
-      --blob-2: rgba(160,190,220,0.2);
-      --blob-3: rgba(140,180,210,0.18);
-      --blob-4: rgba(120,170,200,0.15);
+      /* اورب‌های لایت مود - تیره و ظریف */
+      --blob-1: rgba(80,100,120,0.12);
+      --blob-2: rgba(60,90,130,0.1);
+      --blob-3: rgba(100,120,140,0.09);
+      --blob-4: rgba(40,70,110,0.08);
+      --blob-5: rgba(90,110,130,0.11);
     }
 
     [data-theme="dark"] {
+      /* دارک مود - عمیق و سینماتیک */
       --bg-start: #0a0e15;
-      --bg-end: #03060a;
-      --bg-gradient: radial-gradient(circle at 80% 70%, #0e141e, #020408);
+      --bg-end: #03060b;
+      --bg-gradient: radial-gradient(circle at 70% 60%, #0e1622, #020408);
       
-      --text-primary: #f0f7ff;
-      --text-secondary: #b8ccdd;
+      --text-primary: #f0f9ff;
+      --text-secondary: #b8d0e0;
+      --text-tertiary: #8fa3b3;
       
-      --glass-bg: linear-gradient(145deg, rgba(18,26,36,0.75), rgba(12,18,26,0.65));
-      --glass-border: rgba(255,255,255,0.1);
-      --glass-border-dark: rgba(0,0,0,0.3);
+      --glass-bg: linear-gradient(145deg, rgba(20,30,42,0.8), rgba(12,20,30,0.7));
+      --glass-bg-hover: linear-gradient(145deg, rgba(30,42,58,0.85), rgba(18,28,40,0.75));
+      --glass-border: rgba(255,255,255,0.12);
+      --glass-border-strong: rgba(255,255,255,0.2);
       
-      --shadow-1: 0 25px 40px -15px rgba(0,0,0,0.6);
-      --shadow-2: 0 15px 25px -12px rgba(0,0,0,0.4);
+      --shadow-1: 0 30px 50px -20px rgba(0,0,0,0.7);
+      --shadow-2: 0 15px 30px -15px rgba(0,0,0,0.5);
       --shadow-3: 0 0 0 0.6px rgba(255,255,255,0.06) inset;
-      --shadow-4: 0 0 0 1px rgba(0,0,0,0.2) inset;
+      --shadow-4: 0 0 0 1px rgba(0,0,0,0.3) inset;
+      --shadow-5: 0 20px 40px -18px rgba(0,0,0,0.8);
       
       --accent: #5aa9e6;
-      --accent-soft: rgba(90,169,230,0.15);
+      --accent-soft: rgba(90,169,230,0.12);
+      --accent-glow: rgba(90,169,230,0.25);
       
-      --blob-1: rgba(70,130,200,0.35);
-      --blob-2: rgba(100,80,220,0.3);
-      --blob-3: rgba(40,160,210,0.28);
-      --blob-4: rgba(150,70,200,0.25);
+      /* اورب‌های دارک مود - نئونی و عمیق */
+      --blob-1: rgba(70,150,220,0.35);
+      --blob-2: rgba(120,80,230,0.3);
+      --blob-3: rgba(40,180,210,0.32);
+      --blob-4: rgba(160,70,200,0.28);
+      --blob-5: rgba(30,160,230,0.3);
     }
 
-    /* ---------- اورب‌های متحرک عمیق و سینماتیک ---------- */
+    /* ---------- اورب‌های متحرک - طراحی پریمیوم برای هر دو حالت ---------- */
     .atmosphere {
       position: fixed;
       top: 0;
@@ -95,79 +111,101 @@
     .blob {
       position: absolute;
       border-radius: 50%;
-      filter: blur(80px);
-      opacity: 0.45;
-      animation: floatBlob 35s infinite alternate ease-in-out;
+      filter: blur(90px);
+      opacity: 0.5;
+      animation: floatBlob 40s infinite alternate ease-in-out;
       will-change: transform, opacity;
     }
 
     .blob1 {
-      width: 70vmax;
-      height: 70vmax;
+      width: 80vmax;
+      height: 80vmax;
       background: var(--blob-1);
-      top: -15vh;
-      left: -20vw;
-      animation-duration: 42s;
-      animation-delay: -5s;
+      top: -20vh;
+      left: -25vw;
+      animation-duration: 48s;
+      animation-delay: -8s;
     }
     .blob2 {
-      width: 60vmax;
-      height: 60vmax;
+      width: 70vmax;
+      height: 70vmax;
       background: var(--blob-2);
-      bottom: -20vh;
-      right: -15vw;
-      animation-duration: 38s;
-      animation-delay: -12s;
+      bottom: -25vh;
+      right: -20vw;
+      animation-duration: 52s;
+      animation-delay: -15s;
     }
     .blob3 {
-      width: 50vmax;
-      height: 50vmax;
+      width: 60vmax;
+      height: 60vmax;
       background: var(--blob-3);
-      top: 40vh;
-      left: 30vw;
+      top: 30vh;
+      left: 35vw;
+      animation-duration: 58s;
+      animation-delay: -25s;
+    }
+    .blob4 {
+      width: 65vmax;
+      height: 65vmax;
+      background: var(--blob-4);
+      bottom: 15vh;
+      left: 20vw;
+      animation-duration: 62s;
+      animation-delay: -12s;
+    }
+    .blob5 {
+      width: 55vmax;
+      height: 55vmax;
+      background: var(--blob-5);
+      top: 25vh;
+      right: 15vw;
       animation-duration: 45s;
       animation-delay: -20s;
     }
-    .blob4 {
-      width: 55vmax;
-      height: 55vmax;
-      background: var(--blob-4);
-      bottom: 10vh;
-      left: 15vw;
-      animation-duration: 50s;
-      animation-delay: -8s;
-    }
-    .blob5 {
-      width: 45vmax;
-      height: 45vmax;
+    .blob6 {
+      width: 75vmax;
+      height: 75vmax;
       background: var(--blob-1);
-      top: 20vh;
-      right: 10vw;
+      bottom: 5vh;
+      right: 25vw;
       animation-duration: 55s;
-      animation-delay: -15s;
+      animation-delay: -30s;
+      opacity: 0.4;
     }
 
     @keyframes floatBlob {
-      0% { transform: translate(0, 0) scale(1); opacity: 0.35; }
-      25% { transform: translate(5%, -8%) scale(1.15); opacity: 0.45; }
-      50% { transform: translate(-7%, 6%) scale(0.95); opacity: 0.4; }
-      75% { transform: translate(9%, 4%) scale(1.1); opacity: 0.5; }
-      100% { transform: translate(-5%, -3%) scale(1.05); opacity: 0.4; }
+      0% { transform: translate(0, 0) scale(1); opacity: 0.4; }
+      25% { transform: translate(6%, -9%) scale(1.2); opacity: 0.55; }
+      50% { transform: translate(-8%, 7%) scale(0.9); opacity: 0.45; }
+      75% { transform: translate(10%, 5%) scale(1.15); opacity: 0.6; }
+      100% { transform: translate(-6%, -4%) scale(1.05); opacity: 0.5; }
     }
 
-    /* ---------- کلاس شیشه پریمیوم ---------- */
+    /* ---------- کلاس شیشه پریمیوم - ارتقا یافته ---------- */
     .glass {
       background: var(--glass-bg);
-      backdrop-filter: blur(24px) saturate(180%);
-      -webkit-backdrop-filter: blur(24px) saturate(180%);
+      backdrop-filter: blur(26px) saturate(200%);
+      -webkit-backdrop-filter: blur(26px) saturate(200%);
       border: 0.8px solid var(--glass-border);
-      border-radius: 24px;
+      border-radius: 26px;
       box-shadow: 
         var(--shadow-1),
         var(--shadow-2),
         var(--shadow-3),
         var(--shadow-4);
-      transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1);
+      transition: all 0.5s cubic-bezier(0.2, 0.9, 0.4, 1);
+    }
+
+    .glass:hover {
+      background: var(--glass-bg-hover);
+      backdrop-filter: blur(30px) saturate(220%);
+      border-color: var(--glass-border-strong);
+      box-shadow: 
+        var(--shadow-1),
+        var(--shadow-5),
+        var(--shadow-3),
+        var(--shadow-4);
+      transform: translateY(-4px);
     }
 
     * {
@@ -179,7 +217,9 @@
     body {
       background: var(--bg-gradient);
       color: var(--text-primary);
-      transition: background 0.7s ease, color 0.4s ease;
+      transition: background 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+                  color 0.4s ease,
+                  box-shadow 0.5s ease;
       min-height: 100vh;
       line-height: 1.5;
       overflow-x: hidden;
@@ -233,7 +273,10 @@
       opacity: 0.9;
       transition: 0.2s;
     }
-    .nav-links a:hover { opacity: 1; }
+    .nav-links a:hover { 
+      opacity: 1; 
+      color: var(--accent);
+    }
 
     /* ---------- بخش راست هدر ---------- */
     .header-actions {
@@ -313,7 +356,7 @@
       transform: translateX(28px);
     }
 
-    /* ---------- چرخنده تنظیمات با منوی زبان شیشه‌ای جمع‌وجور ---------- */
+    /* ---------- چرخنده تنظیمات با منوی زبان شیشه‌ای ---------- */
     .settings-dropdown {
       position: relative;
       display: inline-block;
@@ -346,14 +389,13 @@
       box-shadow: 0 0 0 2px var(--accent-soft);
     }
 
-    /* منوی کشویی زبان - شیشه‌ای، جمع‌وجور، حرفه‌ای */
     .language-menu {
       position: absolute;
       top: 50px;
       left: 0;
       min-width: 140px;
       background: var(--glass-bg);
-      backdrop-filter: blur(24px) saturate(180%);
+      backdrop-filter: blur(26px) saturate(200%);
       border: 0.8px solid var(--glass-border);
       border-radius: 20px;
       box-shadow: var(--shadow-1), var(--shadow-2);
@@ -434,7 +476,7 @@
       letter-spacing: 0.3px;
     }
 
-    /* ---------- گرید ۸ کارت با گلسمورفیسم ارتقا یافته ---------- */
+    /* ---------- گرید ۸ کارت با گلسمورفیسم فوق‌پریمیوم ---------- */
     .section {
       max-width: 1280px;
       margin: 0 auto;
@@ -442,67 +484,79 @@
     }
     .grid {
       display: grid;
-      gap: 24px;
+      gap: 26px;
     }
     .card {
-      padding: 22px 22px 24px;
-      min-height: 170px;
+      padding: 24px 24px 26px;
+      min-height: 180px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       background: var(--glass-bg);
-      backdrop-filter: blur(24px) saturate(180%);
+      backdrop-filter: blur(26px) saturate(200%);
       border: 0.8px solid var(--glass-border);
-      border-radius: 24px;
-      transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1);
-      box-shadow: var(--shadow-1), var(--shadow-2), var(--shadow-3), var(--shadow-4);
+      border-radius: 26px;
+      transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1);
+      box-shadow: 
+        var(--shadow-1),
+        var(--shadow-2),
+        var(--shadow-3),
+        var(--shadow-4);
     }
     .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 30px 45px -15px rgba(0,0,0,0.15), var(--shadow-2), var(--shadow-3);
-      border-color: rgba(255,255,255,0.95);
+      transform: translateY(-6px);
+      background: var(--glass-bg-hover);
+      border-color: var(--glass-border-strong);
+      box-shadow: 
+        0 35px 55px -20px rgba(0,0,0,0.2),
+        var(--shadow-5),
+        var(--shadow-3),
+        var(--shadow-4);
     }
     [data-theme="dark"] .card:hover {
-      box-shadow: 0 35px 55px -18px rgba(0,0,0,0.7), 0 0 0 0.8px rgba(90,169,230,0.3) inset;
-      border-color: rgba(90,169,230,0.4);
+      box-shadow: 
+        0 40px 65px -22px rgba(0,0,0,0.8),
+        0 0 0 0.8px rgba(90,169,230,0.4) inset;
+      border-color: rgba(90,169,230,0.5);
     }
     .card i {
-      font-size: 1.6rem;
+      font-size: 1.7rem;
       color: var(--accent);
-      margin-bottom: 12px;
+      margin-bottom: 14px;
     }
     .card h3 {
       font-weight: 600;
-      font-size: 1.1rem;
+      font-size: 1.15rem;
       letter-spacing: -0.01em;
       margin-bottom: 6px;
     }
     .card p {
-      font-size: 0.82rem;
+      font-size: 0.84rem;
       line-height: 1.5;
       color: var(--text-secondary);
       margin: 4px 0 8px;
     }
     .card .btn {
       align-self: flex-start;
-      margin-top: 10px;
-      padding: 8px 18px;
+      margin-top: 12px;
+      padding: 8px 20px;
       border-radius: 40px;
       border: none;
       background: var(--accent);
       color: white;
       font-weight: 500;
-      font-size: 0.75rem;
+      font-size: 0.76rem;
       letter-spacing: 0.3px;
       text-transform: uppercase;
       cursor: pointer;
       transition: 0.2s;
-      box-shadow: 0 4px 10px rgba(0,102,204,0.2);
+      box-shadow: 0 4px 12px var(--accent-glow);
     }
     .card .btn:hover {
-      background: #0052a3;
-      transform: scale(0.97);
-      box-shadow: 0 6px 14px rgba(0,102,204,0.3);
+      background: var(--accent);
+      filter: brightness(1.1);
+      transform: scale(0.98);
+      box-shadow: 0 6px 16px var(--accent-glow);
     }
 
     .address-text {
@@ -576,13 +630,14 @@
   </style>
 </head>
 <body>
-  <!-- اورب‌های متحرک عمیق و سینماتیک - طراحی پریمیوم -->
+  <!-- اورب‌های متحرک عمیق - طراحی پریمیوم برای دارک و لایت -->
   <div class="atmosphere">
     <div class="blob blob1"></div>
     <div class="blob blob2"></div>
     <div class="blob blob3"></div>
     <div class="blob blob4"></div>
     <div class="blob blob5"></div>
+    <div class="blob blob6"></div>
   </div>
 
   <!-- ========== هدر ثابت ========== -->
@@ -604,7 +659,7 @@
         <span class="slider"></span>
       </label>
 
-      <!-- چرخنده تنظیمات با منوی زبان شیشه‌ای جمع‌وجور -->
+      <!-- چرخنده تنظیمات با منوی زبان -->
       <div class="settings-dropdown" id="settingsDropdown">
         <div class="settings-btn glass" id="settingsBtn">
           <i class="fas fa-cog"></i>
@@ -729,7 +784,7 @@
       }
     });
 
-    // ======================== سیستم زبان با منوی کشویی ========================
+    // ======================== سیستم زبان ========================
     const settingsBtn = document.getElementById('settingsBtn');
     const languageMenu = document.getElementById('languageMenu');
     const langFaOption = document.getElementById('langFaOption');
