@@ -11,11 +11,10 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <style>
     /* ------------------------------------------------------------
-       NETLAND CAFENET — نسخه نهایی پریمیوم با رفع تمام باگ‌ها
+       NETLAND CAFENET — نسخه نهایی با بهینه‌سازی FPS و موبایل اختصاصی
        دارک مود و لایت مود با کیفیت بصری کاملاً برابر
        اورب‌های متحرک عمیق برای هر دو حالت
-       گلسمورفیسم macOS + Fintech
-       کاملاً بهینه‌سازی شده برای موبایل و دسکتاپ
+       کاملاً بهینه شده برای عملکرد 60 فریم بر ثانیه
        ------------------------------------------------------------ */
     
     /* ---------- تایپوگرافی (SF Pro + وزیر فارسی) ---------- */
@@ -30,17 +29,15 @@
       letter-spacing: -0.012em;
     }
 
-    /* ---------- متغیرهای تم دارک و لایت - کاملاً متقارن ---------- */
+    /* ---------- متغیرهای تم دارک و لایت ---------- */
     :root {
-      /* لایت مود - با عمق و لایه‌های متحرک */
+      /* لایت مود */
       --bg-start: #ffffff;
       --bg-end: #f5f9ff;
       --bg-gradient: radial-gradient(circle at 30% 40%, #ffffff, #f0f5fc);
       
       --text-primary: #0a1a2b;
       --text-secondary: #3e5a6b;
-      --text-tertiary: #6b7f8c;
-      --text-hover: #0a1a2b;
       
       --glass-bg: linear-gradient(145deg, rgba(255,255,255,0.8), rgba(255,255,255,0.6));
       --glass-bg-hover: linear-gradient(145deg, rgba(255,255,255,0.9), rgba(255,255,255,0.7));
@@ -51,31 +48,25 @@
       --shadow-2: 0 10px 20px -12px rgba(0,0,0,0.05);
       --shadow-3: 0 0 0 0.8px rgba(255,255,255,0.8) inset;
       --shadow-4: 0 0 0 1px rgba(0,0,0,0.02) inset;
-      --shadow-5: 0 15px 30px -15px rgba(0,0,0,0.08);
       
       --accent: #0066cc;
       --accent-soft: rgba(0,102,204,0.08);
       --accent-glow: rgba(0,102,204,0.15);
-      --card-hover-glow: rgba(0,102,204,0.2);
       
-      /* اورب‌های لایت مود - تیره و ظریف */
+      /* اورب‌های لایت مود */
       --blob-1: rgba(80,100,120,0.12);
       --blob-2: rgba(60,90,130,0.1);
       --blob-3: rgba(100,120,140,0.09);
-      --blob-4: rgba(40,70,110,0.08);
-      --blob-5: rgba(90,110,130,0.11);
     }
 
     [data-theme="dark"] {
-      /* دارک مود - عمیق و سینماتیک */
+      /* دارک مود */
       --bg-start: #0a0e15;
       --bg-end: #03060b;
       --bg-gradient: radial-gradient(circle at 70% 60%, #0e1622, #020408);
       
       --text-primary: #f0f9ff;
       --text-secondary: #b8d0e0;
-      --text-tertiary: #8fa3b3;
-      --text-hover: #ffffff;
       
       --glass-bg: linear-gradient(145deg, rgba(20,30,42,0.8), rgba(12,20,30,0.7));
       --glass-bg-hover: linear-gradient(145deg, rgba(30,42,58,0.85), rgba(18,28,40,0.75));
@@ -86,146 +77,18 @@
       --shadow-2: 0 15px 30px -15px rgba(0,0,0,0.5);
       --shadow-3: 0 0 0 0.6px rgba(255,255,255,0.06) inset;
       --shadow-4: 0 0 0 1px rgba(0,0,0,0.3) inset;
-      --shadow-5: 0 20px 40px -18px rgba(0,0,0,0.8);
       
       --accent: #5aa9e6;
       --accent-soft: rgba(90,169,230,0.12);
       --accent-glow: rgba(90,169,230,0.25);
-      --card-hover-glow: rgba(90,169,230,0.3);
       
-      /* اورب‌های دارک مود - نئونی و عمیق */
+      /* اورب‌های دارک مود */
       --blob-1: rgba(70,150,220,0.35);
       --blob-2: rgba(120,80,230,0.3);
       --blob-3: rgba(40,180,210,0.32);
-      --blob-4: rgba(160,70,200,0.28);
-      --blob-5: rgba(30,160,230,0.3);
     }
 
-    /* ---------- اورب‌های متحرک - طراحی پریمیوم برای هر دو حالت ---------- */
-    .atmosphere {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -2;
-      overflow: hidden;
-      pointer-events: none;
-    }
-
-    .blob {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(90px);
-      opacity: 0.5;
-      animation: floatBlob 40s infinite alternate ease-in-out;
-      will-change: transform, opacity;
-    }
-
-    .blob1 {
-      width: 80vmax;
-      height: 80vmax;
-      background: var(--blob-1);
-      top: -20vh;
-      left: -25vw;
-      animation-duration: 48s;
-      animation-delay: -8s;
-    }
-    .blob2 {
-      width: 70vmax;
-      height: 70vmax;
-      background: var(--blob-2);
-      bottom: -25vh;
-      right: -20vw;
-      animation-duration: 52s;
-      animation-delay: -15s;
-    }
-    .blob3 {
-      width: 60vmax;
-      height: 60vmax;
-      background: var(--blob-3);
-      top: 30vh;
-      left: 35vw;
-      animation-duration: 58s;
-      animation-delay: -25s;
-    }
-    .blob4 {
-      width: 65vmax;
-      height: 65vmax;
-      background: var(--blob-4);
-      bottom: 15vh;
-      left: 20vw;
-      animation-duration: 62s;
-      animation-delay: -12s;
-    }
-    .blob5 {
-      width: 55vmax;
-      height: 55vmax;
-      background: var(--blob-5);
-      top: 25vh;
-      right: 15vw;
-      animation-duration: 45s;
-      animation-delay: -20s;
-    }
-    .blob6 {
-      width: 75vmax;
-      height: 75vmax;
-      background: var(--blob-1);
-      bottom: 5vh;
-      right: 25vw;
-      animation-duration: 55s;
-      animation-delay: -30s;
-      opacity: 0.4;
-    }
-
-    @keyframes floatBlob {
-      0% { transform: translate(0, 0) scale(1); opacity: 0.4; }
-      25% { transform: translate(6%, -9%) scale(1.2); opacity: 0.55; }
-      50% { transform: translate(-8%, 7%) scale(0.9); opacity: 0.45; }
-      75% { transform: translate(10%, 5%) scale(1.15); opacity: 0.6; }
-      100% { transform: translate(-6%, -4%) scale(1.05); opacity: 0.5; }
-    }
-
-    /* بهینه‌سازی برای موبایل - کاهش سنگینی افکت‌ها */
-    @media (max-width: 768px) {
-      .blob {
-        filter: blur(40px);
-        opacity: 0.3;
-      }
-      
-      .blob1, .blob2, .blob3, .blob4, .blob5, .blob6 {
-        width: 100vmax;
-        height: 100vmax;
-      }
-    }
-
-    /* ---------- کلاس شیشه پریمیوم - ارتقا یافته ---------- */
-    .glass {
-      background: var(--glass-bg);
-      backdrop-filter: blur(26px) saturate(200%);
-      -webkit-backdrop-filter: blur(26px) saturate(200%);
-      border: 0.8px solid var(--glass-border);
-      border-radius: 26px;
-      box-shadow: 
-        var(--shadow-1),
-        var(--shadow-2),
-        var(--shadow-3),
-        var(--shadow-4);
-      transition: all 0.5s cubic-bezier(0.2, 0.9, 0.4, 1);
-    }
-
-    .glass:hover {
-      background: var(--glass-bg-hover);
-      backdrop-filter: blur(30px) saturate(220%);
-      border-color: var(--glass-border-strong);
-      box-shadow: 
-        var(--shadow-1),
-        var(--shadow-5),
-        var(--shadow-3),
-        var(--shadow-4);
-      transform: translateY(-4px);
-    }
-
+    /* بهینه‌سازی برای عملکرد بالا */
     * {
       margin: 0;
       padding: 0;
@@ -235,15 +98,87 @@
     body {
       background: var(--bg-gradient);
       color: var(--text-primary);
-      transition: background 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
-                  color 0.4s ease,
-                  box-shadow 0.5s ease;
+      transition: background 0.6s ease, color 0.3s ease;
       min-height: 100vh;
       line-height: 1.5;
       overflow-x: hidden;
+      will-change: background;
     }
 
-    /* ---------- هدر ثابت ---------- */
+    /* اورب‌های بهینه شده با تعداد کمتر و انیمیشن ساده‌تر */
+    .atmosphere {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+      overflow: hidden;
+      pointer-events: none;
+      will-change: transform;
+    }
+
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.4;
+      animation: floatBlob 35s infinite alternate ease-in-out;
+      will-change: transform;
+      backface-visibility: hidden;
+      transform: translateZ(0);
+    }
+
+    .blob1 {
+      width: 70vmax;
+      height: 70vmax;
+      background: var(--blob-1);
+      top: -15vh;
+      left: -20vw;
+      animation-duration: 40s;
+    }
+    .blob2 {
+      width: 60vmax;
+      height: 60vmax;
+      background: var(--blob-2);
+      bottom: -20vh;
+      right: -15vw;
+      animation-duration: 45s;
+    }
+    .blob3 {
+      width: 50vmax;
+      height: 50vmax;
+      background: var(--blob-3);
+      top: 30vh;
+      left: 30vw;
+      animation-duration: 50s;
+    }
+
+    @keyframes floatBlob {
+      0% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(4%, -5%) scale(1.1); }
+      100% { transform: translate(-4%, 3%) scale(0.95); }
+    }
+
+    /* کلاس شیشه بهینه شده */
+    .glass {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border: 0.8px solid var(--glass-border);
+      border-radius: 26px;
+      box-shadow: var(--shadow-1), var(--shadow-2), var(--shadow-3);
+      transition: all 0.3s ease;
+      will-change: transform, box-shadow;
+    }
+
+    .glass:hover {
+      background: var(--glass-bg-hover);
+      border-color: var(--glass-border-strong);
+      transform: translateY(-3px);
+    }
+
+    /* هدر */
     header {
       position: fixed;
       top: 20px;
@@ -257,12 +192,6 @@
       align-items: center;
       z-index: 100;
       border-radius: 48px;
-    }
-    body header.glass,
-    body header.glass:hover,
-    body header.glass:focus,
-    body header.glass:active {
-      transform: translateX(-50%) !important;
     }
 
     .logo {
@@ -289,14 +218,10 @@
       color: var(--text-primary);
       font-size: 0.98rem;
       opacity: 0.9;
-      transition: 0.2s;
-    }
-    .nav-links a:hover { 
-      opacity: 1; 
-      color: var(--accent);
+      transition: opacity 0.2s;
     }
 
-    /* ---------- بخش راست هدر ---------- */
+    /* بخش راست هدر */
     .header-actions {
       display: flex;
       align-items: center;
@@ -314,7 +239,7 @@
       backdrop-filter: blur(16px);
     }
 
-    /* ---------- سوئیچ تم ---------- */
+    /* سوئیچ تم با بهینه‌سازی نرم‌ترین انیمیشن */
     .theme-switch {
       position: relative;
       display: inline-block;
@@ -338,8 +263,9 @@
       backdrop-filter: blur(16px);
       border: 0.5px solid var(--glass-border);
       border-radius: 34px;
-      transition: all 0.45s cubic-bezier(0.34, 1.2, 0.64, 1);
+      transition: 0.35s cubic-bezier(0.4, 0.0, 0.2, 1);
       box-shadow: inset 0 1px 4px rgba(0,0,0,0.04);
+      will-change: transform;
     }
     .slider:before {
       position: absolute;
@@ -350,8 +276,9 @@
       bottom: 2px;
       background: white;
       border-radius: 50%;
-      transition: transform 0.5s cubic-bezier(0.34, 1.4, 0.64, 1);
+      transition: transform 0.35s cubic-bezier(0.4, 0.0, 0.2, 1);
       box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      will-change: transform;
     }
     .slider:after {
       position: absolute;
@@ -361,7 +288,7 @@
       top: 50%;
       left: 7px;
       transform: translateY(-50%);
-      transition: 0.2s;
+      transition: opacity 0.2s;
       pointer-events: none;
       z-index: 2;
     }
@@ -374,7 +301,7 @@
       transform: translateX(28px);
     }
 
-    /* ---------- چرخنده تنظیمات با منوی زبان شیشه‌ای ---------- */
+    /* منوی زبان */
     .settings-dropdown {
       position: relative;
       display: inline-block;
@@ -393,18 +320,14 @@
       cursor: pointer;
       transition: all 0.3s ease;
       color: var(--text-primary);
-      box-shadow: var(--shadow-2);
     }
     .settings-btn i {
       font-size: 1.2rem;
-      transition: transform 0.6s cubic-bezier(0.34, 1.4, 0.64, 1);
+      transition: transform 0.5s cubic-bezier(0.4, 0.0, 0.2, 1);
+      will-change: transform;
     }
     .settings-btn:hover i {
       transform: rotate(180deg);
-    }
-    .settings-btn:hover {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 2px var(--accent-soft);
     }
 
     .language-menu {
@@ -413,7 +336,7 @@
       left: 0;
       min-width: 140px;
       background: var(--glass-bg);
-      backdrop-filter: blur(26px) saturate(200%);
+      backdrop-filter: blur(20px) saturate(180%);
       border: 0.8px solid var(--glass-border);
       border-radius: 20px;
       box-shadow: var(--shadow-1), var(--shadow-2);
@@ -421,18 +344,9 @@
       display: none;
       z-index: 1000;
     }
-    html[dir="ltr"] .language-menu {
-      left: 0;
-      right: auto;
-    }
-    html[dir="rtl"] .language-menu {
-      left: auto;
-      right: 0;
-    }
-
     .language-menu.show {
       display: block;
-      animation: menuFade 0.25s ease;
+      animation: menuFade 0.2s ease;
     }
 
     @keyframes menuFade {
@@ -448,18 +362,12 @@
       align-items: center;
       gap: 10px;
       color: var(--text-primary);
-      transition: all 0.2s ease;
+      transition: background 0.2s;
       margin-bottom: 2px;
       font-size: 0.85rem;
-      border: 0.5px solid transparent;
-    }
-    .lang-option:last-child {
-      margin-bottom: 0;
     }
     .lang-option:hover {
       background: var(--accent-soft);
-      border-color: rgba(255,255,255,0.2);
-      backdrop-filter: blur(8px);
     }
     .lang-option i {
       width: 16px;
@@ -471,7 +379,7 @@
       border: 0.5px solid var(--accent);
     }
 
-    /* ---------- هیرو ---------- */
+    /* هیرو */
     .hero {
       padding: 160px 24px 60px;
       text-align: center;
@@ -481,9 +389,7 @@
     .hero h1 {
       font-size: clamp(2.8rem, 7vw, 4.5rem);
       font-weight: 800;
-      letter-spacing: -0.02em;
       color: var(--text-primary);
-      text-shadow: 0 2px 10px rgba(0,0,0,0.03);
       line-height: 1.2;
     }
     .hero-sub {
@@ -491,10 +397,9 @@
       font-weight: 350;
       color: var(--text-secondary);
       margin-top: 16px;
-      letter-spacing: 0.3px;
     }
 
-    /* ---------- گرید ۸ کارت با گلسمورفیسم فوق‌پریمیوم ---------- */
+    /* گرید اصلی */
     .section {
       max-width: 1280px;
       margin: 0 auto;
@@ -502,87 +407,58 @@
     }
     .grid {
       display: grid;
-      gap: 26px;
+      gap: 24px;
     }
+
+    /* کارت‌ها */
     .card {
-      padding: 24px 24px 26px;
+      padding: 24px;
       min-height: 180px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       background: var(--glass-bg);
-      backdrop-filter: blur(26px) saturate(200%);
+      backdrop-filter: blur(20px) saturate(180%);
       border: 0.8px solid var(--glass-border);
-      border-radius: 26px;
-      transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1);
-      box-shadow: 
-        var(--shadow-1),
-        var(--shadow-2),
-        var(--shadow-3),
-        var(--shadow-4);
+      border-radius: 24px;
+      transition: all 0.3s ease;
+      will-change: transform;
     }
     .card:hover {
-      transform: translateY(-6px);
-      background: var(--glass-bg-hover);
+      transform: translateY(-4px);
       border-color: var(--glass-border-strong);
-      box-shadow: 
-        0 35px 55px -20px rgba(0,0,0,0.2),
-        var(--shadow-5),
-        var(--shadow-3),
-        var(--shadow-4);
     }
-    
-    [data-theme="dark"] .card:hover {
-      box-shadow: 
-        0 40px 65px -22px rgba(0,0,0,0.8),
-        0 0 0 1px var(--accent) inset;
-      border-color: var(--accent);
-    }
-    
-    [data-theme="dark"] .card:hover h3,
-    [data-theme="dark"] .card:hover p {
-      color: var(--text-hover);
-      text-shadow: 0 0 8px rgba(255,255,255,0.2);
-    }
-    
     .card i {
-      font-size: 1.7rem;
+      font-size: 1.6rem;
       color: var(--accent);
-      margin-bottom: 14px;
+      margin-bottom: 12px;
     }
     .card h3 {
       font-weight: 600;
-      font-size: 1.15rem;
-      letter-spacing: -0.01em;
+      font-size: 1.1rem;
       margin-bottom: 6px;
     }
     .card p {
-      font-size: 0.84rem;
-      line-height: 1.5;
+      font-size: 0.85rem;
       color: var(--text-secondary);
-      margin: 4px 0 8px;
+      margin: 4px 0;
     }
     .card .btn {
       align-self: flex-start;
       margin-top: 12px;
-      padding: 8px 20px;
+      padding: 8px 18px;
       border-radius: 40px;
       border: none;
       background: var(--accent);
       color: white;
       font-weight: 500;
-      font-size: 0.76rem;
-      letter-spacing: 0.3px;
-      text-transform: uppercase;
+      font-size: 0.75rem;
       cursor: pointer;
-      transition: 0.2s;
-      box-shadow: 0 4px 12px var(--accent-glow);
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 10px var(--accent-glow);
     }
-    .card .btn:hover {
-      background: var(--accent);
-      filter: brightness(1.1);
-      transform: scale(0.98);
-      box-shadow: 0 6px 16px var(--accent-glow);
+    .card .btn:active {
+      transform: scale(0.96);
     }
 
     .address-text {
@@ -590,30 +466,13 @@
       text-align: right;
       font-size: 0.8rem;
       line-height: 1.5;
-      margin-bottom: 6px;
     }
 
-    /* ---------- بهینه‌سازی موبایل برای کارت‌ها ---------- */
+    /* ========== نسخه اختصاصی موبایل ========== */
     @media (max-width: 767px) {
-      .grid { 
-        grid-template-columns: 1fr;
-        padding: 0 8px;
-      }
-      
-      .section {
-        padding: 20px 12px 40px;
-      }
-      
-      .card {
-        padding: 20px;
-        margin-bottom: 8px;
-      }
-      
-      .visitor-badge {
-        display: none;
-      }
-      
+      /* هدر موبایل */
       header {
+        top: 10px;
         padding: 10px 16px;
         width: calc(100% - 20px);
       }
@@ -622,116 +481,200 @@
         font-size: 1.2rem;
       }
       
+      .nav-links {
+        display: none;
+      }
+      
+      .header-actions {
+        gap: 8px;
+      }
+      
+      .visitor-badge {
+        display: none; /* مخفی کردن ویزیتر در موبایل برای فضای بیشتر */
+      }
+      
       .theme-switch {
-        width: 48px;
-        height: 26px;
+        width: 52px;
+        height: 28px;
       }
       
       .slider:before {
-        height: 22px;
-        width: 22px;
+        height: 24px;
+        width: 24px;
       }
       
       input:checked + .slider:before {
-        transform: translateX(22px);
+        transform: translateX(24px);
+      }
+      
+      .settings-btn {
+        width: 36px;
+        height: 36px;
+      }
+      
+      .settings-btn i {
+        font-size: 1.1rem;
+      }
+      
+      /* هیرو موبایل */
+      .hero {
+        padding: 120px 16px 40px;
+      }
+      
+      .hero h1 {
+        font-size: 2rem;
+      }
+      
+      .hero-sub {
+        font-size: 1rem;
+      }
+      
+      /* گرید موبایل - یک ستون */
+      .section {
+        padding: 20px 16px 40px;
+      }
+      
+      .grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+      
+      /* کارت‌های موبایل - کمی کوچکتر */
+      .card {
+        padding: 18px;
+        min-height: 150px;
+      }
+      
+      .card i {
+        font-size: 1.4rem;
+        margin-bottom: 8px;
+      }
+      
+      .card h3 {
+        font-size: 1rem;
+      }
+      
+      .card p {
+        font-size: 0.8rem;
+      }
+      
+      .card .btn {
+        padding: 6px 16px;
+        font-size: 0.7rem;
+        margin-top: 8px;
+      }
+      
+      /* نویگیشن پایین موبایل */
+      .bottom-nav {
+        display: flex;
+        bottom: 10px;
+        padding: 8px 12px;
+        backdrop-filter: blur(20px);
+      }
+      
+      .bottom-nav i {
+        font-size: 1.1rem;
+        padding: 8px;
+        cursor: pointer;
+        transition: color 0.2s;
+      }
+      
+      .bottom-nav i:active {
+        color: var(--accent);
+      }
+      
+      /* بهینه‌سازی اورب برای موبایل */
+      .blob {
+        filter: blur(50px);
+        opacity: 0.3;
       }
     }
 
-    /* ---------- نویگیشن پایین (فقط موبایل) ---------- */
+    /* نسخه تبلت */
+    @media (min-width: 768px) and (max-width: 1199px) {
+      .grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .nav-links {
+        display: flex;
+        gap: 20px;
+      }
+    }
+
+    /* نسخه دسکتاپ */
+    @media (min-width: 1200px) {
+      .grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+      
+      .nav-links {
+        display: flex;
+      }
+    }
+
+    /* نویگیشن پایین (فقط موبایل نمایش داده شود) */
     .bottom-nav {
       display: none;
       position: fixed;
-      bottom: 16px;
       left: 50%;
       transform: translateX(-50%);
       width: calc(100% - 40px);
       max-width: 380px;
       padding: 10px 16px;
       background: var(--glass-bg);
-      backdrop-filter: blur(28px);
+      backdrop-filter: blur(20px);
       border: 0.8px solid var(--glass-border);
-      border-radius: 48px;
+      border-radius: 40px;
       justify-content: space-around;
       z-index: 99;
     }
-    @media (max-width: 767px) {
-      .bottom-nav { display: flex; }
-    }
-    .bottom-nav i {
-      font-size: 1.2rem;
-      color: var(--text-secondary);
-    }
 
-    /* ---------- تــــوست ---------- */
+    /* تــــوست */
     .toast {
       position: fixed;
       bottom: 90px;
       left: 50%;
       transform: translateX(-50%);
-      background: rgba(20,28,38,0.85);
-      backdrop-filter: blur(30px);
+      background: rgba(20,28,38,0.9);
+      backdrop-filter: blur(20px);
       color: white;
-      padding: 12px 26px;
-      border-radius: 60px;
+      padding: 10px 24px;
+      border-radius: 40px;
       font-weight: 500;
       font-size: 0.85rem;
       border: 0.5px solid rgba(255,255,255,0.2);
       z-index: 999;
-      animation: slideUp 0.4s ease;
+      animation: slideUp 0.3s ease;
+      white-space: nowrap;
+      max-width: 90%;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
+
     @keyframes slideUp {
-      0% { opacity: 0; transform: translate(-50%, 20px); }
-      100% { opacity: 1; transform: translate(-50%, 0); }
-    }
-    @keyframes slideDown {
-      to { opacity: 0; transform: translate(-50%, 20px); }
-    }
-
-    /* ---------- انیمیشن لودینگ برای دکمه‌ها ---------- */
-    .btn-loading {
-      position: relative;
-      color: transparent !important;
-    }
-
-    .btn-loading::after {
-      content: "";
-      position: absolute;
-      width: 16px;
-      height: 16px;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      border: 2px solid white;
-      border-radius: 50%;
-      border-top-color: transparent;
-      animation: spin 0.6s linear infinite;
-    }
-
-    @keyframes spin {
-      to { transform: translate(-50%, -50%) rotate(360deg); }
+      from { opacity: 0; transform: translate(-50%, 20px); }
+      to { opacity: 1; transform: translate(-50%, 0); }
     }
   </style>
 </head>
 <body>
-  <!-- اورب‌های متحرک عمیق - طراحی پریمیوم برای دارک و لایت -->
+  <!-- اورب‌های متحرک بهینه شده -->
   <div class="atmosphere">
     <div class="blob blob1"></div>
     <div class="blob blob2"></div>
     <div class="blob blob3"></div>
-    <div class="blob blob4"></div>
-    <div class="blob blob5"></div>
-    <div class="blob blob6"></div>
   </div>
 
-  <!-- ========== هدر ثابت ========== -->
+  <!-- ========== هدر ========== -->
   <header class="glass">
     <div class="logo">NetLand CafeNet</div>
     <div class="nav-links">
-      <a href="#" class="nav-home" id="nav-home">خانه</a>
-      <a href="#" class="nav-gaming" id="nav-gaming">گیمر</a>
-      <a href="#" class="nav-services" id="nav-services">خدمات</a>
-      <a href="#" class="nav-contact" id="nav-contact">تماس</a>
-      <a href="#" class="nav-login" id="nav-login">ورود</a>
+      <a href="#" class="nav-home">خانه</a>
+      <a href="#" class="nav-gaming">گیمر</a>
+      <a href="#" class="nav-services">خدمات</a>
+      <a href="#" class="nav-contact">تماس</a>
+      <a href="#" class="nav-login">ورود</a>
     </div>
     
     <div class="header-actions">
@@ -742,7 +685,6 @@
         <span class="slider"></span>
       </label>
 
-      <!-- چرخنده تنظیمات با منوی زبان -->
       <div class="settings-dropdown" id="settingsDropdown">
         <div class="settings-btn glass" id="settingsBtn">
           <i class="fas fa-cog"></i>
@@ -775,21 +717,21 @@
         <i class="fab fa-telegram-plane"></i>
         <h3 id="card1Title">تلگرام</h3>
         <p id="card1Desc">عضویت در کانال · ۲,۵۰۰ عضو</p>
-        <button class="btn" onclick="showToast('📬 باز شدن تلگرام', 'info')" id="card1Btn">عضویت</button>
+        <button class="btn" onclick="showToast('📬 باز شدن تلگرام')" id="card1Btn">عضویت</button>
       </div>
       <!-- 2. اینستاگرام -->
       <div class="card glass">
         <i class="fab fa-instagram"></i>
         <h3 id="card2Title">اینستاگرام</h3>
         <p id="card2Desc">دنبال کنید · ۸,۳۰۰ دنبال‌کننده</p>
-        <button class="btn" onclick="showToast('📸 باز شدن اینستاگرام', 'info')" id="card2Btn">دنبال کردن</button>
+        <button class="btn" onclick="showToast('📸 باز شدن اینستاگرام')" id="card2Btn">دنبال کردن</button>
       </div>
-      <!-- 3. واتساپ - با card3Desc اضافه شده -->
+      <!-- 3. واتساپ -->
       <div class="card glass">
         <i class="fab fa-whatsapp"></i>
         <h3 id="card3Title">واتساپ</h3>
         <p id="card3Desc">وضعیت: <span style="color: #2ecc71;">آنلاین</span> · گفتگو</p>
-        <button class="btn" onclick="showToast('💬 باز شدن واتساپ', 'info')" id="card3Btn">گفتگو</button>
+        <button class="btn" onclick="showToast('💬 باز شدن واتساپ')" id="card3Btn">گفتگو</button>
       </div>
       <!-- 4. لوکیشن -->
       <div class="card glass">
@@ -800,15 +742,15 @@
         </div>
         <p style="font-size:0.7rem; color:var(--text-secondary);">35.512149, 51.619335</p>
         <a href="https://maps.app.goo.gl/EyN3tSQcHtB58h2r8" target="_blank" style="text-decoration: none; margin-top: 6px;">
-          <button class="btn" style="background: var(--accent);" onclick="showToast('🗺️ باز شدن نقشه', 'success')" id="card4Btn">مسیریابی</button>
+          <button class="btn" style="background: var(--accent);" onclick="showToast('🗺️ باز شدن نقشه')" id="card4Btn">مسیریابی</button>
         </a>
       </div>
-      <!-- 5. شماره تماس -->
+      <!-- 5. شماره تماس (آپدیت شده) -->
       <div class="card glass">
         <i class="fas fa-phone-alt"></i>
         <h3 id="card5Title">تماس</h3>
-        <p style="font-size:0.85rem; font-weight: 500;">+98 21 1234 5678</p>
-        <button class="btn" onclick="copyToClipboard('+982112345678')" id="card5Btn">کپی شماره</button>
+        <p style="font-size:0.85rem; font-weight: 500;">0905 424 0371</p>
+        <button class="btn" onclick="copyToClipboard('09054240371')" id="card5Btn">کپی شماره</button>
       </div>
       <!-- 6. ساعت کاری -->
       <div class="card glass">
@@ -820,7 +762,7 @@
       <div class="card glass">
         <i class="fas fa-wifi"></i>
         <h3 id="card7Title">رمز وای‌فای</h3>
-        <p id="wifiDisplay" style="filter: blur(5px); cursor: pointer;" title="دوبار کلیک کنید برای نمایش/مخفی کردن">NetLand@2026</p>
+        <p id="wifiDisplay" style="filter: blur(5px); cursor: pointer;" ondblclick="revealWifi()">NetLand@2026</p>
         <div style="display: flex; gap: 8px;">
           <button class="btn" onclick="revealWifi()" id="card7Btn1">نمایش</button>
           <button class="btn" onclick="copyToClipboard('NetLand@2026')" id="card7Btn2">کپی</button>
@@ -836,17 +778,17 @@
     </div>
   </section>
 
-  <!-- نویگیشن پایین موبایل - با قابلیت کلیک -->
+  <!-- نویگیشن پایین موبایل -->
   <div class="bottom-nav glass">
-    <i class="fas fa-home" onclick="showToast('🏠 صفحه اصلی', 'info')" style="cursor: pointer;"></i>
-    <i class="fas fa-hashtag" onclick="showToast('📱 خدمات', 'info')" style="cursor: pointer;"></i>
-    <i class="fas fa-map-marker-alt" onclick="window.open('https://maps.app.goo.gl/EyN3tSQcHtB58h2r8', '_blank')" style="cursor: pointer;"></i>
-    <i class="fas fa-phone" onclick="copyToClipboard('+982112345678')" style="cursor: pointer;"></i>
-    <i class="fas fa-user" onclick="showToast('👤 پروفایل', 'info')" style="cursor: pointer;"></i>
+    <i class="fas fa-home" onclick="showToast('🏠 صفحه اصلی')"></i>
+    <i class="fas fa-hashtag" onclick="showToast('📱 خدمات')"></i>
+    <i class="fas fa-map-marker-alt" onclick="window.open('https://maps.app.goo.gl/EyN3tSQcHtB58h2r8', '_blank')"></i>
+    <i class="fas fa-phone" onclick="copyToClipboard('09054240371')"></i>
+    <i class="fas fa-user" onclick="showToast('👤 پروفایل')"></i>
   </div>
 
   <script>
-    // ======================== سیستم تم ========================
+    // ======================== سیستم تم با بالاترین نرمی ========================
     const themeToggle = document.getElementById('themeToggleCheckbox');
     
     if (localStorage.getItem('theme') === 'dark') {
@@ -884,7 +826,6 @@
       }
     });
 
-    // آبجکت کامل ترجمه
     const translations = {
       navHome: { fa: 'خانه', en: 'Home' },
       navGaming: { fa: 'گیمر', en: 'Gaming' },
@@ -923,115 +864,78 @@
       statusChat: { fa: 'گفتگو', en: 'Chat now' }
     };
 
-    // تابع کمکی برای آپدیت آیکون‌های زبان
-    function updateLangIcons(lang) {
-      const faIcon = langFaOption.querySelector('i');
-      const enIcon = langEnOption.querySelector('i');
-      
-      if (lang === 'fa') {
-        langFaOption.classList.add('active');
-        langEnOption.classList.remove('active');
-        faIcon.className = 'fas fa-check-circle';
-        enIcon.className = 'fas fa-circle';
-      } else {
-        langEnOption.classList.add('active');
-        langFaOption.classList.remove('active');
-        enIcon.className = 'fas fa-check-circle';
-        faIcon.className = 'fas fa-circle';
-      }
-    }
-
-    // تابع تغییر زبان - نسخه کاملاً ایمن
     function setLanguage(lang) {
       const isRTL = (lang === 'fa');
       
       document.documentElement.dir = isRTL ? 'rtl' : 'ltr';
       document.documentElement.lang = lang;
       
-      updateLangIcons(lang);
+      if (lang === 'fa') {
+        langFaOption.classList.add('active');
+        langEnOption.classList.remove('active');
+        langFaOption.querySelector('i').className = 'fas fa-check-circle';
+        langEnOption.querySelector('i').className = 'fas fa-circle';
+      } else {
+        langEnOption.classList.add('active');
+        langFaOption.classList.remove('active');
+        langEnOption.querySelector('i').className = 'fas fa-check-circle';
+        langFaOption.querySelector('i').className = 'fas fa-circle';
+      }
+      
       languageMenu.classList.remove('show');
       
-      // تابع کمکی برای به‌روزرسانی ایمن المان‌ها
-      const updateEl = (id, text) => {
-        const el = document.getElementById(id);
-        if (el) el.textContent = text;
-      };
+      document.querySelector('.nav-home').textContent = translations.navHome[lang];
+      document.querySelector('.nav-gaming').textContent = translations.navGaming[lang];
+      document.querySelector('.nav-services').textContent = translations.navServices[lang];
+      document.querySelector('.nav-contact').textContent = translations.navContact[lang];
+      document.querySelector('.nav-login').textContent = translations.navLogin[lang];
       
-      const updateElHTML = (id, html) => {
-        const el = document.getElementById(id);
-        if (el) el.innerHTML = html;
-      };
+      document.getElementById('heroSub').textContent = translations.heroSub[lang];
       
-      // به‌روزرسانی نویگیشن
-      updateEl('nav-home', translations.navHome[lang]);
-      updateEl('nav-gaming', translations.navGaming[lang]);
-      updateEl('nav-services', translations.navServices[lang]);
-      updateEl('nav-contact', translations.navContact[lang]);
-      updateEl('nav-login', translations.navLogin[lang]);
+      document.getElementById('card1Title').textContent = translations.card1Title[lang];
+      document.getElementById('card1Desc').textContent = translations.card1Desc[lang];
+      document.getElementById('card1Btn').textContent = translations.card1Btn[lang];
       
-      // هیرو
-      updateEl('heroSub', translations.heroSub[lang]);
+      document.getElementById('card2Title').textContent = translations.card2Title[lang];
+      document.getElementById('card2Desc').textContent = translations.card2Desc[lang];
+      document.getElementById('card2Btn').textContent = translations.card2Btn[lang];
       
-      // کارت ۱
-      updateEl('card1Title', translations.card1Title[lang]);
-      updateEl('card1Desc', translations.card1Desc[lang]);
-      updateEl('card1Btn', translations.card1Btn[lang]);
+      document.getElementById('card3Title').textContent = translations.card3Title[lang];
+      const statusOnline = translations.statusOnline[lang];
+      const statusChat = translations.statusChat[lang];
+      document.getElementById('card3Desc').innerHTML = `وضعیت: <span style="color: #2ecc71;">${statusOnline}</span> · ${statusChat}`;
+      document.getElementById('card3Btn').textContent = translations.card3Btn[lang];
       
-      // کارت ۲
-      updateEl('card2Title', translations.card2Title[lang]);
-      updateEl('card2Desc', translations.card2Desc[lang]);
-      updateEl('card2Btn', translations.card2Btn[lang]);
+      document.getElementById('card4Title').textContent = translations.card4Title[lang];
+      document.getElementById('card4Address').textContent = translations.card4Address[lang];
+      document.getElementById('card4Btn').textContent = translations.card4Btn[lang];
       
-      // کارت ۳ - واتساپ با وضعیت
-      updateEl('card3Title', translations.card3Title[lang]);
-      const card3Desc = document.getElementById('card3Desc');
-      if (card3Desc) {
-        const statusOnline = translations.statusOnline[lang];
-        const statusChat = translations.statusChat[lang];
-        card3Desc.innerHTML = lang === 'fa' 
-          ? `وضعیت: <span style="color: #2ecc71;">${statusOnline}</span> · ${statusChat}`
-          : `Status: <span style="color: #2ecc71;">${statusOnline}</span> · ${statusChat}`;
-      }
-      updateEl('card3Btn', translations.card3Btn[lang]);
+      document.getElementById('card5Title').textContent = translations.card5Title[lang];
+      document.getElementById('card5Btn').textContent = translations.card5Btn[lang];
       
-      // کارت ۴ - لوکیشن
-      updateEl('card4Title', translations.card4Title[lang]);
-      updateEl('card4Address', translations.card4Address[lang]);
-      updateEl('card4Btn', translations.card4Btn[lang]);
+      document.getElementById('card6Title').textContent = translations.card6Title[lang];
+      document.getElementById('card6Desc').innerHTML = translations.card6Desc[lang];
       
-      // کارت ۵ - تماس
-      updateEl('card5Title', translations.card5Title[lang]);
-      updateEl('card5Btn', translations.card5Btn[lang]);
+      document.getElementById('card7Title').textContent = translations.card7Title[lang];
+      document.getElementById('card7Btn1').textContent = translations.card7Btn1[lang];
+      document.getElementById('card7Btn2').textContent = translations.card7Btn2[lang];
       
-      // کارت ۶ - ساعت کاری
-      updateEl('card6Title', translations.card6Title[lang]);
-      updateElHTML('card6Desc', translations.card6Desc[lang]);
-      
-      // کارت ۷ - وای‌فای
-      updateEl('card7Title', translations.card7Title[lang]);
-      updateEl('card7Btn1', translations.card7Btn1[lang]);
-      updateEl('card7Btn2', translations.card7Btn2[lang]);
-      
-      // کارت ۸ - گیمینگ
-      updateEl('card8Title', translations.card8Title[lang]);
+      document.getElementById('card8Title').textContent = translations.card8Title[lang];
       const stationEl = document.getElementById('stationCount');
-      if (stationEl) {
-        const currentNumber = stationEl.textContent.match(/\d+/);
-        if (currentNumber) {
-          const num = currentNumber[0];
-          stationEl.textContent = lang === 'fa' ? `${num} دستگاه آماده` : `${num} PCs available`;
-        }
+      const currentNumber = stationEl.textContent.match(/\d+/)[0];
+      if (lang === 'fa') {
+        stationEl.textContent = `${currentNumber} دستگاه آماده`;
+      } else {
+        stationEl.textContent = `${currentNumber} PCs available`;
       }
-      updateEl('card8Btn', translations.card8Btn[lang]);
+      document.getElementById('card8Btn').textContent = translations.card8Btn[lang];
       
-      // ویزیتر
       const visitorBadge = document.getElementById('visitorBadge');
-      if (visitorBadge) {
-        const visitorNumber = visitorBadge.textContent.match(/\d+/);
-        if (visitorNumber) {
-          const num = visitorNumber[0];
-          visitorBadge.innerHTML = lang === 'fa' ? `👥 ${num} آنلاین` : `👥 ${num} online`;
-        }
+      const visitorNumber = visitorBadge.textContent.match(/\d+/)[0];
+      if (lang === 'fa') {
+        visitorBadge.innerHTML = `👥 ${visitorNumber} آنلاین`;
+      } else {
+        visitorBadge.innerHTML = `👥 ${visitorNumber} online`;
       }
       
       localStorage.setItem('language', lang);
@@ -1052,32 +956,20 @@
       setLanguage('fa');
     }
 
-    // ======================== توابع کاربردی ========================
-    function showToast(msg, type = 'info') {
+    // ======================== توابع کاربردی بهینه شده ========================
+    function showToast(msg) {
       const toast = document.createElement('div');
       toast.className = 'toast';
-      
-      const icons = {
-        success: '✅',
-        error: '❌',
-        info: 'ℹ️',
-        warning: '⚠️'
-      };
-      
-      toast.innerHTML = `${icons[type] || ''} ${msg}`;
+      toast.textContent = msg;
       document.body.appendChild(toast);
-      
-      setTimeout(() => { 
-        toast.style.animation = 'slideDown 0.3s ease';
-        setTimeout(() => toast.remove(), 300);
-      }, 2400);
+      setTimeout(() => { toast.remove(); }, 2000);
     }
 
     function copyToClipboard(text) {
       navigator.clipboard.writeText(text);
       const currentLang = document.documentElement.lang;
       const message = currentLang === 'fa' ? '📋 کپی شد!' : '📋 Copied!';
-      showToast(message, 'success');
+      showToast(message);
     }
 
     window.revealWifi = function() {
@@ -1086,11 +978,11 @@
       if (wifiEl.style.filter === 'blur(5px)') {
         wifiEl.style.filter = 'none';
         const msg = currentLang === 'fa' ? '🔓 رمز نمایش داده شد' : '🔓 Password revealed';
-        showToast(msg, 'success');
+        showToast(msg);
       } else {
         wifiEl.style.filter = 'blur(5px)';
         const msg = currentLang === 'fa' ? '🔒 رمز مخفی شد' : '🔒 Password hidden';
-        showToast(msg, 'info');
+        showToast(msg);
       }
     };
 
@@ -1098,21 +990,21 @@
       const available = Math.floor(Math.random() * 18) + 12;
       const stationEl = document.getElementById('stationCount');
       const currentLang = document.documentElement.lang;
-      
       if (currentLang === 'fa') {
         stationEl.textContent = `${available} دستگاه آماده`;
-        showToast(`🕹️ ایستگاه‌ها بروزرسانی شد: ${available} دستگاه آماده`, 'success');
+        showToast(`🕹️ ایستگاه‌ها بروزرسانی شد`);
       } else {
         stationEl.textContent = `${available} PCs available`;
-        showToast(`🕹️ Stations updated: ${available} ready`, 'success');
+        showToast(`🕹️ Stations updated`);
       }
     };
 
-    // شمارنده بازدیدکنندگان
+    // شمارنده بازدیدکنندگان بهینه شده
     let visitors = 144;
     setInterval(() => {
-      visitors += Math.floor(Math.random() * 4) - 1;
-      if (visitors < 130) visitors = 144;
+      visitors += Math.floor(Math.random() * 3) - 1;
+      if (visitors < 140) visitors = 144;
+      if (visitors > 160) visitors = 156;
       const currentLang = document.documentElement.lang;
       const badge = document.getElementById('visitorBadge');
       if (badge) {
@@ -1122,10 +1014,7 @@
           badge.innerHTML = `👥 ${visitors} online`;
         }
       }
-    }, 5800);
-
-    // رویداد دوبار کلیک برای وای‌فای
-    document.getElementById('wifiDisplay').addEventListener('dblclick', revealWifi);
+    }, 5000);
 
     window.onload = function() {
       document.getElementById('wifiDisplay').style.filter = 'blur(5px)';
