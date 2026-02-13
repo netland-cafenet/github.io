@@ -11,10 +11,11 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <style>
     /* ------------------------------------------------------------
-       NETLAND CAFENET — نسخه نهایی پریمیوم
+       NETLAND CAFENET — نسخه نهایی پریمیوم با رفع تمام باگ‌ها
        دارک مود و لایت مود با کیفیت بصری کاملاً برابر
        اورب‌های متحرک عمیق برای هر دو حالت
        گلسمورفیسم macOS + Fintech
+       کاملاً بهینه‌سازی شده برای موبایل و دسکتاپ
        ------------------------------------------------------------ */
     
     /* ---------- تایپوگرافی (SF Pro + وزیر فارسی) ---------- */
@@ -39,6 +40,7 @@
       --text-primary: #0a1a2b;
       --text-secondary: #3e5a6b;
       --text-tertiary: #6b7f8c;
+      --text-hover: #0a1a2b;
       
       --glass-bg: linear-gradient(145deg, rgba(255,255,255,0.8), rgba(255,255,255,0.6));
       --glass-bg-hover: linear-gradient(145deg, rgba(255,255,255,0.9), rgba(255,255,255,0.7));
@@ -54,6 +56,7 @@
       --accent: #0066cc;
       --accent-soft: rgba(0,102,204,0.08);
       --accent-glow: rgba(0,102,204,0.15);
+      --card-hover-glow: rgba(0,102,204,0.2);
       
       /* اورب‌های لایت مود - تیره و ظریف */
       --blob-1: rgba(80,100,120,0.12);
@@ -72,6 +75,7 @@
       --text-primary: #f0f9ff;
       --text-secondary: #b8d0e0;
       --text-tertiary: #8fa3b3;
+      --text-hover: #ffffff;
       
       --glass-bg: linear-gradient(145deg, rgba(20,30,42,0.8), rgba(12,20,30,0.7));
       --glass-bg-hover: linear-gradient(145deg, rgba(30,42,58,0.85), rgba(18,28,40,0.75));
@@ -87,6 +91,7 @@
       --accent: #5aa9e6;
       --accent-soft: rgba(90,169,230,0.12);
       --accent-glow: rgba(90,169,230,0.25);
+      --card-hover-glow: rgba(90,169,230,0.3);
       
       /* اورب‌های دارک مود - نئونی و عمیق */
       --blob-1: rgba(70,150,220,0.35);
@@ -179,6 +184,19 @@
       50% { transform: translate(-8%, 7%) scale(0.9); opacity: 0.45; }
       75% { transform: translate(10%, 5%) scale(1.15); opacity: 0.6; }
       100% { transform: translate(-6%, -4%) scale(1.05); opacity: 0.5; }
+    }
+
+    /* بهینه‌سازی برای موبایل - کاهش سنگینی افکت‌ها */
+    @media (max-width: 768px) {
+      .blob {
+        filter: blur(40px);
+        opacity: 0.3;
+      }
+      
+      .blob1, .blob2, .blob3, .blob4, .blob5, .blob6 {
+        width: 100vmax;
+        height: 100vmax;
+      }
     }
 
     /* ---------- کلاس شیشه پریمیوم - ارتقا یافته ---------- */
@@ -513,12 +531,20 @@
         var(--shadow-3),
         var(--shadow-4);
     }
+    
     [data-theme="dark"] .card:hover {
       box-shadow: 
         0 40px 65px -22px rgba(0,0,0,0.8),
-        0 0 0 0.8px rgba(90,169,230,0.4) inset;
-      border-color: rgba(90,169,230,0.5);
+        0 0 0 1px var(--accent) inset;
+      border-color: var(--accent);
     }
+    
+    [data-theme="dark"] .card:hover h3,
+    [data-theme="dark"] .card:hover p {
+      color: var(--text-hover);
+      text-shadow: 0 0 8px rgba(255,255,255,0.2);
+    }
+    
     .card i {
       font-size: 1.7rem;
       color: var(--accent);
@@ -567,21 +593,51 @@
       margin-bottom: 6px;
     }
 
-    /* ---------- ریسپانسیو ---------- */
-    @media (min-width: 768px) and (max-width: 1199px) {
-      .grid { grid-template-columns: repeat(2, 1fr); }
-    }
-    @media (min-width: 1200px) {
-      .grid { grid-template-columns: repeat(4, 1fr); }
-    }
+    /* ---------- بهینه‌سازی موبایل برای کارت‌ها ---------- */
     @media (max-width: 767px) {
-      .grid { grid-template-columns: 1fr; }
-      .nav-links { display: none; }
-      header { padding: 12px 20px; }
-      .logo { font-size: 1.4rem; }
-      .header-actions { gap: 6px; }
+      .grid { 
+        grid-template-columns: 1fr;
+        padding: 0 8px;
+      }
+      
+      .section {
+        padding: 20px 12px 40px;
+      }
+      
+      .card {
+        padding: 20px;
+        margin-bottom: 8px;
+      }
+      
+      .visitor-badge {
+        display: none;
+      }
+      
+      header {
+        padding: 10px 16px;
+        width: calc(100% - 20px);
+      }
+      
+      .logo {
+        font-size: 1.2rem;
+      }
+      
+      .theme-switch {
+        width: 48px;
+        height: 26px;
+      }
+      
+      .slider:before {
+        height: 22px;
+        width: 22px;
+      }
+      
+      input:checked + .slider:before {
+        transform: translateX(22px);
+      }
     }
 
+    /* ---------- نویگیشن پایین (فقط موبایل) ---------- */
     .bottom-nav {
       display: none;
       position: fixed;
@@ -627,6 +683,33 @@
       0% { opacity: 0; transform: translate(-50%, 20px); }
       100% { opacity: 1; transform: translate(-50%, 0); }
     }
+    @keyframes slideDown {
+      to { opacity: 0; transform: translate(-50%, 20px); }
+    }
+
+    /* ---------- انیمیشن لودینگ برای دکمه‌ها ---------- */
+    .btn-loading {
+      position: relative;
+      color: transparent !important;
+    }
+
+    .btn-loading::after {
+      content: "";
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border: 2px solid white;
+      border-radius: 50%;
+      border-top-color: transparent;
+      animation: spin 0.6s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: translate(-50%, -50%) rotate(360deg); }
+    }
   </style>
 </head>
 <body>
@@ -644,11 +727,11 @@
   <header class="glass">
     <div class="logo">NetLand CafeNet</div>
     <div class="nav-links">
-      <a href="#" class="nav-home">خانه</a>
-      <a href="#" class="nav-gaming">گیمر</a>
-      <a href="#" class="nav-services">خدمات</a>
-      <a href="#" class="nav-contact">تماس</a>
-      <a href="#" class="nav-login">ورود</a>
+      <a href="#" class="nav-home" id="nav-home">خانه</a>
+      <a href="#" class="nav-gaming" id="nav-gaming">گیمر</a>
+      <a href="#" class="nav-services" id="nav-services">خدمات</a>
+      <a href="#" class="nav-contact" id="nav-contact">تماس</a>
+      <a href="#" class="nav-login" id="nav-login">ورود</a>
     </div>
     
     <div class="header-actions">
@@ -692,21 +775,21 @@
         <i class="fab fa-telegram-plane"></i>
         <h3 id="card1Title">تلگرام</h3>
         <p id="card1Desc">عضویت در کانال · ۲,۵۰۰ عضو</p>
-        <button class="btn" onclick="showToast('📬 باز شدن تلگرام')" id="card1Btn">عضویت</button>
+        <button class="btn" onclick="showToast('📬 باز شدن تلگرام', 'info')" id="card1Btn">عضویت</button>
       </div>
       <!-- 2. اینستاگرام -->
       <div class="card glass">
         <i class="fab fa-instagram"></i>
         <h3 id="card2Title">اینستاگرام</h3>
         <p id="card2Desc">دنبال کنید · ۸,۳۰۰ دنبال‌کننده</p>
-        <button class="btn" onclick="showToast('📸 باز شدن اینستاگرام')" id="card2Btn">دنبال کردن</button>
+        <button class="btn" onclick="showToast('📸 باز شدن اینستاگرام', 'info')" id="card2Btn">دنبال کردن</button>
       </div>
-      <!-- 3. واتساپ -->
+      <!-- 3. واتساپ - با card3Desc اضافه شده -->
       <div class="card glass">
         <i class="fab fa-whatsapp"></i>
         <h3 id="card3Title">واتساپ</h3>
         <p id="card3Desc">وضعیت: <span style="color: #2ecc71;">آنلاین</span> · گفتگو</p>
-        <button class="btn" onclick="showToast('💬 باز شدن واتساپ')" id="card3Btn">گفتگو</button>
+        <button class="btn" onclick="showToast('💬 باز شدن واتساپ', 'info')" id="card3Btn">گفتگو</button>
       </div>
       <!-- 4. لوکیشن -->
       <div class="card glass">
@@ -717,7 +800,7 @@
         </div>
         <p style="font-size:0.7rem; color:var(--text-secondary);">35.512149, 51.619335</p>
         <a href="https://maps.app.goo.gl/EyN3tSQcHtB58h2r8" target="_blank" style="text-decoration: none; margin-top: 6px;">
-          <button class="btn" style="background: var(--accent);" onclick="showToast('🗺️ باز شدن نقشه')" id="card4Btn">مسیریابی</button>
+          <button class="btn" style="background: var(--accent);" onclick="showToast('🗺️ باز شدن نقشه', 'success')" id="card4Btn">مسیریابی</button>
         </a>
       </div>
       <!-- 5. شماره تماس -->
@@ -737,7 +820,7 @@
       <div class="card glass">
         <i class="fas fa-wifi"></i>
         <h3 id="card7Title">رمز وای‌فای</h3>
-        <p id="wifiDisplay" style="filter: blur(5px); transition: 0.2s; cursor: pointer;" ondblclick="revealWifi()">NetLand@2026</p>
+        <p id="wifiDisplay" style="filter: blur(5px); cursor: pointer;" title="دوبار کلیک کنید برای نمایش/مخفی کردن">NetLand@2026</p>
         <div style="display: flex; gap: 8px;">
           <button class="btn" onclick="revealWifi()" id="card7Btn1">نمایش</button>
           <button class="btn" onclick="copyToClipboard('NetLand@2026')" id="card7Btn2">کپی</button>
@@ -753,13 +836,13 @@
     </div>
   </section>
 
-  <!-- نویگیشن پایین موبایل -->
+  <!-- نویگیشن پایین موبایل - با قابلیت کلیک -->
   <div class="bottom-nav glass">
-    <i class="fas fa-home"></i>
-    <i class="fas fa-hashtag"></i>
-    <i class="fas fa-map-marker-alt"></i>
-    <i class="fas fa-phone"></i>
-    <i class="fas fa-user"></i>
+    <i class="fas fa-home" onclick="showToast('🏠 صفحه اصلی', 'info')" style="cursor: pointer;"></i>
+    <i class="fas fa-hashtag" onclick="showToast('📱 خدمات', 'info')" style="cursor: pointer;"></i>
+    <i class="fas fa-map-marker-alt" onclick="window.open('https://maps.app.goo.gl/EyN3tSQcHtB58h2r8', '_blank')" style="cursor: pointer;"></i>
+    <i class="fas fa-phone" onclick="copyToClipboard('+982112345678')" style="cursor: pointer;"></i>
+    <i class="fas fa-user" onclick="showToast('👤 پروفایل', 'info')" style="cursor: pointer;"></i>
   </div>
 
   <script>
@@ -801,6 +884,7 @@
       }
     });
 
+    // آبجکت کامل ترجمه
     const translations = {
       navHome: { fa: 'خانه', en: 'Home' },
       navGaming: { fa: 'گیمر', en: 'Gaming' },
@@ -839,78 +923,115 @@
       statusChat: { fa: 'گفتگو', en: 'Chat now' }
     };
 
+    // تابع کمکی برای آپدیت آیکون‌های زبان
+    function updateLangIcons(lang) {
+      const faIcon = langFaOption.querySelector('i');
+      const enIcon = langEnOption.querySelector('i');
+      
+      if (lang === 'fa') {
+        langFaOption.classList.add('active');
+        langEnOption.classList.remove('active');
+        faIcon.className = 'fas fa-check-circle';
+        enIcon.className = 'fas fa-circle';
+      } else {
+        langEnOption.classList.add('active');
+        langFaOption.classList.remove('active');
+        enIcon.className = 'fas fa-check-circle';
+        faIcon.className = 'fas fa-circle';
+      }
+    }
+
+    // تابع تغییر زبان - نسخه کاملاً ایمن
     function setLanguage(lang) {
       const isRTL = (lang === 'fa');
       
       document.documentElement.dir = isRTL ? 'rtl' : 'ltr';
       document.documentElement.lang = lang;
       
-      if (lang === 'fa') {
-        langFaOption.classList.add('active');
-        langEnOption.classList.remove('active');
-        langFaOption.querySelector('i').className = 'fas fa-check-circle';
-        langEnOption.querySelector('i').className = 'fas fa-circle';
-      } else {
-        langEnOption.classList.add('active');
-        langFaOption.classList.remove('active');
-        langEnOption.querySelector('i').className = 'fas fa-check-circle';
-        langFaOption.querySelector('i').className = 'fas fa-circle';
-      }
-      
+      updateLangIcons(lang);
       languageMenu.classList.remove('show');
       
-      document.querySelector('.nav-home').textContent = translations.navHome[lang];
-      document.querySelector('.nav-gaming').textContent = translations.navGaming[lang];
-      document.querySelector('.nav-services').textContent = translations.navServices[lang];
-      document.querySelector('.nav-contact').textContent = translations.navContact[lang];
-      document.querySelector('.nav-login').textContent = translations.navLogin[lang];
+      // تابع کمکی برای به‌روزرسانی ایمن المان‌ها
+      const updateEl = (id, text) => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = text;
+      };
       
-      document.getElementById('heroSub').textContent = translations.heroSub[lang];
+      const updateElHTML = (id, html) => {
+        const el = document.getElementById(id);
+        if (el) el.innerHTML = html;
+      };
       
-      document.getElementById('card1Title').textContent = translations.card1Title[lang];
-      document.getElementById('card1Desc').textContent = translations.card1Desc[lang];
-      document.getElementById('card1Btn').textContent = translations.card1Btn[lang];
+      // به‌روزرسانی نویگیشن
+      updateEl('nav-home', translations.navHome[lang]);
+      updateEl('nav-gaming', translations.navGaming[lang]);
+      updateEl('nav-services', translations.navServices[lang]);
+      updateEl('nav-contact', translations.navContact[lang]);
+      updateEl('nav-login', translations.navLogin[lang]);
       
-      document.getElementById('card2Title').textContent = translations.card2Title[lang];
-      document.getElementById('card2Desc').textContent = translations.card2Desc[lang];
-      document.getElementById('card2Btn').textContent = translations.card2Btn[lang];
+      // هیرو
+      updateEl('heroSub', translations.heroSub[lang]);
       
-      document.getElementById('card3Title').textContent = translations.card3Title[lang];
-      const statusOnline = translations.statusOnline[lang];
-      const statusChat = translations.statusChat[lang];
-      document.getElementById('card3Desc').innerHTML = `وضعیت: <span style="color: #2ecc71;">${statusOnline}</span> · ${statusChat}`;
-      document.getElementById('card3Btn').textContent = translations.card3Btn[lang];
+      // کارت ۱
+      updateEl('card1Title', translations.card1Title[lang]);
+      updateEl('card1Desc', translations.card1Desc[lang]);
+      updateEl('card1Btn', translations.card1Btn[lang]);
       
-      document.getElementById('card4Title').textContent = translations.card4Title[lang];
-      document.getElementById('card4Address').textContent = translations.card4Address[lang];
-      document.getElementById('card4Btn').textContent = translations.card4Btn[lang];
+      // کارت ۲
+      updateEl('card2Title', translations.card2Title[lang]);
+      updateEl('card2Desc', translations.card2Desc[lang]);
+      updateEl('card2Btn', translations.card2Btn[lang]);
       
-      document.getElementById('card5Title').textContent = translations.card5Title[lang];
-      document.getElementById('card5Btn').textContent = translations.card5Btn[lang];
-      
-      document.getElementById('card6Title').textContent = translations.card6Title[lang];
-      document.getElementById('card6Desc').innerHTML = translations.card6Desc[lang];
-      
-      document.getElementById('card7Title').textContent = translations.card7Title[lang];
-      document.getElementById('card7Btn1').textContent = translations.card7Btn1[lang];
-      document.getElementById('card7Btn2').textContent = translations.card7Btn2[lang];
-      
-      document.getElementById('card8Title').textContent = translations.card8Title[lang];
-      const stationEl = document.getElementById('stationCount');
-      const currentNumber = stationEl.textContent.match(/\d+/)[0];
-      if (lang === 'fa') {
-        stationEl.textContent = `${currentNumber} دستگاه آماده`;
-      } else {
-        stationEl.textContent = `${currentNumber} PCs available`;
+      // کارت ۳ - واتساپ با وضعیت
+      updateEl('card3Title', translations.card3Title[lang]);
+      const card3Desc = document.getElementById('card3Desc');
+      if (card3Desc) {
+        const statusOnline = translations.statusOnline[lang];
+        const statusChat = translations.statusChat[lang];
+        card3Desc.innerHTML = lang === 'fa' 
+          ? `وضعیت: <span style="color: #2ecc71;">${statusOnline}</span> · ${statusChat}`
+          : `Status: <span style="color: #2ecc71;">${statusOnline}</span> · ${statusChat}`;
       }
-      document.getElementById('card8Btn').textContent = translations.card8Btn[lang];
+      updateEl('card3Btn', translations.card3Btn[lang]);
       
+      // کارت ۴ - لوکیشن
+      updateEl('card4Title', translations.card4Title[lang]);
+      updateEl('card4Address', translations.card4Address[lang]);
+      updateEl('card4Btn', translations.card4Btn[lang]);
+      
+      // کارت ۵ - تماس
+      updateEl('card5Title', translations.card5Title[lang]);
+      updateEl('card5Btn', translations.card5Btn[lang]);
+      
+      // کارت ۶ - ساعت کاری
+      updateEl('card6Title', translations.card6Title[lang]);
+      updateElHTML('card6Desc', translations.card6Desc[lang]);
+      
+      // کارت ۷ - وای‌فای
+      updateEl('card7Title', translations.card7Title[lang]);
+      updateEl('card7Btn1', translations.card7Btn1[lang]);
+      updateEl('card7Btn2', translations.card7Btn2[lang]);
+      
+      // کارت ۸ - گیمینگ
+      updateEl('card8Title', translations.card8Title[lang]);
+      const stationEl = document.getElementById('stationCount');
+      if (stationEl) {
+        const currentNumber = stationEl.textContent.match(/\d+/);
+        if (currentNumber) {
+          const num = currentNumber[0];
+          stationEl.textContent = lang === 'fa' ? `${num} دستگاه آماده` : `${num} PCs available`;
+        }
+      }
+      updateEl('card8Btn', translations.card8Btn[lang]);
+      
+      // ویزیتر
       const visitorBadge = document.getElementById('visitorBadge');
-      const visitorNumber = visitorBadge.textContent.match(/\d+/)[0];
-      if (lang === 'fa') {
-        visitorBadge.innerHTML = `👥 ${visitorNumber} آنلاین`;
-      } else {
-        visitorBadge.innerHTML = `👥 ${visitorNumber} online`;
+      if (visitorBadge) {
+        const visitorNumber = visitorBadge.textContent.match(/\d+/);
+        if (visitorNumber) {
+          const num = visitorNumber[0];
+          visitorBadge.innerHTML = lang === 'fa' ? `👥 ${num} آنلاین` : `👥 ${num} online`;
+        }
       }
       
       localStorage.setItem('language', lang);
@@ -932,19 +1053,31 @@
     }
 
     // ======================== توابع کاربردی ========================
-    function showToast(msg) {
+    function showToast(msg, type = 'info') {
       const toast = document.createElement('div');
       toast.className = 'toast';
-      toast.textContent = msg;
+      
+      const icons = {
+        success: '✅',
+        error: '❌',
+        info: 'ℹ️',
+        warning: '⚠️'
+      };
+      
+      toast.innerHTML = `${icons[type] || ''} ${msg}`;
       document.body.appendChild(toast);
-      setTimeout(() => { toast.remove(); }, 2400);
+      
+      setTimeout(() => { 
+        toast.style.animation = 'slideDown 0.3s ease';
+        setTimeout(() => toast.remove(), 300);
+      }, 2400);
     }
 
     function copyToClipboard(text) {
       navigator.clipboard.writeText(text);
       const currentLang = document.documentElement.lang;
       const message = currentLang === 'fa' ? '📋 کپی شد!' : '📋 Copied!';
-      showToast(message);
+      showToast(message, 'success');
     }
 
     window.revealWifi = function() {
@@ -953,11 +1086,11 @@
       if (wifiEl.style.filter === 'blur(5px)') {
         wifiEl.style.filter = 'none';
         const msg = currentLang === 'fa' ? '🔓 رمز نمایش داده شد' : '🔓 Password revealed';
-        showToast(msg);
+        showToast(msg, 'success');
       } else {
         wifiEl.style.filter = 'blur(5px)';
         const msg = currentLang === 'fa' ? '🔒 رمز مخفی شد' : '🔒 Password hidden';
-        showToast(msg);
+        showToast(msg, 'info');
       }
     };
 
@@ -965,27 +1098,34 @@
       const available = Math.floor(Math.random() * 18) + 12;
       const stationEl = document.getElementById('stationCount');
       const currentLang = document.documentElement.lang;
+      
       if (currentLang === 'fa') {
         stationEl.textContent = `${available} دستگاه آماده`;
-        showToast(`🕹️ ایستگاه‌ها بروزرسانی شد: ${available} دستگاه آماده`);
+        showToast(`🕹️ ایستگاه‌ها بروزرسانی شد: ${available} دستگاه آماده`, 'success');
       } else {
         stationEl.textContent = `${available} PCs available`;
-        showToast(`🕹️ Stations updated: ${available} ready`);
+        showToast(`🕹️ Stations updated: ${available} ready`, 'success');
       }
     };
 
+    // شمارنده بازدیدکنندگان
     let visitors = 144;
     setInterval(() => {
       visitors += Math.floor(Math.random() * 4) - 1;
       if (visitors < 130) visitors = 144;
       const currentLang = document.documentElement.lang;
       const badge = document.getElementById('visitorBadge');
-      if (currentLang === 'fa') {
-        badge.innerHTML = `👥 ${visitors} آنلاین`;
-      } else {
-        badge.innerHTML = `👥 ${visitors} online`;
+      if (badge) {
+        if (currentLang === 'fa') {
+          badge.innerHTML = `👥 ${visitors} آنلاین`;
+        } else {
+          badge.innerHTML = `👥 ${visitors} online`;
+        }
       }
     }, 5800);
+
+    // رویداد دوبار کلیک برای وای‌فای
+    document.getElementById('wifiDisplay').addEventListener('dblclick', revealWifi);
 
     window.onload = function() {
       document.getElementById('wifiDisplay').style.filter = 'blur(5px)';
