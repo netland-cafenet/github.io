@@ -7,11 +7,11 @@
   <meta name="description" content="کافی‌نت نت‌لند - ارائه‌دهنده خدمات اینترنتی، دیجیتال و گرافیک">
   <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#0a0c12" media="(prefers-color-scheme: dark)">
-  <!-- Font Awesome 6 -->
+  <!-- Font Awesome 6 + آیکون‌های اختصاصی برای روبیکا، ایتا و شاد -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <style>
     /* ------------------------------------------------------------
-       NETLAND CAFENET — نسخه نهایی با تمام اصلاحات
+       NETLAND CAFENET — نسخه نهایی با روبیکا، ایتا، شاد
        120 فریم بر ثانیه · منوی زبان داخلی
        کارت‌های مینیمال با ابعاد دقیق · سوئیچ تم فوق‌العاده نرم
        ------------------------------------------------------------ */
@@ -349,7 +349,7 @@
       margin-top: 6px;
     }
 
-    /* ---------- گرید کارت‌ها (ابعاد دقیق مثل عکس) ---------- */
+    /* ---------- گرید کارت‌ها ---------- */
     .section {
       max-width: 1200px;
       margin: 0 auto;
@@ -401,6 +401,26 @@
       transform: scale(0.95);
     }
 
+    /* آیکون‌های اختصاصی برای روبیکا، ایتا و شاد */
+    .custom-icon {
+      display: inline-block;
+      width: 1.4rem;
+      height: 1.4rem;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      margin-bottom: 8px;
+    }
+    
+    /* این کلاس‌ها برای شبیه‌سازی آیکون‌ها با Font Awesome هست */
+    .fa-rubika:before, .fa-eita:before, .fa-shad:before {
+      font-family: "Font Awesome 6 Brands";
+    }
+    
+    .fa-rubika:before { content: "\f0e0"; } /* موقتاً از آیکون ایمیل استفاده می‌کنیم */
+    .fa-eita:before { content: "\f0e0"; }    /* موقتاً از آیکون ایمیل استفاده می‌کنیم */
+    .fa-shad:before { content: "\f0e0"; }    /* موقتاً از آیکون ایمیل استفاده می‌کنیم */
+
     .address-text {
       direction: rtl;
       text-align: right;
@@ -408,7 +428,7 @@
       line-height: 1.4;
     }
 
-    /* ---------- ریسپانسیو (موبایل اختصاصی) ---------- */
+    /* ---------- ریسپانسیو ---------- */
     @media (min-width: 768px) {
       .grid { grid-template-columns: repeat(2, 1fr); }
     }
@@ -531,16 +551,17 @@
     <p class="hero-sub" id="heroSub">خدمات اینترنتی، دیجیتال و گرافیک</p>
   </section>
 
-  <!-- ========== گرید ۸ کارت (ابعاد دقیق) ========== -->
+  <!-- ========== گرید ۸ کارت (با روبیکا، ایتا، شاد) ========== -->
   <section class="section">
     <div class="grid">
       <!-- 1. تلگرام -->
       <div class="card glass">
-        <i class="fab fa-telegram-plane"></i>
+        <i class="fab fa-telegram"></i>
         <h3 id="card1Title">تلگرام</h3>
         <p id="card1Desc">۲,۵۰۰ عضو</p>
         <button class="btn" onclick="showToast('📬 تلگرام')" id="card1Btn">عضویت</button>
       </div>
+      
       <!-- 2. اینستاگرام -->
       <div class="card glass">
         <i class="fab fa-instagram"></i>
@@ -548,6 +569,7 @@
         <p id="card2Desc">۸,۳۰۰ دنبال‌کننده</p>
         <button class="btn" onclick="showToast('📸 اینستاگرام')" id="card2Btn">دنبال کردن</button>
       </div>
+      
       <!-- 3. واتساپ -->
       <div class="card glass">
         <i class="fab fa-whatsapp"></i>
@@ -555,43 +577,56 @@
         <p id="card3Desc"><span style="color: #2ecc71;">آنلاین</span> · گفتگو</p>
         <button class="btn" onclick="showToast('💬 واتساپ')" id="card3Btn">گفتگو</button>
       </div>
-      <!-- 4. لوکیشن -->
+      
+      <!-- 4. روبیکا (جایگزین وای‌فای) -->
+      <div class="card glass">
+        <i class="fas fa-rocket"></i>
+        <h3 id="card4Title">روبیکا</h3>
+        <p id="card4Desc">روبیکا · ارتباط سریع</p>
+        <button class="btn" onclick="showToast('📱 روبیکا')" id="card4Btn">ارتباط</button>
+      </div>
+      
+      <!-- 5. لوکیشن -->
       <div class="card glass">
         <i class="fas fa-map-pin"></i>
-        <h3 id="card4Title">لوکیشن</h3>
-        <div class="address-text" id="card4Address">
+        <h3 id="card5Title">لوکیشن</h3>
+        <div class="address-text" id="card5Address">
           تهران - پاکدشت - فرون‌آباد - انتهای ولایت - شهدای گمنام - نت‌لند
         </div>
         <a href="https://maps.app.goo.gl/EyN3tSQcHtB58h2r8" target="_blank" style="text-decoration: none;">
-          <button class="btn" onclick="showToast('🗺️ نقشه')" id="card4Btn">مسیریابی</button>
+          <button class="btn" onclick="showToast('🗺️ نقشه')" id="card5Btn">مسیریابی</button>
         </a>
       </div>
-      <!-- 5. شماره تماس -->
+      
+      <!-- 6. شماره تماس -->
       <div class="card glass">
         <i class="fas fa-phone-alt"></i>
-        <h3 id="card5Title">تماس</h3>
+        <h3 id="card6Title">تماس</h3>
         <p>0905 424 0371</p>
-        <button class="btn" onclick="copyToClipboard('09054240371')" id="card5Btn">کپی</button>
+        <button class="btn" onclick="copyToClipboard('09054240371')" id="card6Btn">کپی</button>
       </div>
-      <!-- 6. ساعت کاری -->
+      
+      <!-- 7. ساعت کاری -->
       <div class="card glass">
         <i class="fas fa-clock"></i>
-        <h3 id="card6Title">ساعت کاری</h3>
-        <p id="card6Desc">۰۹–۲۳ · جمعه ۱۴–۲۳</p>
+        <h3 id="card7Title">ساعت کاری</h3>
+        <p id="card7Desc">۰۹–۲۳ · جمعه ۱۴–۲۳</p>
       </div>
-      <!-- 7. وای‌فای -->
+      
+      <!-- 8. ایتا -->
       <div class="card glass">
-        <i class="fas fa-wifi"></i>
-        <h3 id="card7Title">رمز وای‌فای</h3>
-        <p id="wifiDisplay" style="filter: blur(4px); cursor: pointer;" ondblclick="revealWifi()">NetLand@2026</p>
-        <button class="btn" onclick="revealWifi()" id="card7Btn">نمایش</button>
+        <i class="fas fa-comment"></i>
+        <h3 id="card8Title">ایتا</h3>
+        <p id="card8Desc">پیام‌رسان ایتا</p>
+        <button class="btn" onclick="showToast('💬 ایتا')" id="card8Btn">ارتباط</button>
       </div>
-      <!-- 8. گیمینگ -->
+      
+      <!-- 9. شاد (کارت اضافی چون ۹ کارت شد) -->
       <div class="card glass">
-        <i class="fas fa-gamepad"></i>
-        <h3 id="card8Title">گیمینگ</h3>
-        <p id="stationCount">۲۴ دستگاه</p>
-        <button class="btn" onclick="updateStations()" id="card8Btn">بروزرسانی</button>
+        <i class="fas fa-graduation-cap"></i>
+        <h3 id="card9Title">شاد</h3>
+        <p id="card9Desc">شاد · آموزش</p>
+        <button class="btn" onclick="showToast('📚 شاد')" id="card9Btn">ارتباط</button>
       </div>
     </div>
   </section>
@@ -643,29 +678,43 @@
       navContact: { fa: 'تماس', en: 'Contact' },
       navLogin: { fa: 'ورود', en: 'Login' },
       heroSub: { fa: 'خدمات اینترنتی، دیجیتال و گرافیک', en: 'Internet, Digital & Graphic Services' },
+      
       card1Title: { fa: 'تلگرام', en: 'Telegram' },
       card1Desc: { fa: '۲,۵۰۰ عضو', en: '2.5K members' },
       card1Btn: { fa: 'عضویت', en: 'Join' },
+      
       card2Title: { fa: 'اینستاگرام', en: 'Instagram' },
       card2Desc: { fa: '۸,۳۰۰ دنبال‌کننده', en: '8.3K followers' },
       card2Btn: { fa: 'دنبال کردن', en: 'Follow' },
+      
       card3Title: { fa: 'واتساپ', en: 'WhatsApp' },
       card3Desc: { fa: 'آنلاین · گفتگو', en: 'Online · Chat' },
       card3Btn: { fa: 'گفتگو', en: 'Chat' },
-      card4Title: { fa: 'لوکیشن', en: 'Location' },
-      card4Address: { 
+      
+      card4Title: { fa: 'روبیکا', en: 'Rubika' },
+      card4Desc: { fa: 'روبیکا · ارتباط سریع', en: 'Rubika · Fast chat' },
+      card4Btn: { fa: 'ارتباط', en: 'Connect' },
+      
+      card5Title: { fa: 'لوکیشن', en: 'Location' },
+      card5Address: { 
         fa: 'تهران - پاکدشت - فرون‌آباد - انتهای ولایت - شهدای گمنام - نت‌لند', 
         en: 'Tehran - Pakdasht - Forunabad - Velayat St. - Shohadaye Gomanam - NetLand' 
       },
-      card4Btn: { fa: 'مسیریابی', en: 'Directions' },
-      card5Title: { fa: 'تماس', en: 'Contact' },
-      card5Btn: { fa: 'کپی', en: 'Copy' },
-      card6Title: { fa: 'ساعت کاری', en: 'Hours' },
-      card6Desc: { fa: '۰۹–۲۳ · جمعه ۱۴–۲۳', en: '09–23 · Fri 14–23' },
-      card7Title: { fa: 'رمز وای‌فای', en: 'WiFi' },
-      card7Btn: { fa: 'نمایش', en: 'Reveal' },
-      card8Title: { fa: 'گیمینگ', en: 'Gaming' },
-      card8Btn: { fa: 'بروزرسانی', en: 'Refresh' }
+      card5Btn: { fa: 'مسیریابی', en: 'Directions' },
+      
+      card6Title: { fa: 'تماس', en: 'Contact' },
+      card6Btn: { fa: 'کپی', en: 'Copy' },
+      
+      card7Title: { fa: 'ساعت کاری', en: 'Hours' },
+      card7Desc: { fa: '۰۹–۲۳ · جمعه ۱۴–۲۳', en: '09–23 · Fri 14–23' },
+      
+      card8Title: { fa: 'ایتا', en: 'Eita' },
+      card8Desc: { fa: 'پیام‌رسان ایتا', en: 'Eita messenger' },
+      card8Btn: { fa: 'ارتباط', en: 'Connect' },
+      
+      card9Title: { fa: 'شاد', en: 'Shad' },
+      card9Desc: { fa: 'شاد · آموزش', en: 'Shad · Education' },
+      card9Btn: { fa: 'ارتباط', en: 'Connect' }
     };
 
     function setLanguage(lang) {
@@ -700,20 +749,26 @@
       document.getElementById('card3Btn').textContent = translations.card3Btn[lang];
       
       document.getElementById('card4Title').textContent = translations.card4Title[lang];
-      document.getElementById('card4Address').textContent = translations.card4Address[lang];
+      document.getElementById('card4Desc').textContent = translations.card4Desc[lang];
       document.getElementById('card4Btn').textContent = translations.card4Btn[lang];
       
       document.getElementById('card5Title').textContent = translations.card5Title[lang];
+      document.getElementById('card5Address').textContent = translations.card5Address[lang];
       document.getElementById('card5Btn').textContent = translations.card5Btn[lang];
       
       document.getElementById('card6Title').textContent = translations.card6Title[lang];
-      document.getElementById('card6Desc').textContent = translations.card6Desc[lang];
+      document.getElementById('card6Btn').textContent = translations.card6Btn[lang];
       
       document.getElementById('card7Title').textContent = translations.card7Title[lang];
-      document.getElementById('card7Btn').textContent = translations.card7Btn[lang];
+      document.getElementById('card7Desc').textContent = translations.card7Desc[lang];
       
       document.getElementById('card8Title').textContent = translations.card8Title[lang];
+      document.getElementById('card8Desc').textContent = translations.card8Desc[lang];
       document.getElementById('card8Btn').textContent = translations.card8Btn[lang];
+      
+      document.getElementById('card9Title').textContent = translations.card9Title[lang];
+      document.getElementById('card9Desc').textContent = translations.card9Desc[lang];
+      document.getElementById('card9Btn').textContent = translations.card9Btn[lang];
       
       localStorage.setItem('language', lang);
     }
@@ -739,26 +794,9 @@
       showToast('📋 کپی شد');
     }
 
-    window.revealWifi = function() {
-      const wifiEl = document.getElementById('wifiDisplay');
-      if (wifiEl.style.filter === 'blur(4px)') {
-        wifiEl.style.filter = 'none';
-        showToast('🔓 رمز نمایش داده شد');
-      } else {
-        wifiEl.style.filter = 'blur(4px)';
-        showToast('🔒 رمز مخفی شد');
-      }
-    };
-
-    window.updateStations = function() {
-      const count = Math.floor(Math.random() * 18) + 12;
-      document.getElementById('stationCount').textContent = count + ' دستگاه';
-      showToast('🔄 بروزرسانی شد');
-    };
-
     // ======================== تنظیمات اولیه ========================
     window.onload = function() {
-      document.getElementById('wifiDisplay').style.filter = 'blur(4px)';
+      // هیچ نیازی به تنظیم وای‌فای نیست چون حذف شده
     };
   </script>
 </body>
