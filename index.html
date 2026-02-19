@@ -2,18 +2,15 @@
 <html lang="fa" dir="rtl" data-theme="light">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
   <title>NetLand CafeNet | کافی‌نت نت‌لند</title>
   <meta name="description" content="کافی‌نت نت‌لند - ارائه‌دهنده خدمات اینترنتی، دیجیتال و گرافیک">
   <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#0a0c12" media="(prefers-color-scheme: dark)">
-  <!-- Font Awesome 6 + آیکون‌های اختصاصی برای روبیکا، ایتا و شاد -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <!-- Critical CSS inline, icon font as fallback -->
   <style>
     /* ------------------------------------------------------------
-       NETLAND CAFENET — نسخه نهایی با روبیکا، ایتا، شاد
-       120 فریم بر ثانیه · منوی زبان داخلی
-       کارت‌های مینیمال با ابعاد دقیق · سوئیچ تم فوق‌العاده نرم
+       NETLAND CAFENET — عملکرد فوق‌العاده، ۱۲۰ فریم
        ------------------------------------------------------------ */
     
     /* بهینه‌سازی برای 120 فریم */
@@ -39,7 +36,6 @@
       min-height: 100vh;
       line-height: 1.5;
       overflow-x: hidden;
-      will-change: background;
     }
 
     /* ---------- متغیرهای تم ---------- */
@@ -97,7 +93,6 @@
       z-index: -2;
       overflow: hidden;
       pointer-events: none;
-      will-change: transform;
     }
 
     .blob {
@@ -106,7 +101,6 @@
       filter: blur(60px);
       opacity: 0.4;
       animation: floatBlob 25s infinite alternate ease-in-out;
-      will-change: transform;
     }
 
     .blob1 {
@@ -142,13 +136,12 @@
     /* ---------- کلاس شیشه بهینه ---------- */
     .glass {
       background: var(--glass-bg);
-      backdrop-filter: blur(15px) saturate(160%);
-      -webkit-backdrop-filter: blur(15px) saturate(160%);
+      -webkit-backdrop-filter: blur(10px) saturate(160%);
+      backdrop-filter: blur(10px) saturate(160%);
       border: 0.8px solid var(--glass-border);
       border-radius: 24px;
       box-shadow: var(--shadow-1), var(--shadow-2);
-      transition: all 0.2s ease;
-      will-change: transform, box-shadow;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
 
     /* ---------- هدر ثابت ---------- */
@@ -156,7 +149,7 @@
       position: fixed;
       top: 15px;
       left: 50%;
-      transform: translateX(-50%) !important;
+      transform: translateX(-50%);
       width: calc(100% - 30px);
       max-width: 1200px;
       padding: 10px 20px;
@@ -165,9 +158,6 @@
       align-items: center;
       z-index: 100;
       border-radius: 40px;
-    }
-    header.glass:hover {
-      transform: translateX(-50%) !important;
     }
 
     .logo {
@@ -224,7 +214,8 @@
       right: 0;
       bottom: 0;
       background: var(--glass-bg);
-      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(5px);
+      backdrop-filter: blur(5px);
       border: 0.5px solid var(--glass-border);
       border-radius: 34px;
       transition: 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
@@ -239,7 +230,7 @@
       bottom: 2px;
       background: white;
       border-radius: 50%;
-      transition: transform 0.25s cubic-bezier(0.34, 1.2, 0.64, 1);
+      transition: transform 0.2s cubic-bezier(0.34, 1.2, 0.64, 1);
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
     .slider:after {
@@ -250,7 +241,6 @@
       left: 7px;
       transform: translateY(-50%);
       pointer-events: none;
-      transition: opacity 0.15s;
     }
     input:checked + .slider:after {
       content: "🌙";
@@ -271,7 +261,8 @@
       height: 36px;
       border-radius: 50%;
       background: var(--glass-bg);
-      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(5px);
+      backdrop-filter: blur(5px);
       border: 0.8px solid var(--glass-border);
       display: flex;
       align-items: center;
@@ -294,7 +285,8 @@
       right: 0;
       min-width: 110px;
       background: var(--glass-bg);
-      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
       border: 0.8px solid var(--glass-border);
       border-radius: 16px;
       padding: 4px;
@@ -394,32 +386,13 @@
       font-size: 0.65rem;
       font-weight: 500;
       cursor: pointer;
-      transition: 0.1s;
+      transition: transform 0.1s;
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      -webkit-tap-highlight-color: transparent;
     }
     .card .btn:active {
       transform: scale(0.95);
     }
-
-    /* آیکون‌های اختصاصی برای روبیکا، ایتا و شاد */
-    .custom-icon {
-      display: inline-block;
-      width: 1.4rem;
-      height: 1.4rem;
-      background-size: contain;
-      background-repeat: no-repeat;
-      background-position: center;
-      margin-bottom: 8px;
-    }
-    
-    /* این کلاس‌ها برای شبیه‌سازی آیکون‌ها با Font Awesome هست */
-    .fa-rubika:before, .fa-eita:before, .fa-shad:before {
-      font-family: "Font Awesome 6 Brands";
-    }
-    
-    .fa-rubika:before { content: "\f0e0"; } /* موقتاً از آیکون ایمیل استفاده می‌کنیم */
-    .fa-eita:before { content: "\f0e0"; }    /* موقتاً از آیکون ایمیل استفاده می‌کنیم */
-    .fa-shad:before { content: "\f0e0"; }    /* موقتاً از آیکون ایمیل استفاده می‌کنیم */
 
     .address-text {
       direction: rtl;
@@ -458,7 +431,8 @@
       max-width: 340px;
       padding: 6px 12px;
       background: var(--glass-bg);
-      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
       border: 0.8px solid var(--glass-border);
       border-radius: 40px;
       justify-content: space-around;
@@ -473,6 +447,7 @@
       padding: 6px;
       cursor: pointer;
       transition: color 0.15s;
+      -webkit-tap-highlight-color: transparent;
     }
     .bottom-nav i:active {
       color: var(--accent);
@@ -485,7 +460,8 @@
       left: 50%;
       transform: translateX(-50%);
       background: rgba(20,28,38,0.9);
-      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
       color: white;
       padding: 8px 18px;
       border-radius: 40px;
@@ -493,12 +469,20 @@
       border: 0.5px solid rgba(255,255,255,0.2);
       z-index: 999;
       animation: slideUp 0.2s ease;
+      pointer-events: none;
     }
     @keyframes slideUp {
       from { opacity: 0; transform: translate(-50%, 15px); }
       to { opacity: 1; transform: translate(-50%, 0); }
     }
+
+    /* آیکون‌های بهینه شده (inline) */
+    .icon-telegram { background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="%230066cc" d="M248 8C111 8 0 119 0 256s111 248 248 248 248-111 248-248S385 8 248 8zm121.8 169.9l-40.7 191.8c-3 13.6-11.1 16.9-22.4 10.5l-62-45.7-29.9 28.8c-3.3 3.3-6.1 6.1-12.5 6.1l4.4-63.1 114.9-103.8c5-4.5-1.1-7-7.7-2.5l-142 89.4-61.2-19.1c-13.3-4.2-13.6-13.3 2.8-19.7l239.1-92.2c11.1-4 20.8 2.7 17.2 19.5z"/></svg>') no-repeat center; width: 1.4rem; height: 1.4rem; display: inline-block; background-size: contain; }
   </style>
+  <!-- Font Awesome با بارگذاری غیرهمزمان -->
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"></noscript>
 </head>
 <body>
   <!-- اورب‌های پس‌زمینه -->
@@ -551,7 +535,7 @@
     <p class="hero-sub" id="heroSub">خدمات اینترنتی، دیجیتال و گرافیک</p>
   </section>
 
-  <!-- ========== گرید ۸ کارت (با روبیکا، ایتا، شاد) ========== -->
+  <!-- ========== گرید ۸ کارت ========== -->
   <section class="section">
     <div class="grid">
       <!-- 1. تلگرام -->
@@ -559,7 +543,7 @@
         <i class="fab fa-telegram"></i>
         <h3 id="card1Title">تلگرام</h3>
         <p id="card1Desc">۲,۵۰۰ عضو</p>
-        <button class="btn" onclick="showToast('📬 تلگرام')" id="card1Btn">عضویت</button>
+        <button class="btn" data-toast="📬 تلگرام">عضویت</button>
       </div>
       
       <!-- 2. اینستاگرام -->
@@ -567,7 +551,7 @@
         <i class="fab fa-instagram"></i>
         <h3 id="card2Title">اینستاگرام</h3>
         <p id="card2Desc">۸,۳۰۰ دنبال‌کننده</p>
-        <button class="btn" onclick="showToast('📸 اینستاگرام')" id="card2Btn">دنبال کردن</button>
+        <button class="btn" data-toast="📸 اینستاگرام">دنبال کردن</button>
       </div>
       
       <!-- 3. واتساپ -->
@@ -575,15 +559,15 @@
         <i class="fab fa-whatsapp"></i>
         <h3 id="card3Title">واتساپ</h3>
         <p id="card3Desc"><span style="color: #2ecc71;">آنلاین</span> · گفتگو</p>
-        <button class="btn" onclick="showToast('💬 واتساپ')" id="card3Btn">گفتگو</button>
+        <button class="btn" data-toast="💬 واتساپ">گفتگو</button>
       </div>
       
-      <!-- 4. روبیکا (جایگزین وای‌فای) -->
+      <!-- 4. روبیکا -->
       <div class="card glass">
         <i class="fas fa-rocket"></i>
         <h3 id="card4Title">روبیکا</h3>
         <p id="card4Desc">روبیکا · ارتباط سریع</p>
-        <button class="btn" onclick="showToast('📱 روبیکا')" id="card4Btn">ارتباط</button>
+        <button class="btn" data-toast="📱 روبیکا">ارتباط</button>
       </div>
       
       <!-- 5. لوکیشن -->
@@ -594,7 +578,7 @@
           تهران - پاکدشت - فرون‌آباد - انتهای ولایت - شهدای گمنام - نت‌لند
         </div>
         <a href="https://maps.app.goo.gl/EyN3tSQcHtB58h2r8" target="_blank" style="text-decoration: none;">
-          <button class="btn" onclick="showToast('🗺️ نقشه')" id="card5Btn">مسیریابی</button>
+          <button class="btn" data-toast="🗺️ نقشه">مسیریابی</button>
         </a>
       </div>
       
@@ -603,7 +587,7 @@
         <i class="fas fa-phone-alt"></i>
         <h3 id="card6Title">تماس</h3>
         <p>0905 424 0371</p>
-        <button class="btn" onclick="copyToClipboard('09054240371')" id="card6Btn">کپی</button>
+        <button class="btn" data-copy="09054240371">کپی</button>
       </div>
       
       <!-- 7. ساعت کاری -->
@@ -618,186 +602,269 @@
         <i class="fas fa-comment"></i>
         <h3 id="card8Title">ایتا</h3>
         <p id="card8Desc">پیام‌رسان ایتا</p>
-        <button class="btn" onclick="showToast('💬 ایتا')" id="card8Btn">ارتباط</button>
+        <button class="btn" data-toast="💬 ایتا">ارتباط</button>
       </div>
       
-      <!-- 9. شاد (کارت اضافی چون ۹ کارت شد) -->
+      <!-- 9. شاد -->
       <div class="card glass">
         <i class="fas fa-graduation-cap"></i>
         <h3 id="card9Title">شاد</h3>
         <p id="card9Desc">شاد · آموزش</p>
-        <button class="btn" onclick="showToast('📚 شاد')" id="card9Btn">ارتباط</button>
+        <button class="btn" data-toast="📚 شاد">ارتباط</button>
       </div>
     </div>
   </section>
 
   <!-- نویگیشن پایین موبایل -->
   <div class="bottom-nav glass">
-    <i class="fas fa-home" onclick="showToast('🏠 صفحه اصلی')"></i>
-    <i class="fas fa-hashtag" onclick="showToast('📱 خدمات')"></i>
-    <i class="fas fa-map-marker-alt" onclick="window.open('https://maps.app.goo.gl/EyN3tSQcHtB58h2r8', '_blank')"></i>
-    <i class="fas fa-phone" onclick="copyToClipboard('09054240371')"></i>
-    <i class="fas fa-user" onclick="showToast('👤 پروفایل')"></i>
+    <i class="fas fa-home" data-toast="🏠 صفحه اصلی"></i>
+    <i class="fas fa-hashtag" data-toast="📱 خدمات"></i>
+    <i class="fas fa-map-marker-alt" data-map></i>
+    <i class="fas fa-phone" data-copy="09054240371"></i>
+    <i class="fas fa-user" data-toast="👤 پروفایل"></i>
   </div>
 
-  <script>
+  <script defer>
     // ======================== سیستم تم (نرم‌ترین حالت) ========================
-    const themeToggle = document.getElementById('themeToggle');
-    if (localStorage.getItem('theme') === 'dark') {
-      document.documentElement.setAttribute('data-theme', 'dark');
-      themeToggle.checked = true;
-    }
-    themeToggle.addEventListener('change', function() {
-      if (this.checked) {
+    (function() {
+      const themeToggle = document.getElementById('themeToggle');
+      if (!themeToggle) return;
+      
+      if (localStorage.getItem('theme') === 'dark') {
         document.documentElement.setAttribute('data-theme', 'dark');
-        localStorage.setItem('theme', 'dark');
-      } else {
-        document.documentElement.setAttribute('data-theme', 'light');
-        localStorage.setItem('theme', 'light');
+        themeToggle.checked = true;
       }
-    });
+      themeToggle.addEventListener('change', function() {
+        if (this.checked) {
+          document.documentElement.setAttribute('data-theme', 'dark');
+          localStorage.setItem('theme', 'dark');
+        } else {
+          document.documentElement.setAttribute('data-theme', 'light');
+          localStorage.setItem('theme', 'light');
+        }
+      });
+    })();
 
     // ======================== سیستم زبان (منوی داخلی) ========================
-    const langBtn = document.getElementById('langBtn');
-    const langDropdown = document.getElementById('langDropdown');
-    const langOptions = document.querySelectorAll('.lang-option');
+    (function() {
+      const langBtn = document.getElementById('langBtn');
+      const langDropdown = document.getElementById('langDropdown');
+      if (!langBtn || !langDropdown) return;
+      
+      const langOptions = document.querySelectorAll('.lang-option');
 
-    langBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      langDropdown.classList.toggle('show');
-    });
-
-    document.addEventListener('click', () => {
-      langDropdown.classList.remove('show');
-    });
-
-    const translations = {
-      navHome: { fa: 'خانه', en: 'Home' },
-      navGaming: { fa: 'گیمر', en: 'Gaming' },
-      navServices: { fa: 'خدمات', en: 'Services' },
-      navContact: { fa: 'تماس', en: 'Contact' },
-      navLogin: { fa: 'ورود', en: 'Login' },
-      heroSub: { fa: 'خدمات اینترنتی، دیجیتال و گرافیک', en: 'Internet, Digital & Graphic Services' },
-      
-      card1Title: { fa: 'تلگرام', en: 'Telegram' },
-      card1Desc: { fa: '۲,۵۰۰ عضو', en: '2.5K members' },
-      card1Btn: { fa: 'عضویت', en: 'Join' },
-      
-      card2Title: { fa: 'اینستاگرام', en: 'Instagram' },
-      card2Desc: { fa: '۸,۳۰۰ دنبال‌کننده', en: '8.3K followers' },
-      card2Btn: { fa: 'دنبال کردن', en: 'Follow' },
-      
-      card3Title: { fa: 'واتساپ', en: 'WhatsApp' },
-      card3Desc: { fa: 'آنلاین · گفتگو', en: 'Online · Chat' },
-      card3Btn: { fa: 'گفتگو', en: 'Chat' },
-      
-      card4Title: { fa: 'روبیکا', en: 'Rubika' },
-      card4Desc: { fa: 'روبیکا · ارتباط سریع', en: 'Rubika · Fast chat' },
-      card4Btn: { fa: 'ارتباط', en: 'Connect' },
-      
-      card5Title: { fa: 'لوکیشن', en: 'Location' },
-      card5Address: { 
-        fa: 'تهران - پاکدشت - فرون‌آباد - انتهای ولایت - شهدای گمنام - نت‌لند', 
-        en: 'Tehran - Pakdasht - Forunabad - Velayat St. - Shohadaye Gomanam - NetLand' 
-      },
-      card5Btn: { fa: 'مسیریابی', en: 'Directions' },
-      
-      card6Title: { fa: 'تماس', en: 'Contact' },
-      card6Btn: { fa: 'کپی', en: 'Copy' },
-      
-      card7Title: { fa: 'ساعت کاری', en: 'Hours' },
-      card7Desc: { fa: '۰۹–۲۳ · جمعه ۱۴–۲۳', en: '09–23 · Fri 14–23' },
-      
-      card8Title: { fa: 'ایتا', en: 'Eita' },
-      card8Desc: { fa: 'پیام‌رسان ایتا', en: 'Eita messenger' },
-      card8Btn: { fa: 'ارتباط', en: 'Connect' },
-      
-      card9Title: { fa: 'شاد', en: 'Shad' },
-      card9Desc: { fa: 'شاد · آموزش', en: 'Shad · Education' },
-      card9Btn: { fa: 'ارتباط', en: 'Connect' }
-    };
-
-    function setLanguage(lang) {
-      document.documentElement.dir = lang === 'fa' ? 'rtl' : 'ltr';
-      document.documentElement.lang = lang;
-      
-      langOptions.forEach(opt => {
-        const isActive = opt.dataset.lang === lang;
-        opt.classList.toggle('active', isActive);
-        opt.querySelector('i').className = isActive ? 'fas fa-check-circle' : 'fas fa-circle';
+      langBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        langDropdown.classList.toggle('show');
       });
-      
-      langDropdown.classList.remove('show');
-      
-      document.querySelector('.nav-home').textContent = translations.navHome[lang];
-      document.querySelector('.nav-gaming').textContent = translations.navGaming[lang];
-      document.querySelector('.nav-services').textContent = translations.navServices[lang];
-      document.querySelector('.nav-contact').textContent = translations.navContact[lang];
-      document.querySelector('.nav-login').textContent = translations.navLogin[lang];
-      document.getElementById('heroSub').textContent = translations.heroSub[lang];
-      
-      document.getElementById('card1Title').textContent = translations.card1Title[lang];
-      document.getElementById('card1Desc').textContent = translations.card1Desc[lang];
-      document.getElementById('card1Btn').textContent = translations.card1Btn[lang];
-      
-      document.getElementById('card2Title').textContent = translations.card2Title[lang];
-      document.getElementById('card2Desc').textContent = translations.card2Desc[lang];
-      document.getElementById('card2Btn').textContent = translations.card2Btn[lang];
-      
-      document.getElementById('card3Title').textContent = translations.card3Title[lang];
-      document.getElementById('card3Desc').innerHTML = `<span style="color: #2ecc71;">${translations.card3Desc[lang].split('·')[0]}</span> · ${translations.card3Desc[lang].split('·')[1]}`;
-      document.getElementById('card3Btn').textContent = translations.card3Btn[lang];
-      
-      document.getElementById('card4Title').textContent = translations.card4Title[lang];
-      document.getElementById('card4Desc').textContent = translations.card4Desc[lang];
-      document.getElementById('card4Btn').textContent = translations.card4Btn[lang];
-      
-      document.getElementById('card5Title').textContent = translations.card5Title[lang];
-      document.getElementById('card5Address').textContent = translations.card5Address[lang];
-      document.getElementById('card5Btn').textContent = translations.card5Btn[lang];
-      
-      document.getElementById('card6Title').textContent = translations.card6Title[lang];
-      document.getElementById('card6Btn').textContent = translations.card6Btn[lang];
-      
-      document.getElementById('card7Title').textContent = translations.card7Title[lang];
-      document.getElementById('card7Desc').textContent = translations.card7Desc[lang];
-      
-      document.getElementById('card8Title').textContent = translations.card8Title[lang];
-      document.getElementById('card8Desc').textContent = translations.card8Desc[lang];
-      document.getElementById('card8Btn').textContent = translations.card8Btn[lang];
-      
-      document.getElementById('card9Title').textContent = translations.card9Title[lang];
-      document.getElementById('card9Desc').textContent = translations.card9Desc[lang];
-      document.getElementById('card9Btn').textContent = translations.card9Btn[lang];
-      
-      localStorage.setItem('language', lang);
-    }
 
-    langOptions.forEach(opt => {
-      opt.addEventListener('click', () => setLanguage(opt.dataset.lang));
-    });
+      document.addEventListener('click', () => {
+        langDropdown.classList.remove('show');
+      });
 
-    const savedLang = localStorage.getItem('language') || 'fa';
-    setLanguage(savedLang);
+      const translations = {
+        navHome: { fa: 'خانه', en: 'Home' },
+        navGaming: { fa: 'گیمر', en: 'Gaming' },
+        navServices: { fa: 'خدمات', en: 'Services' },
+        navContact: { fa: 'تماس', en: 'Contact' },
+        navLogin: { fa: 'ورود', en: 'Login' },
+        heroSub: { fa: 'خدمات اینترنتی، دیجیتال و گرافیک', en: 'Internet, Digital & Graphic Services' },
+        
+        card1Title: { fa: 'تلگرام', en: 'Telegram' },
+        card1Desc: { fa: '۲,۵۰۰ عضو', en: '2.5K members' },
+        card1Btn: { fa: 'عضویت', en: 'Join' },
+        
+        card2Title: { fa: 'اینستاگرام', en: 'Instagram' },
+        card2Desc: { fa: '۸,۳۰۰ دنبال‌کننده', en: '8.3K followers' },
+        card2Btn: { fa: 'دنبال کردن', en: 'Follow' },
+        
+        card3Title: { fa: 'واتساپ', en: 'WhatsApp' },
+        card3Desc: { fa: 'آنلاین · گفتگو', en: 'Online · Chat' },
+        card3Btn: { fa: 'گفتگو', en: 'Chat' },
+        
+        card4Title: { fa: 'روبیکا', en: 'Rubika' },
+        card4Desc: { fa: 'روبیکا · ارتباط سریع', en: 'Rubika · Fast chat' },
+        card4Btn: { fa: 'ارتباط', en: 'Connect' },
+        
+        card5Title: { fa: 'لوکیشن', en: 'Location' },
+        card5Address: { 
+          fa: 'تهران - پاکدشت - فرون‌آباد - انتهای ولایت - شهدای گمنام - نت‌لند', 
+          en: 'Tehran - Pakdasht - Forunabad - Velayat St. - Shohadaye Gomanam - NetLand' 
+        },
+        card5Btn: { fa: 'مسیریابی', en: 'Directions' },
+        
+        card6Title: { fa: 'تماس', en: 'Contact' },
+        card6Btn: { fa: 'کپی', en: 'Copy' },
+        
+        card7Title: { fa: 'ساعت کاری', en: 'Hours' },
+        card7Desc: { fa: '۰۹–۲۳ · جمعه ۱۴–۲۳', en: '09–23 · Fri 14–23' },
+        
+        card8Title: { fa: 'ایتا', en: 'Eita' },
+        card8Desc: { fa: 'پیام‌رسان ایتا', en: 'Eita messenger' },
+        card8Btn: { fa: 'ارتباط', en: 'Connect' },
+        
+        card9Title: { fa: 'شاد', en: 'Shad' },
+        card9Desc: { fa: 'شاد · آموزش', en: 'Shad · Education' },
+        card9Btn: { fa: 'ارتباط', en: 'Connect' }
+      };
 
-    // ======================== توابع ========================
-    function showToast(msg) {
-      const toast = document.createElement('div');
-      toast.className = 'toast';
-      toast.textContent = msg;
-      document.body.appendChild(toast);
-      setTimeout(() => toast.remove(), 1800);
-    }
+      function setLanguage(lang) {
+        document.documentElement.dir = lang === 'fa' ? 'rtl' : 'ltr';
+        document.documentElement.lang = lang;
+        
+        langOptions.forEach(opt => {
+          const isActive = opt.dataset.lang === lang;
+          opt.classList.toggle('active', isActive);
+          const icon = opt.querySelector('i');
+          if (icon) icon.className = isActive ? 'fas fa-check-circle' : 'fas fa-circle';
+        });
+        
+        langDropdown.classList.remove('show');
+        
+        const navHome = document.querySelector('.nav-home');
+        const navGaming = document.querySelector('.nav-gaming');
+        const navServices = document.querySelector('.nav-services');
+        const navContact = document.querySelector('.nav-contact');
+        const navLogin = document.querySelector('.nav-login');
+        if (navHome) navHome.textContent = translations.navHome[lang];
+        if (navGaming) navGaming.textContent = translations.navGaming[lang];
+        if (navServices) navServices.textContent = translations.navServices[lang];
+        if (navContact) navContact.textContent = translations.navContact[lang];
+        if (navLogin) navLogin.textContent = translations.navLogin[lang];
+        
+        const heroSub = document.getElementById('heroSub');
+        if (heroSub) heroSub.textContent = translations.heroSub[lang];
+        
+        const card1Title = document.getElementById('card1Title');
+        const card1Desc = document.getElementById('card1Desc');
+        const card1Btn = document.querySelector('.card:nth-child(1) .btn');
+        if (card1Title) card1Title.textContent = translations.card1Title[lang];
+        if (card1Desc) card1Desc.textContent = translations.card1Desc[lang];
+        if (card1Btn) card1Btn.textContent = translations.card1Btn[lang];
+        
+        const card2Title = document.getElementById('card2Title');
+        const card2Desc = document.getElementById('card2Desc');
+        const card2Btn = document.querySelector('.card:nth-child(2) .btn');
+        if (card2Title) card2Title.textContent = translations.card2Title[lang];
+        if (card2Desc) card2Desc.textContent = translations.card2Desc[lang];
+        if (card2Btn) card2Btn.textContent = translations.card2Btn[lang];
+        
+        const card3Title = document.getElementById('card3Title');
+        const card3Desc = document.getElementById('card3Desc');
+        const card3Btn = document.querySelector('.card:nth-child(3) .btn');
+        if (card3Title) card3Title.textContent = translations.card3Title[lang];
+        if (card3Desc) card3Desc.innerHTML = `<span style="color: #2ecc71;">${translations.card3Desc[lang].split('·')[0]}</span> · ${translations.card3Desc[lang].split('·')[1]}`;
+        if (card3Btn) card3Btn.textContent = translations.card3Btn[lang];
+        
+        const card4Title = document.getElementById('card4Title');
+        const card4Desc = document.getElementById('card4Desc');
+        const card4Btn = document.querySelector('.card:nth-child(4) .btn');
+        if (card4Title) card4Title.textContent = translations.card4Title[lang];
+        if (card4Desc) card4Desc.textContent = translations.card4Desc[lang];
+        if (card4Btn) card4Btn.textContent = translations.card4Btn[lang];
+        
+        const card5Title = document.getElementById('card5Title');
+        const card5Address = document.getElementById('card5Address');
+        const card5Btn = document.querySelector('.card:nth-child(5) .btn');
+        if (card5Title) card5Title.textContent = translations.card5Title[lang];
+        if (card5Address) card5Address.textContent = translations.card5Address[lang];
+        if (card5Btn) card5Btn.textContent = translations.card5Btn[lang];
+        
+        const card6Title = document.getElementById('card6Title');
+        const card6Btn = document.querySelector('.card:nth-child(6) .btn');
+        if (card6Title) card6Title.textContent = translations.card6Title[lang];
+        if (card6Btn) card6Btn.textContent = translations.card6Btn[lang];
+        
+        const card7Title = document.getElementById('card7Title');
+        const card7Desc = document.getElementById('card7Desc');
+        if (card7Title) card7Title.textContent = translations.card7Title[lang];
+        if (card7Desc) card7Desc.textContent = translations.card7Desc[lang];
+        
+        const card8Title = document.getElementById('card8Title');
+        const card8Desc = document.getElementById('card8Desc');
+        const card8Btn = document.querySelector('.card:nth-child(8) .btn');
+        if (card8Title) card8Title.textContent = translations.card8Title[lang];
+        if (card8Desc) card8Desc.textContent = translations.card8Desc[lang];
+        if (card8Btn) card8Btn.textContent = translations.card8Btn[lang];
+        
+        const card9Title = document.getElementById('card9Title');
+        const card9Desc = document.getElementById('card9Desc');
+        const card9Btn = document.querySelector('.card:nth-child(9) .btn');
+        if (card9Title) card9Title.textContent = translations.card9Title[lang];
+        if (card9Desc) card9Desc.textContent = translations.card9Desc[lang];
+        if (card9Btn) card9Btn.textContent = translations.card9Btn[lang];
+        
+        localStorage.setItem('language', lang);
+      }
 
-    function copyToClipboard(text) {
-      navigator.clipboard.writeText(text);
-      showToast('📋 کپی شد');
-    }
+      langOptions.forEach(opt => {
+        opt.addEventListener('click', () => setLanguage(opt.dataset.lang));
+      });
 
-    // ======================== تنظیمات اولیه ========================
-    window.onload = function() {
-      // هیچ نیازی به تنظیم وای‌فای نیست چون حذف شده
-    };
+      const savedLang = localStorage.getItem('language') || 'fa';
+      setLanguage(savedLang);
+    })();
+
+    // ======================== توابع بهینه شده ========================
+    (function() {
+      // تابع toast با استفاده از event delegation
+      function showToast(msg) {
+        const toast = document.createElement('div');
+        toast.className = 'toast';
+        toast.textContent = msg;
+        document.body.appendChild(toast);
+        setTimeout(() => {
+          if (toast.parentNode) toast.remove();
+        }, 1800);
+      }
+
+      // کپی به کلیپ‌بورد
+      function copyToClipboard(text) {
+        navigator.clipboard.writeText(text).then(() => {
+          showToast('📋 کپی شد');
+        }).catch(() => {
+          showToast('❌ خطا در کپی');
+        });
+      }
+
+      // event delegation برای همه دکمه‌ها
+      document.addEventListener('click', (e) => {
+        const btn = e.target.closest('.btn, .bottom-nav i');
+        if (!btn) return;
+        
+        // بررسی دکمه‌های کپی
+        const copyText = btn.dataset.copy;
+        if (copyText) {
+          copyToClipboard(copyText);
+          return;
+        }
+        
+        // بررسی دکمه‌های toast
+        const toastMsg = btn.dataset.toast;
+        if (toastMsg) {
+          showToast(toastMsg);
+          return;
+        }
+        
+        // بررسی دکمه نقشه
+        if (btn.dataset.map !== undefined) {
+          window.open('https://maps.app.goo.gl/EyN3tSQcHtB58h2r8', '_blank');
+          return;
+        }
+      });
+
+      // تنظیمات اولیه
+      window.addEventListener('load', () => {
+        // preload لینک نقشه
+        const mapLink = document.querySelector('[data-map]');
+        if (mapLink) {
+          mapLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.open('https://maps.app.goo.gl/EyN3tSQcHtB58h2r8', '_blank');
+          });
+        }
+      });
+    })();
   </script>
 </body>
 </html>
