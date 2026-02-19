@@ -7,13 +7,13 @@
   <meta name="description" content="کافی‌نت نت‌لند - ارائه‌دهنده خدمات اینترنتی، دیجیتال و گرافیک">
   <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#0a0c12" media="(prefers-color-scheme: dark)">
-  <!-- Critical CSS inline, icon font as fallback -->
+  <!-- آیکون‌های اصلی به صورت SVG -->
   <style>
     /* ------------------------------------------------------------
-       NETLAND CAFENET — عملکرد فوق‌العاده، ۱۲۰ فریم
+       NETLAND CAFENET — آیکون‌های SVG اختصاصی + هوور حرفه‌ای
        ------------------------------------------------------------ */
     
-    /* بهینه‌سازی برای 120 فریم */
+    /* بهینه‌سازی پایه */
     * {
       margin: 0;
       padding: 0;
@@ -38,7 +38,7 @@
       overflow-x: hidden;
     }
 
-    /* ---------- متغیرهای تم ---------- */
+    /* متغیرهای تم */
     :root {
       --bg-start: #ffffff;
       --bg-end: #f5f9ff;
@@ -53,12 +53,25 @@
       --shadow-1: 0 15px 30px -10px rgba(0,20,40,0.08);
       --shadow-2: 0 5px 15px -5px rgba(0,0,0,0.02);
       
-      --accent: #0066cc;
+      --accent-default: #0066cc;
       --accent-soft: rgba(0,102,204,0.08);
       
       --blob-1: rgba(80,100,120,0.12);
       --blob-2: rgba(60,90,130,0.1);
       --blob-3: rgba(100,120,140,0.09);
+      
+      /* رنگ‌های اختصاصی برای هر پلتفرم */
+      --telegram: #0088cc;
+      --instagram-1: #f09433;
+      --instagram-2: #d62976;
+      --instagram-3: #962fbf;
+      --whatsapp: #25D366;
+      --rubika: #ff5722;
+      --eitaa: #4caf50;
+      --shad: #2196f3;
+      --location: #e74c3c;
+      --phone: #3498db;
+      --hours: #95a5a6;
     }
 
     [data-theme="dark"] {
@@ -75,7 +88,7 @@
       --shadow-1: 0 20px 35px -15px rgba(0,0,0,0.6);
       --shadow-2: 0 10px 20px -10px rgba(0,0,0,0.4);
       
-      --accent: #5aa9e6;
+      --accent-default: #5aa9e6;
       --accent-soft: rgba(90,169,230,0.12);
       
       --blob-1: rgba(70,150,220,0.35);
@@ -83,7 +96,7 @@
       --blob-3: rgba(40,180,210,0.32);
     }
 
-    /* ---------- اورب‌های متحرک بهینه ---------- */
+    /* اورب‌های پس‌زمینه */
     .atmosphere {
       position: fixed;
       top: 0;
@@ -133,7 +146,7 @@
       100% { transform: translate(4%, -4%) scale(1.08); }
     }
 
-    /* ---------- کلاس شیشه بهینه ---------- */
+    /* کلاس شیشه */
     .glass {
       background: var(--glass-bg);
       -webkit-backdrop-filter: blur(10px) saturate(160%);
@@ -144,7 +157,140 @@
       transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
 
-    /* ---------- هدر ثابت ---------- */
+    /* هوور هوشمند کارت‌ها */
+    .card {
+      padding: 16px;
+      min-height: 130px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border-radius: 20px;
+      transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1);
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: var(--hover-color, transparent);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+      z-index: 0;
+      border-radius: inherit;
+    }
+    
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 30px -10px rgba(0,0,0,0.15);
+    }
+    
+    .card:hover::before {
+      opacity: 0.1;
+    }
+    
+    .card > * {
+      position: relative;
+      z-index: 1;
+    }
+    
+    /* رنگ‌های اختصاصی برای هر کارت */
+    .card[data-platform="telegram"] { --hover-color: var(--telegram); }
+    .card[data-platform="instagram"] { --hover-color: var(--instagram-2); }
+    .card[data-platform="whatsapp"] { --hover-color: var(--whatsapp); }
+    .card[data-platform="rubika"] { --hover-color: var(--rubika); }
+    .card[data-platform="location"] { --hover-color: var(--location); }
+    .card[data-platform="phone"] { --hover-color: var(--phone); }
+    .card[data-platform="hours"] { --hover-color: var(--hours); }
+    .card[data-platform="eitaa"] { --hover-color: var(--eitaa); }
+    .card[data-platform="shad"] { --hover-color: var(--shad); }
+    
+    /* افکت خاص برای اینستاگرام (گرادینت) */
+    .card[data-platform="instagram"]::before {
+      background: linear-gradient(135deg, var(--instagram-1), var(--instagram-2), var(--instagram-3));
+    }
+    
+    .card[data-platform="instagram"]:hover::before {
+      opacity: 0.15;
+    }
+    
+    .card[data-platform="instagram"] i,
+    .card[data-platform="instagram"] svg {
+      transition: all 0.3s ease;
+    }
+    
+    .card[data-platform="instagram"]:hover i,
+    .card[data-platform="instagram"]:hover svg {
+      filter: drop-shadow(0 0 5px rgba(214, 41, 118, 0.5));
+    }
+
+    /* آیکون‌های SVG */
+    .icon {
+      width: 1.4rem;
+      height: 1.4rem;
+      display: inline-block;
+      margin-bottom: 8px;
+      fill: currentColor;
+      transition: all 0.3s ease;
+    }
+    
+    .card:hover .icon {
+      transform: scale(1.1);
+      filter: drop-shadow(0 2px 5px var(--hover-color));
+    }
+    
+    /* آیکون خورشید و ماه با موشن خفن */
+    .theme-icon {
+      width: 20px;
+      height: 20px;
+      transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+    }
+    
+    .slider:hover .theme-icon {
+      transform: rotate(180deg) scale(1.2);
+    }
+    
+    input:checked + .slider .sun-icon {
+      display: none;
+    }
+    
+    input:checked + .slider .moon-icon {
+      display: block;
+    }
+    
+    input:not(:checked) + .slider .sun-icon {
+      display: block;
+    }
+    
+    input:not(:checked) + .slider .moon-icon {
+      display: none;
+    }
+    
+    .sun-icon, .moon-icon {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 16px;
+      height: 16px;
+      fill: #ffd700;
+    }
+    
+    .sun-icon {
+      left: 6px;
+    }
+    
+    .moon-icon {
+      right: 6px;
+      fill: #f1c40f;
+    }
+
+    /* هدر */
     header {
       position: fixed;
       top: 15px;
@@ -185,7 +331,7 @@
       transition: opacity 0.15s;
     }
 
-    /* ---------- اکشن‌های هدر ---------- */
+    /* اکشن‌های هدر */
     .header-actions {
       display: flex;
       align-items: center;
@@ -193,7 +339,7 @@
       position: relative;
     }
 
-    /* سوئیچ تم فوق‌العاده نرم */
+    /* سوئیچ تم با آیکون SVG */
     .theme-switch {
       position: relative;
       display: inline-block;
@@ -232,26 +378,13 @@
       border-radius: 50%;
       transition: transform 0.2s cubic-bezier(0.34, 1.2, 0.64, 1);
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    }
-    .slider:after {
-      position: absolute;
-      content: "☀️";
-      font-size: 13px;
-      top: 50%;
-      left: 7px;
-      transform: translateY(-50%);
-      pointer-events: none;
-    }
-    input:checked + .slider:after {
-      content: "🌙";
-      left: auto;
-      right: 7px;
+      z-index: 1;
     }
     input:checked + .slider:before {
       transform: translateX(26px);
     }
 
-    /* منوی زبان - کاملاً داخلی و جمع‌وجور */
+    /* منوی زبان */
     .lang-menu-container {
       position: relative;
     }
@@ -293,10 +426,6 @@
       display: none;
       z-index: 1000;
     }
-    html[dir="rtl"] .lang-dropdown {
-      right: 0;
-      left: auto;
-    }
     .lang-dropdown.show {
       display: block;
     }
@@ -317,15 +446,10 @@
     }
     .lang-option.active {
       background: var(--accent-soft);
-      border: 0.5px solid var(--accent);
-    }
-    .lang-option i {
-      width: 14px;
-      font-size: 0.8rem;
-      color: var(--accent);
+      border: 0.5px solid var(--accent-default);
     }
 
-    /* ---------- هیرو ---------- */
+    /* هیرو */
     .hero {
       padding: 120px 16px 30px;
       text-align: center;
@@ -341,7 +465,7 @@
       margin-top: 6px;
     }
 
-    /* ---------- گرید کارت‌ها ---------- */
+    /* گرید کارت‌ها */
     .section {
       max-width: 1200px;
       margin: 0 auto;
@@ -352,19 +476,6 @@
       gap: 16px;
     }
 
-    .card {
-      padding: 16px;
-      min-height: 130px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      border-radius: 20px;
-    }
-    .card i {
-      font-size: 1.4rem;
-      color: var(--accent);
-      margin-bottom: 8px;
-    }
     .card h3 {
       font-weight: 600;
       font-size: 0.95rem;
@@ -381,14 +492,13 @@
       padding: 5px 12px;
       border-radius: 30px;
       border: none;
-      background: var(--accent);
+      background: var(--accent-default);
       color: white;
       font-size: 0.65rem;
       font-weight: 500;
       cursor: pointer;
       transition: transform 0.1s;
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      -webkit-tap-highlight-color: transparent;
     }
     .card .btn:active {
       transform: scale(0.95);
@@ -401,7 +511,7 @@
       line-height: 1.4;
     }
 
-    /* ---------- ریسپانسیو ---------- */
+    /* ریسپانسیو */
     @media (min-width: 768px) {
       .grid { grid-template-columns: repeat(2, 1fr); }
     }
@@ -413,14 +523,10 @@
       .nav-links { display: none; }
       header { padding: 8px 16px; }
       .logo { font-size: 1.1rem; }
-      .card { padding: 14px; min-height: 120px; }
-      .card i { font-size: 1.3rem; }
-      .card h3 { font-size: 0.9rem; }
-      .card p { font-size: 0.7rem; }
       .hero { padding: 100px 12px 20px; }
     }
 
-    /* ---------- نویگیشن پایین (فقط موبایل) ---------- */
+    /* نویگیشن پایین */
     .bottom-nav {
       display: none;
       position: fixed;
@@ -431,7 +537,6 @@
       max-width: 340px;
       padding: 6px 12px;
       background: var(--glass-bg);
-      -webkit-backdrop-filter: blur(10px);
       backdrop-filter: blur(10px);
       border: 0.8px solid var(--glass-border);
       border-radius: 40px;
@@ -446,21 +551,15 @@
       color: var(--text-secondary);
       padding: 6px;
       cursor: pointer;
-      transition: color 0.15s;
-      -webkit-tap-highlight-color: transparent;
-    }
-    .bottom-nav i:active {
-      color: var(--accent);
     }
 
-    /* ---------- تــــوست ---------- */
+    /* toast */
     .toast {
       position: fixed;
       bottom: 70px;
       left: 50%;
       transform: translateX(-50%);
       background: rgba(20,28,38,0.9);
-      -webkit-backdrop-filter: blur(10px);
       backdrop-filter: blur(10px);
       color: white;
       padding: 8px 18px;
@@ -475,14 +574,10 @@
       from { opacity: 0; transform: translate(-50%, 15px); }
       to { opacity: 1; transform: translate(-50%, 0); }
     }
-
-    /* آیکون‌های بهینه شده (inline) */
-    .icon-telegram { background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="%230066cc" d="M248 8C111 8 0 119 0 256s111 248 248 248 248-111 248-248S385 8 248 8zm121.8 169.9l-40.7 191.8c-3 13.6-11.1 16.9-22.4 10.5l-62-45.7-29.9 28.8c-3.3 3.3-6.1 6.1-12.5 6.1l4.4-63.1 114.9-103.8c5-4.5-1.1-7-7.7-2.5l-142 89.4-61.2-19.1c-13.3-4.2-13.6-13.3 2.8-19.7l239.1-92.2c11.1-4 20.8 2.7 17.2 19.5z"/></svg>') no-repeat center; width: 1.4rem; height: 1.4rem; display: inline-block; background-size: contain; }
   </style>
-  <!-- Font Awesome با بارگذاری غیرهمزمان -->
+  <!-- Font Awesome برای آیکون‌های کمکی -->
   <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" media="print" onload="this.media='all'">
-  <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"></noscript>
 </head>
 <body>
   <!-- اورب‌های پس‌زمینه -->
@@ -492,7 +587,7 @@
     <div class="blob blob3"></div>
   </div>
 
-  <!-- ========== هدر ========== -->
+  <!-- هدر -->
   <header class="glass">
     <div class="logo">NetLand CafeNet</div>
     <div class="nav-links">
@@ -504,13 +599,32 @@
     </div>
     
     <div class="header-actions">
-      <!-- سوئیچ تم فوق‌العاده نرم -->
+      <!-- سوئیچ تم با آیکون SVG -->
       <label class="theme-switch">
         <input type="checkbox" id="themeToggle">
-        <span class="slider"></span>
+        <span class="slider">
+          <!-- آیکون خورشید SVG -->
+          <svg class="theme-icon sun-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="12" cy="12" r="5" fill="#FFD700" stroke="#FFA500" stroke-width="1"/>
+            <g stroke="#FFA500" stroke-width="1.5">
+              <line x1="12" y1="2" x2="12" y2="5" stroke="currentColor"/>
+              <line x1="12" y1="19" x2="12" y2="22" stroke="currentColor"/>
+              <line x1="22" y1="12" x2="19" y2="12" stroke="currentColor"/>
+              <line x1="5" y1="12" x2="2" y2="12" stroke="currentColor"/>
+              <line x1="19.07" y1="4.93" x2="16.24" y2="7.76" stroke="currentColor"/>
+              <line x1="7.76" y1="16.24" x2="4.93" y2="19.07" stroke="currentColor"/>
+              <line x1="19.07" y1="19.07" x2="16.24" y2="16.24" stroke="currentColor"/>
+              <line x1="7.76" y1="7.76" x2="4.93" y2="4.93" stroke="currentColor"/>
+            </g>
+          </svg>
+          <!-- آیکون ماه SVG -->
+          <svg class="theme-icon moon-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:none;">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" fill="#F1C40F" stroke="#E67E22" stroke-width="1.5"/>
+          </svg>
+        </span>
       </label>
 
-      <!-- منوی زبان - کاملاً داخلی -->
+      <!-- منوی زبان -->
       <div class="lang-menu-container">
         <div class="lang-btn glass" id="langBtn">
           <i class="fas fa-globe"></i>
@@ -529,50 +643,68 @@
     </div>
   </header>
 
-  <!-- ========== هیرو ========== -->
+  <!-- هیرو -->
   <section class="hero">
     <h1 id="heroTitle">NetLand CafeNet</h1>
     <p class="hero-sub" id="heroSub">خدمات اینترنتی، دیجیتال و گرافیک</p>
   </section>
 
-  <!-- ========== گرید ۸ کارت ========== -->
+  <!-- گرید کارت‌ها با هوور هوشمند -->
   <section class="section">
     <div class="grid">
       <!-- 1. تلگرام -->
-      <div class="card glass">
-        <i class="fab fa-telegram"></i>
+      <div class="card glass" data-platform="telegram">
+        <svg class="icon" viewBox="0 0 24 24" fill="var(--telegram)">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.12.02-1.96 1.25-5.54 3.69-.52.36-1 .53-1.43.52-.47-.01-1.37-.26-2.04-.48-.82-.27-1.47-.42-1.42-.89.03-.24.27-.49.74-.75 2.9-1.27 4.84-2.11 5.81-2.53 2.77-1.2 3.34-1.41 3.72-1.41.08 0 .27.02.39.13.1.09.13.21.14.3-.01.09-.03.28-.04.44z"/>
+        </svg>
         <h3 id="card1Title">تلگرام</h3>
         <p id="card1Desc">۲,۵۰۰ عضو</p>
         <button class="btn" data-toast="📬 تلگرام">عضویت</button>
       </div>
       
       <!-- 2. اینستاگرام -->
-      <div class="card glass">
-        <i class="fab fa-instagram"></i>
+      <div class="card glass" data-platform="instagram">
+        <svg class="icon" viewBox="0 0 24 24" fill="url(#instagramGradient)">
+          <defs>
+            <linearGradient id="instagramGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#f09433"/>
+              <stop offset="50%" stop-color="#d62976"/>
+              <stop offset="100%" stop-color="#962fbf"/>
+            </linearGradient>
+          </defs>
+          <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88z"/>
+        </svg>
         <h3 id="card2Title">اینستاگرام</h3>
         <p id="card2Desc">۸,۳۰۰ دنبال‌کننده</p>
         <button class="btn" data-toast="📸 اینستاگرام">دنبال کردن</button>
       </div>
       
       <!-- 3. واتساپ -->
-      <div class="card glass">
-        <i class="fab fa-whatsapp"></i>
+      <div class="card glass" data-platform="whatsapp">
+        <svg class="icon" viewBox="0 0 24 24" fill="var(--whatsapp)">
+          <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.97.55 3.89 1.6 5.56L2.23 22l4.8-1.46c1.57.86 3.35 1.33 5.2 1.33 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.91-7.01-1.87-1.88-4.36-2.92-7.01-2.92h-.18zm0 18.09c-1.62 0-3.22-.43-4.6-1.24l-.33-.19-3.06.93.99-2.96-.2-.34c-.89-1.46-1.36-3.13-1.36-4.87 0-4.58 3.73-8.31 8.32-8.31 2.22 0 4.31.86 5.88 2.44 1.57 1.57 2.44 3.66 2.44 5.88-.01 4.58-3.74 8.32-8.32 8.32h.04zm4.46-6.22c-.24-.12-1.43-.71-1.65-.79-.22-.08-.38-.12-.54.12-.16.24-.63.79-.77.95-.14.16-.29.18-.53.06-.24-.12-1.01-.37-1.93-1.19-.71-.63-1.19-1.41-1.33-1.65-.14-.24-.01-.37.11-.49.11-.11.24-.29.36-.43.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.54-1.3-.74-1.78-.2-.48-.4-.4-.54-.41h-.46c-.16 0-.42.06-.64.3-.22.24-.84.82-.84 2 0 1.18.86 2.32.98 2.48.12.16 1.69 2.58 4.1 3.62.57.24 1.02.39 1.37.5.57.19 1.09.16 1.5.1.46-.07 1.43-.58 1.63-1.14.2-.56.2-1.04.14-1.14-.06-.1-.22-.16-.46-.28z"/>
+        </svg>
         <h3 id="card3Title">واتساپ</h3>
         <p id="card3Desc"><span style="color: #2ecc71;">آنلاین</span> · گفتگو</p>
         <button class="btn" data-toast="💬 واتساپ">گفتگو</button>
       </div>
       
       <!-- 4. روبیکا -->
-      <div class="card glass">
-        <i class="fas fa-rocket"></i>
+      <div class="card glass" data-platform="rubika">
+        <svg class="icon" viewBox="0 0 24 24" fill="var(--rubika)">
+          <circle cx="12" cy="12" r="10" fill="var(--rubika)"/>
+          <path d="M8 8h8v8H8z" fill="white"/>
+        </svg>
         <h3 id="card4Title">روبیکا</h3>
         <p id="card4Desc">روبیکا · ارتباط سریع</p>
         <button class="btn" data-toast="📱 روبیکا">ارتباط</button>
       </div>
       
       <!-- 5. لوکیشن -->
-      <div class="card glass">
-        <i class="fas fa-map-pin"></i>
+      <div class="card glass" data-platform="location">
+        <svg class="icon" viewBox="0 0 24 24" fill="var(--location)">
+          <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+        </svg>
         <h3 id="card5Title">لوکیشن</h3>
         <div class="address-text" id="card5Address">
           تهران - پاکدشت - فرون‌آباد - انتهای ولایت - شهدای گمنام - نت‌لند
@@ -583,31 +715,41 @@
       </div>
       
       <!-- 6. شماره تماس -->
-      <div class="card glass">
-        <i class="fas fa-phone-alt"></i>
+      <div class="card glass" data-platform="phone">
+        <svg class="icon" viewBox="0 0 24 24" fill="var(--phone)">
+          <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+        </svg>
         <h3 id="card6Title">تماس</h3>
         <p>0905 424 0371</p>
         <button class="btn" data-copy="09054240371">کپی</button>
       </div>
       
       <!-- 7. ساعت کاری -->
-      <div class="card glass">
-        <i class="fas fa-clock"></i>
+      <div class="card glass" data-platform="hours">
+        <svg class="icon" viewBox="0 0 24 24" fill="var(--hours)">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z"/>
+        </svg>
         <h3 id="card7Title">ساعت کاری</h3>
         <p id="card7Desc">۰۹–۲۳ · جمعه ۱۴–۲۳</p>
       </div>
       
       <!-- 8. ایتا -->
-      <div class="card glass">
-        <i class="fas fa-comment"></i>
+      <div class="card glass" data-platform="eitaa">
+        <svg class="icon" viewBox="0 0 24 24" fill="var(--eitaa)">
+          <circle cx="12" cy="12" r="10" fill="var(--eitaa)"/>
+          <path d="M8 12l3 3 6-6" stroke="white" stroke-width="2" fill="none"/>
+        </svg>
         <h3 id="card8Title">ایتا</h3>
         <p id="card8Desc">پیام‌رسان ایتا</p>
         <button class="btn" data-toast="💬 ایتا">ارتباط</button>
       </div>
       
       <!-- 9. شاد -->
-      <div class="card glass">
-        <i class="fas fa-graduation-cap"></i>
+      <div class="card glass" data-platform="shad">
+        <svg class="icon" viewBox="0 0 24 24" fill="var(--shad)">
+          <circle cx="12" cy="12" r="10" fill="var(--shad)"/>
+          <path d="M12 8v8M8 12h8" stroke="white" stroke-width="2" fill="none"/>
+        </svg>
         <h3 id="card9Title">شاد</h3>
         <p id="card9Desc">شاد · آموزش</p>
         <button class="btn" data-toast="📚 شاد">ارتباط</button>
@@ -615,7 +757,7 @@
     </div>
   </section>
 
-  <!-- نویگیشن پایین موبایل -->
+  <!-- نویگیشن پایین -->
   <div class="bottom-nav glass">
     <i class="fas fa-home" data-toast="🏠 صفحه اصلی"></i>
     <i class="fas fa-hashtag" data-toast="📱 خدمات"></i>
@@ -625,27 +767,40 @@
   </div>
 
   <script defer>
-    // ======================== سیستم تم (نرم‌ترین حالت) ========================
+    // سیستم تم با آیکون SVG
     (function() {
       const themeToggle = document.getElementById('themeToggle');
       if (!themeToggle) return;
       
+      const sunIcon = document.querySelector('.sun-icon');
+      const moonIcon = document.querySelector('.moon-icon');
+      
       if (localStorage.getItem('theme') === 'dark') {
         document.documentElement.setAttribute('data-theme', 'dark');
         themeToggle.checked = true;
+        if (sunIcon) sunIcon.style.display = 'none';
+        if (moonIcon) moonIcon.style.display = 'block';
+      } else {
+        if (sunIcon) sunIcon.style.display = 'block';
+        if (moonIcon) moonIcon.style.display = 'none';
       }
+      
       themeToggle.addEventListener('change', function() {
         if (this.checked) {
           document.documentElement.setAttribute('data-theme', 'dark');
           localStorage.setItem('theme', 'dark');
+          if (sunIcon) sunIcon.style.display = 'none';
+          if (moonIcon) moonIcon.style.display = 'block';
         } else {
           document.documentElement.setAttribute('data-theme', 'light');
           localStorage.setItem('theme', 'light');
+          if (sunIcon) sunIcon.style.display = 'block';
+          if (moonIcon) moonIcon.style.display = 'none';
         }
       });
     })();
 
-    // ======================== سیستم زبان (منوی داخلی) ========================
+    // سیستم زبان
     (function() {
       const langBtn = document.getElementById('langBtn');
       const langDropdown = document.getElementById('langDropdown');
@@ -699,8 +854,8 @@
         card7Title: { fa: 'ساعت کاری', en: 'Hours' },
         card7Desc: { fa: '۰۹–۲۳ · جمعه ۱۴–۲۳', en: '09–23 · Fri 14–23' },
         
-        card8Title: { fa: 'ایتا', en: 'Eita' },
-        card8Desc: { fa: 'پیام‌رسان ایتا', en: 'Eita messenger' },
+        card8Title: { fa: 'ایتا', en: 'Eitaa' },
+        card8Desc: { fa: 'پیام‌رسان ایتا', en: 'Eitaa messenger' },
         card8Btn: { fa: 'ارتباط', en: 'Connect' },
         
         card9Title: { fa: 'شاد', en: 'Shad' },
@@ -737,41 +892,44 @@
         
         const card1Title = document.getElementById('card1Title');
         const card1Desc = document.getElementById('card1Desc');
-        const card1Btn = document.querySelector('.card:nth-child(1) .btn');
+        const card1Btn = document.querySelector('.card[data-platform="telegram"] .btn');
         if (card1Title) card1Title.textContent = translations.card1Title[lang];
         if (card1Desc) card1Desc.textContent = translations.card1Desc[lang];
         if (card1Btn) card1Btn.textContent = translations.card1Btn[lang];
         
         const card2Title = document.getElementById('card2Title');
         const card2Desc = document.getElementById('card2Desc');
-        const card2Btn = document.querySelector('.card:nth-child(2) .btn');
+        const card2Btn = document.querySelector('.card[data-platform="instagram"] .btn');
         if (card2Title) card2Title.textContent = translations.card2Title[lang];
         if (card2Desc) card2Desc.textContent = translations.card2Desc[lang];
         if (card2Btn) card2Btn.textContent = translations.card2Btn[lang];
         
         const card3Title = document.getElementById('card3Title');
         const card3Desc = document.getElementById('card3Desc');
-        const card3Btn = document.querySelector('.card:nth-child(3) .btn');
+        const card3Btn = document.querySelector('.card[data-platform="whatsapp"] .btn');
         if (card3Title) card3Title.textContent = translations.card3Title[lang];
-        if (card3Desc) card3Desc.innerHTML = `<span style="color: #2ecc71;">${translations.card3Desc[lang].split('·')[0]}</span> · ${translations.card3Desc[lang].split('·')[1]}`;
+        if (card3Desc) {
+          const parts = translations.card3Desc[lang].split('·');
+          card3Desc.innerHTML = `<span style="color: #2ecc71;">${parts[0]}</span> · ${parts[1]}`;
+        }
         if (card3Btn) card3Btn.textContent = translations.card3Btn[lang];
         
         const card4Title = document.getElementById('card4Title');
         const card4Desc = document.getElementById('card4Desc');
-        const card4Btn = document.querySelector('.card:nth-child(4) .btn');
+        const card4Btn = document.querySelector('.card[data-platform="rubika"] .btn');
         if (card4Title) card4Title.textContent = translations.card4Title[lang];
         if (card4Desc) card4Desc.textContent = translations.card4Desc[lang];
         if (card4Btn) card4Btn.textContent = translations.card4Btn[lang];
         
         const card5Title = document.getElementById('card5Title');
         const card5Address = document.getElementById('card5Address');
-        const card5Btn = document.querySelector('.card:nth-child(5) .btn');
+        const card5Btn = document.querySelector('.card[data-platform="location"] .btn');
         if (card5Title) card5Title.textContent = translations.card5Title[lang];
         if (card5Address) card5Address.textContent = translations.card5Address[lang];
         if (card5Btn) card5Btn.textContent = translations.card5Btn[lang];
         
         const card6Title = document.getElementById('card6Title');
-        const card6Btn = document.querySelector('.card:nth-child(6) .btn');
+        const card6Btn = document.querySelector('.card[data-platform="phone"] .btn');
         if (card6Title) card6Title.textContent = translations.card6Title[lang];
         if (card6Btn) card6Btn.textContent = translations.card6Btn[lang];
         
@@ -782,14 +940,14 @@
         
         const card8Title = document.getElementById('card8Title');
         const card8Desc = document.getElementById('card8Desc');
-        const card8Btn = document.querySelector('.card:nth-child(8) .btn');
+        const card8Btn = document.querySelector('.card[data-platform="eitaa"] .btn');
         if (card8Title) card8Title.textContent = translations.card8Title[lang];
         if (card8Desc) card8Desc.textContent = translations.card8Desc[lang];
         if (card8Btn) card8Btn.textContent = translations.card8Btn[lang];
         
         const card9Title = document.getElementById('card9Title');
         const card9Desc = document.getElementById('card9Desc');
-        const card9Btn = document.querySelector('.card:nth-child(9) .btn');
+        const card9Btn = document.querySelector('.card[data-platform="shad"] .btn');
         if (card9Title) card9Title.textContent = translations.card9Title[lang];
         if (card9Desc) card9Desc.textContent = translations.card9Desc[lang];
         if (card9Btn) card9Btn.textContent = translations.card9Btn[lang];
@@ -805,9 +963,8 @@
       setLanguage(savedLang);
     })();
 
-    // ======================== توابع بهینه شده ========================
+    // توابع کاربردی
     (function() {
-      // تابع toast با استفاده از event delegation
       function showToast(msg) {
         const toast = document.createElement('div');
         toast.className = 'toast';
@@ -818,7 +975,6 @@
         }, 1800);
       }
 
-      // کپی به کلیپ‌بورد
       function copyToClipboard(text) {
         navigator.clipboard.writeText(text).then(() => {
           showToast('📋 کپی شد');
@@ -827,41 +983,25 @@
         });
       }
 
-      // event delegation برای همه دکمه‌ها
       document.addEventListener('click', (e) => {
         const btn = e.target.closest('.btn, .bottom-nav i');
         if (!btn) return;
         
-        // بررسی دکمه‌های کپی
         const copyText = btn.dataset.copy;
         if (copyText) {
           copyToClipboard(copyText);
           return;
         }
         
-        // بررسی دکمه‌های toast
         const toastMsg = btn.dataset.toast;
         if (toastMsg) {
           showToast(toastMsg);
           return;
         }
         
-        // بررسی دکمه نقشه
         if (btn.dataset.map !== undefined) {
           window.open('https://maps.app.goo.gl/EyN3tSQcHtB58h2r8', '_blank');
           return;
-        }
-      });
-
-      // تنظیمات اولیه
-      window.addEventListener('load', () => {
-        // preload لینک نقشه
-        const mapLink = document.querySelector('[data-map]');
-        if (mapLink) {
-          mapLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            window.open('https://maps.app.goo.gl/EyN3tSQcHtB58h2r8', '_blank');
-          });
         }
       });
     })();
