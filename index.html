@@ -7,13 +7,11 @@
   <meta name="description" content="کافی‌نت نت‌لند - ارائه‌دهنده خدمات اینترنتی، دیجیتال و گرافیک">
   <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#0a0c12" media="(prefers-color-scheme: dark)">
-  <!-- آیکون‌های اصلی به صورت SVG -->
   <style>
     /* ------------------------------------------------------------
        NETLAND CAFENET — آیکون‌های SVG اختصاصی + هوور حرفه‌ای
        ------------------------------------------------------------ */
     
-    /* بهینه‌سازی پایه */
     * {
       margin: 0;
       padding: 0;
@@ -220,12 +218,10 @@
       opacity: 0.15;
     }
     
-    .card[data-platform="instagram"] i,
     .card[data-platform="instagram"] svg {
       transition: all 0.3s ease;
     }
     
-    .card[data-platform="instagram"]:hover i,
     .card[data-platform="instagram"]:hover svg {
       filter: drop-shadow(0 0 5px rgba(214, 41, 118, 0.5));
     }
@@ -575,7 +571,7 @@
       to { opacity: 1; transform: translate(-50%, 0); }
     }
   </style>
-  <!-- Font Awesome برای آیکون‌های کمکی -->
+  <!-- Font Awesome برای آیکون‌های کمکی (فقط برای زبان و ...) -->
   <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" media="print" onload="this.media='all'">
 </head>
@@ -689,11 +685,11 @@
         <button class="btn" data-toast="💬 واتساپ">گفتگو</button>
       </div>
       
-      <!-- 4. روبیکا -->
+      <!-- 4. روبیکا (آیکون اختصاصی) -->
       <div class="card glass" data-platform="rubika">
         <svg class="icon" viewBox="0 0 24 24" fill="var(--rubika)">
-          <circle cx="12" cy="12" r="10" fill="var(--rubika)"/>
-          <path d="M8 8h8v8H8z" fill="white"/>
+          <circle cx="12" cy="12" r="9" fill="var(--rubika)"/>
+          <text x="12" y="18" font-size="10" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-weight="bold">R</text>
         </svg>
         <h3 id="card4Title">روبیکا</h3>
         <p id="card4Desc">روبیکا · ارتباط سریع</p>
@@ -733,22 +729,22 @@
         <p id="card7Desc">۰۹–۲۳ · جمعه ۱۴–۲۳</p>
       </div>
       
-      <!-- 8. ایتا -->
+      <!-- 8. ایتا (آیکون اختصاصی) -->
       <div class="card glass" data-platform="eitaa">
         <svg class="icon" viewBox="0 0 24 24" fill="var(--eitaa)">
-          <circle cx="12" cy="12" r="10" fill="var(--eitaa)"/>
-          <path d="M8 12l3 3 6-6" stroke="white" stroke-width="2" fill="none"/>
+          <circle cx="12" cy="12" r="9" fill="var(--eitaa)"/>
+          <text x="12" y="18" font-size="10" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-weight="bold">E</text>
         </svg>
         <h3 id="card8Title">ایتا</h3>
         <p id="card8Desc">پیام‌رسان ایتا</p>
         <button class="btn" data-toast="💬 ایتا">ارتباط</button>
       </div>
       
-      <!-- 9. شاد -->
+      <!-- 9. شاد (آیکون اختصاصی) -->
       <div class="card glass" data-platform="shad">
         <svg class="icon" viewBox="0 0 24 24" fill="var(--shad)">
-          <circle cx="12" cy="12" r="10" fill="var(--shad)"/>
-          <path d="M12 8v8M8 12h8" stroke="white" stroke-width="2" fill="none"/>
+          <circle cx="12" cy="12" r="9" fill="var(--shad)"/>
+          <text x="12" y="18" font-size="10" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-weight="bold">S</text>
         </svg>
         <h3 id="card9Title">شاد</h3>
         <p id="card9Desc">شاد · آموزش</p>
