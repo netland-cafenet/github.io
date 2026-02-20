@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" media="print" onload="this.media='all'">
   <style>
     /* ------------------------------------------------------------
-       NETLAND CAFENET — لوگوهای اصلی با قابلیت تغییر تم
+       NETLAND CAFENET — آیکون‌های SVG اختصاصی (همراه با fallback)
        ------------------------------------------------------------ */
     
     * {
@@ -68,8 +68,8 @@
       --instagram-3: #962fbf;
       --whatsapp: #25D366;
       --rubika: #C92127;
-      --eitaa: #FF5722;
-      --shad: #4CAF50;
+      --eitaa: #65A83E;
+      --shad: #2196f3;
       --location: #e74c3c;
       --phone: #3498db;
       --hours: #95a5a6;
@@ -95,19 +95,6 @@
       --blob-1: rgba(70,150,220,0.35);
       --blob-2: rgba(120,80,230,0.3);
       --blob-3: rgba(40,180,210,0.32);
-      
-      /* رنگ‌های اختصاصی برای هر پلتفرم - در حالت دارک */
-      --telegram: #ffffff;
-      --instagram-1: #ffffff;
-      --instagram-2: #ffffff;
-      --instagram-3: #ffffff;
-      --whatsapp: #ffffff;
-      --rubika: #ffffff;
-      --eitaa: #ffffff;
-      --shad: #ffffff;
-      --location: #ffffff;
-      --phone: #ffffff;
-      --hours: #ffffff;
     }
 
     /* اورب‌های پس‌زمینه */
@@ -256,49 +243,13 @@
       filter: drop-shadow(0 2px 5px var(--hover-color));
     }
     
-    /* آیکون خورشید و ماه */
-    .theme-icon {
-      width: 20px;
-      height: 20px;
-      transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-    }
-    
-    .slider:hover .theme-icon {
-      transform: rotate(180deg) scale(1.2);
-    }
-    
-    input:checked + .slider .sun-icon {
-      display: none;
-    }
-    
-    input:checked + .slider .moon-icon {
-      display: block;
-    }
-    
-    input:not(:checked) + .slider .sun-icon {
-      display: block;
-    }
-    
-    input:not(:checked) + .slider .moon-icon {
-      display: none;
-    }
-    
-    .sun-icon, .moon-icon {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 16px;
-      height: 16px;
-      fill: #ffd700;
-    }
-    
-    .sun-icon {
-      left: 6px;
-    }
-    
-    .moon-icon {
-      right: 6px;
-      fill: #f1c40f;
+    /* آیکون‌های اختصاصی SVG (داخلی) */
+    .icon-rubika, .icon-eitaa, .icon-shad {
+      display: inline-block;
+      width: 1.6rem;
+      height: 1.6rem;
+      margin-bottom: 8px;
+      transition: all 0.3s ease;
     }
 
     /* هدر */
@@ -350,12 +301,12 @@
       position: relative;
     }
 
-    /* سوئیچ تم با آیکون SVG */
+    /* سوئیچ تم با آیکون SVG و نوشته دارک/لایت */
     .theme-switch {
       position: relative;
       display: inline-block;
-      width: 52px;
-      height: 26px;
+      width: 90px;
+      height: 36px;
       flex-shrink: 0;
     }
     .theme-switch input {
@@ -377,14 +328,17 @@
       border-radius: 34px;
       transition: 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
       box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+      display: flex;
+      align-items: center;
+      padding: 0 5px;
     }
     .slider:before {
       position: absolute;
       content: "";
-      height: 22px;
-      width: 22px;
-      left: 2px;
-      bottom: 2px;
+      height: 28px;
+      width: 28px;
+      left: 4px;
+      bottom: 4px;
       background: white;
       border-radius: 50%;
       transition: transform 0.2s cubic-bezier(0.34, 1.2, 0.64, 1);
@@ -392,7 +346,36 @@
       z-index: 1;
     }
     input:checked + .slider:before {
-      transform: translateX(26px);
+      transform: translateX(54px);
+    }
+    
+    /* نوشته‌های دارک و لایت */
+    .slider .light-text, .slider .dark-text {
+      position: absolute;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      z-index: 2;
+      transition: opacity 0.15s ease;
+      pointer-events: none;
+    }
+    
+    .slider .light-text {
+      left: 38px;
+      opacity: 1;
+    }
+    
+    .slider .dark-text {
+      right: 38px;
+      opacity: 0;
+    }
+    
+    input:checked + .slider .light-text {
+      opacity: 0;
+    }
+    
+    input:checked + .slider .dark-text {
+      opacity: 1;
     }
 
     /* منوی زبان */
@@ -535,6 +518,25 @@
       header { padding: 8px 16px; }
       .logo { font-size: 1.1rem; }
       .hero { padding: 100px 12px 20px; }
+      .theme-switch {
+        width: 80px;
+        height: 32px;
+      }
+      .slider:before {
+        height: 24px;
+        width: 24px;
+      }
+      input:checked + .slider:before {
+        transform: translateX(48px);
+      }
+      .slider .light-text {
+        left: 32px;
+        font-size: 0.7rem;
+      }
+      .slider .dark-text {
+        right: 32px;
+        font-size: 0.7rem;
+      }
     }
 
     /* نویگیشن پایین */
@@ -607,28 +609,12 @@
     </div>
     
     <div class="header-actions">
-      <!-- سوئیچ تم با آیکون SVG -->
+      <!-- سوئیچ تم با آیکون SVG و نوشته دارک/لایت -->
       <label class="theme-switch">
         <input type="checkbox" id="themeToggle">
         <span class="slider">
-          <!-- آیکون خورشید SVG -->
-          <svg class="theme-icon sun-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="12" cy="12" r="5" fill="#FFD700" stroke="#FFA500" stroke-width="1"/>
-            <g stroke="#FFA500" stroke-width="1.5">
-              <line x1="12" y1="2" x2="12" y2="5" stroke="currentColor"/>
-              <line x1="12" y1="19" x2="12" y2="22" stroke="currentColor"/>
-              <line x1="22" y1="12" x2="19" y2="12" stroke="currentColor"/>
-              <line x1="5" y1="12" x2="2" y2="12" stroke="currentColor"/>
-              <line x1="19.07" y1="4.93" x2="16.24" y2="7.76" stroke="currentColor"/>
-              <line x1="7.76" y1="16.24" x2="4.93" y2="19.07" stroke="currentColor"/>
-              <line x1="19.07" y1="19.07" x2="16.24" y2="16.24" stroke="currentColor"/>
-              <line x1="7.76" y1="7.76" x2="4.93" y2="4.93" stroke="currentColor"/>
-            </g>
-          </svg>
-          <!-- آیکون ماه SVG -->
-          <svg class="theme-icon moon-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:none;">
-            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" fill="#F1C40F" stroke="#E67E22" stroke-width="1.5"/>
-          </svg>
+          <span class="light-text">روشن</span>
+          <span class="dark-text">تاریک</span>
         </span>
       </label>
 
@@ -657,56 +643,38 @@
     <p class="hero-sub" id="heroSub">خدمات اینترنتی، دیجیتال و گرافیک</p>
   </section>
 
-  <!-- گرید کارت‌ها با لوگوهای اصلی (آیکون‌ها سیاه/سفید با تغییر تم) -->
+  <!-- گرید کارت‌ها با هوور هوشمند و آیکون‌های داخلی -->
   <section class="section">
     <div class="grid">
-      <!-- 1. تلگرام -->
+      <!-- 1. تلگرام (Simple Icons) -->
       <div class="card glass" data-platform="telegram">
-        <svg class="icon" viewBox="0 0 24 24" fill="var(--telegram)">
-          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.12.02-1.96 1.25-5.54 3.69-.52.36-1 .53-1.43.52-.47-.01-1.37-.26-2.04-.48-.82-.27-1.47-.42-1.42-.89.03-.24.27-.49.74-.75 2.9-1.27 4.84-2.11 5.81-2.53 2.77-1.2 3.34-1.41 3.72-1.41.08 0 .27.02.39.13.1.09.13.21.14.3-.01.09-.03.28-.04.44z"/>
-        </svg>
+        <img class="icon" src="https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/telegram.svg" alt="Telegram" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'%230088cc\'%3E%3Cpath d=\'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.12.02-1.96 1.25-5.54 3.69-.52.36-1 .53-1.43.52-.47-.01-1.37-.26-2.04-.48-.82-.27-1.47-.42-1.42-.89.03-.24.27-.49.74-.75 2.9-1.27 4.84-2.11 5.81-2.53 2.77-1.2 3.34-1.41 3.72-1.41.08 0 .27.02.39.13.1.09.13.21.14.3-.01.09-.03.28-.04.44z\'/%3E%3C/svg%3E'; this.onerror=null;">
         <h3 id="card1Title">تلگرام</h3>
         <p id="card1Desc">۲,۵۰۰ عضو</p>
         <button class="btn" data-toast="📬 تلگرام">عضویت</button>
       </div>
       
-      <!-- 2. اینستاگرام -->
+      <!-- 2. اینستاگرام (Simple Icons) -->
       <div class="card glass" data-platform="instagram">
-        <svg class="icon" viewBox="0 0 24 24" fill="var(--instagram-2)">
-          <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88z"/>
-        </svg>
+        <img class="icon" src="https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/instagram.svg" alt="Instagram" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'%23d62976\'%3E%3Cpath d=\'M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88z\'/%3E%3C/svg%3E'; this.onerror=null;">
         <h3 id="card2Title">اینستاگرام</h3>
         <p id="card2Desc">۸,۳۰۰ دنبال‌کننده</p>
         <button class="btn" data-toast="📸 اینستاگرام">دنبال کردن</button>
       </div>
       
-      <!-- 3. واتساپ -->
+      <!-- 3. واتساپ (Simple Icons) -->
       <div class="card glass" data-platform="whatsapp">
-        <svg class="icon" viewBox="0 0 24 24" fill="var(--whatsapp)">
-          <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.97.55 3.89 1.6 5.56L2.23 22l4.8-1.46c1.57.86 3.35 1.33 5.2 1.33 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.91-7.01-1.87-1.88-4.36-2.92-7.01-2.92h-.18zm0 18.09c-1.62 0-3.22-.43-4.6-1.24l-.33-.19-3.06.93.99-2.96-.2-.34c-.89-1.46-1.36-3.13-1.36-4.87 0-4.58 3.73-8.31 8.32-8.31 2.22 0 4.31.86 5.88 2.44 1.57 1.57 2.44 3.66 2.44 5.88-.01 4.58-3.74 8.32-8.32 8.32h.04zm4.46-6.22c-.24-.12-1.43-.71-1.65-.79-.22-.08-.38-.12-.54.12-.16.24-.63.79-.77.95-.14.16-.29.18-.53.06-.24-.12-1.01-.37-1.93-1.19-.71-.63-1.19-1.41-1.33-1.65-.14-.24-.01-.37.11-.49.11-.11.24-.29.36-.43.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.54-1.3-.74-1.78-.2-.48-.4-.4-.54-.41h-.46c-.16 0-.42.06-.64.3-.22.24-.84.82-.84 2 0 1.18.86 2.32.98 2.48.12.16 1.69 2.58 4.1 3.62.57.24 1.02.39 1.37.5.57.19 1.09.16 1.5.1.46-.07 1.43-.58 1.63-1.14.2-.56.2-1.04.14-1.14-.06-.1-.22-.16-.46-.28z"/>
-        </svg>
+        <img class="icon" src="https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/whatsapp.svg" alt="WhatsApp" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'%2325D366\'%3E%3Cpath d=\'M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.97.55 3.89 1.6 5.56L2.23 22l4.8-1.46c1.57.86 3.35 1.33 5.2 1.33 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.91-7.01-1.87-1.88-4.36-2.92-7.01-2.92h-.18zm0 18.09c-1.62 0-3.22-.43-4.6-1.24l-.33-.19-3.06.93.99-2.96-.2-.34c-.89-1.46-1.36-3.13-1.36-4.87 0-4.58 3.73-8.31 8.32-8.31 2.22 0 4.31.86 5.88 2.44 1.57 1.57 2.44 3.66 2.44 5.88-.01 4.58-3.74 8.32-8.32 8.32h.04zm4.46-6.22c-.24-.12-1.43-.71-1.65-.79-.22-.08-.38-.12-.54.12-.16.24-.63.79-.77.95-.14.16-.29.18-.53.06-.24-.12-1.01-.37-1.93-1.19-.71-.63-1.19-1.41-1.33-1.65-.14-.24-.01-.37.11-.49.11-.11.24-.29.36-.43.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.54-1.3-.74-1.78-.2-.48-.4-.4-.54-.41h-.46c-.16 0-.42.06-.64.3-.22.24-.84.82-.84 2 0 1.18.86 2.32.98 2.48.12.16 1.69 2.58 4.1 3.62.57.24 1.02.39 1.37.5.57.19 1.09.16 1.5.1.46-.07 1.43-.58 1.63-1.14.2-.56.2-1.04.14-1.14-.06-.1-.22-.16-.46-.28z\'/%3E%3C/svg%3E'; this.onerror=null;">
         <h3 id="card3Title">واتساپ</h3>
         <p id="card3Desc"><span style="color: #2ecc71;">آنلاین</span> · گفتگو</p>
         <button class="btn" data-toast="💬 واتساپ">گفتگو</button>
       </div>
       
-      <!-- 4. روبیکا - مکعب روبیک -->
+      <!-- 4. روبیکا - آیکون SVG داخلی (همیشه نمایش داده میشه) -->
       <div class="card glass" data-platform="rubika">
-        <svg class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="2" y="2" width="20" height="20" rx="2" fill="var(--rubika)"/>
-          <rect x="2" y="8" width="20" height="2" fill="#666666" opacity="0.3"/>
-          <rect x="2" y="14" width="20" height="2" fill="#666666" opacity="0.3"/>
-          <rect x="8" y="2" width="2" height="20" fill="#666666" opacity="0.3"/>
-          <rect x="14" y="2" width="2" height="20" fill="#666666" opacity="0.3"/>
-          <rect x="3" y="3" width="5" height="5" fill="var(--rubika)" opacity="0.9"/>
-          <rect x="9" y="3" width="5" height="5" fill="var(--rubika)" opacity="0.7"/>
-          <rect x="15" y="3" width="5" height="5" fill="var(--rubika)" opacity="0.5"/>
-          <rect x="3" y="9" width="5" height="5" fill="var(--rubika)" opacity="0.8"/>
-          <rect x="9" y="9" width="5" height="5" fill="var(--rubika)" opacity="0.4"/>
-          <rect x="15" y="9" width="5" height="5" fill="var(--rubika)" opacity="0.6"/>
-          <rect x="3" y="15" width="5" height="5" fill="var(--rubika)" opacity="0.3"/>
-          <rect x="9" y="15" width="5" height="5" fill="var(--rubika)" opacity="0.9"/>
-          <rect x="15" y="15" width="5" height="5" fill="var(--rubika)" opacity="0.2"/>
+        <svg class="icon" viewBox="0 0 24 24" fill="var(--rubika)">
+          <circle cx="12" cy="12" r="10" fill="var(--rubika)"/>
+          <text x="12" y="18" font-size="10" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-weight="bold">R</text>
         </svg>
         <h3 id="card4Title">روبیکا</h3>
         <p id="card4Desc">روبیکا · ارتباط سریع</p>
@@ -746,33 +714,22 @@
         <p id="card7Desc">۰۹–۲۳ · جمعه ۱۴–۲۳</p>
       </div>
       
-      <!-- 8. ایتا - نارنجی -->
+      <!-- 8. ایتا - آیکون SVG داخلی (همیشه نمایش داده میشه) -->
       <div class="card glass" data-platform="eitaa">
         <svg class="icon" viewBox="0 0 24 24" fill="var(--eitaa)">
-          <rect x="4" y="4" width="16" height="16" rx="4" fill="var(--eitaa)"/>
-          <path d="M8 8h8v2H8z M8 12h6v2H8z M8 16h4v2H8z" fill="white"/>
-          <circle cx="18" cy="6" r="2" fill="white" opacity="0.9"/>
+          <circle cx="12" cy="12" r="10" fill="var(--eitaa)"/>
+          <text x="12" y="18" font-size="10" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-weight="bold">E</text>
         </svg>
         <h3 id="card8Title">ایتا</h3>
         <p id="card8Desc">پیام‌رسان ایتا</p>
         <button class="btn" data-toast="💬 ایتا">ارتباط</button>
       </div>
       
-      <!-- 9. شاد - طرح W سر و ته شده و پرسیده (شبیه حرف w که به سمت پایینه) -->
+      <!-- 9. شاد - آیکون SVG داخلی (همیشه نمایش داده میشه) -->
       <div class="card glass" data-platform="shad">
-        <svg class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <!-- پس‌زمینه دایره -->
+        <svg class="icon" viewBox="0 0 24 24" fill="var(--shad)">
           <circle cx="12" cy="12" r="10" fill="var(--shad)"/>
-          
-          <!-- دو V متصل که شبیه W هست اما سر و ته شده (شبیه حرف w انگلیسی که به سمت پایینه) -->
-          <path d="M6 9 L9 15 L12 11 L15 15 L18 9" stroke="white" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-          
-          <!-- دایره بالای V اول (بالا سمت چپ) -->
-          <circle cx="7.5" cy="6" r="1.3" fill="white"/>
-          <!-- دایره بالای V دوم (بالا سمت راست) -->
-          <circle cx="16.5" cy="6" r="1.3" fill="white"/>
-          <!-- دایره وسط و بین دو دایره -->
-          <circle cx="12" cy="4.5" r="1.3" fill="white"/>
+          <text x="12" y="18" font-size="10" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-weight="bold">S</text>
         </svg>
         <h3 id="card9Title">شاد</h3>
         <p id="card9Desc">شاد · آموزش</p>
@@ -791,35 +748,26 @@
   </div>
 
   <script defer>
-    // سیستم تم با آیکون SVG
+    // سیستم تم با نوشته دارک/لایت
     (function() {
       const themeToggle = document.getElementById('themeToggle');
       if (!themeToggle) return;
       
-      const sunIcon = document.querySelector('.sun-icon');
-      const moonIcon = document.querySelector('.moon-icon');
-      
       if (localStorage.getItem('theme') === 'dark') {
         document.documentElement.setAttribute('data-theme', 'dark');
         themeToggle.checked = true;
-        if (sunIcon) sunIcon.style.display = 'none';
-        if (moonIcon) moonIcon.style.display = 'block';
       } else {
-        if (sunIcon) sunIcon.style.display = 'block';
-        if (moonIcon) moonIcon.style.display = 'none';
+        document.documentElement.setAttribute('data-theme', 'light');
+        themeToggle.checked = false;
       }
       
       themeToggle.addEventListener('change', function() {
         if (this.checked) {
           document.documentElement.setAttribute('data-theme', 'dark');
           localStorage.setItem('theme', 'dark');
-          if (sunIcon) sunIcon.style.display = 'none';
-          if (moonIcon) moonIcon.style.display = 'block';
         } else {
           document.documentElement.setAttribute('data-theme', 'light');
           localStorage.setItem('theme', 'light');
-          if (sunIcon) sunIcon.style.display = 'block';
-          if (moonIcon) moonIcon.style.display = 'none';
         }
       });
     })();
