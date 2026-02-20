@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" media="print" onload="this.media='all'">
   <style>
     /* ------------------------------------------------------------
-       NETLAND CAFENET — آیکون‌های SVG اختصاصی (همراه با fallback)
+       NETLAND CAFENET — لوگوهای اصلی روبیکا، ایتا، شاد
        ------------------------------------------------------------ */
     
     * {
@@ -241,15 +241,6 @@
     .card:hover .icon {
       transform: scale(1.1);
       filter: drop-shadow(0 2px 5px var(--hover-color));
-    }
-    
-    /* آیکون‌های اختصاصی SVG (داخلی) */
-    .icon-rubika, .icon-eitaa, .icon-shad {
-      display: inline-block;
-      width: 1.6rem;
-      height: 1.6rem;
-      margin-bottom: 8px;
-      transition: all 0.3s ease;
     }
     
     /* آیکون خورشید و ماه */
@@ -653,7 +644,7 @@
     <p class="hero-sub" id="heroSub">خدمات اینترنتی، دیجیتال و گرافیک</p>
   </section>
 
-  <!-- گرید کارت‌ها با هوور هوشمند و آیکون‌های داخلی -->
+  <!-- گرید کارت‌ها با لوگوهای اصلی -->
   <section class="section">
     <div class="grid">
       <!-- 1. تلگرام (Simple Icons) -->
@@ -680,11 +671,16 @@
         <button class="btn" data-toast="💬 واتساپ">گفتگو</button>
       </div>
       
-      <!-- 4. روبیکا - آیکون SVG داخلی (همیشه نمایش داده میشه) -->
+      <!-- 4. روبیکا - لوگوی اصلی (بر اساس تصویری که فرستادی) -->
       <div class="card glass" data-platform="rubika">
         <svg class="icon" viewBox="0 0 24 24" fill="var(--rubika)">
+          <!-- لوگوی روبیکا: R داخل دایره -->
           <circle cx="12" cy="12" r="10" fill="var(--rubika)"/>
-          <text x="12" y="18" font-size="10" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-weight="bold">R</text>
+          <path d="M8 8h8v8H8z" fill="white" opacity="0.2"/>
+          <text x="12" y="18" font-size="10" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-weight="bold" letter-spacing="1">R</text>
+          <!-- نقطه‌های تزئینی شبیه لوگوی اصلی -->
+          <circle cx="16" cy="8" r="1.5" fill="white" opacity="0.8"/>
+          <circle cx="8" cy="16" r="1.5" fill="white" opacity="0.8"/>
         </svg>
         <h3 id="card4Title">روبیکا</h3>
         <p id="card4Desc">روبیکا · ارتباط سریع</p>
@@ -724,22 +720,31 @@
         <p id="card7Desc">۰۹–۲۳ · جمعه ۱۴–۲۳</p>
       </div>
       
-      <!-- 8. ایتا - آیکون SVG داخلی (همیشه نمایش داده میشه) -->
+      <!-- 8. ایتا - لوگوی اصلی -->
       <div class="card glass" data-platform="eitaa">
         <svg class="icon" viewBox="0 0 24 24" fill="var(--eitaa)">
-          <circle cx="12" cy="12" r="10" fill="var(--eitaa)"/>
-          <text x="12" y="18" font-size="10" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-weight="bold">E</text>
+          <!-- لوگوی ایتا: طرح شبیه E با طراحی خاص -->
+          <rect x="4" y="4" width="16" height="16" rx="4" fill="var(--eitaa)"/>
+          <path d="M8 8h8v2H8z M8 12h6v2H8z M8 16h4v2H8z" fill="white"/>
+          <circle cx="18" cy="6" r="2" fill="white" opacity="0.9"/>
         </svg>
         <h3 id="card8Title">ایتا</h3>
         <p id="card8Desc">پیام‌رسان ایتا</p>
         <button class="btn" data-toast="💬 ایتا">ارتباط</button>
       </div>
       
-      <!-- 9. شاد - آیکون SVG داخلی (همیشه نمایش داده میشه) -->
+      <!-- 9. شاد - لوگوی اصلی -->
       <div class="card glass" data-platform="shad">
         <svg class="icon" viewBox="0 0 24 24" fill="var(--shad)">
+          <!-- لوگوی شاد: طرح شبیه لبخند با حرف ش -->
           <circle cx="12" cy="12" r="10" fill="var(--shad)"/>
-          <text x="12" y="18" font-size="10" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-weight="bold">S</text>
+          <!-- چشم‌ها -->
+          <circle cx="8" cy="10" r="1.5" fill="white"/>
+          <circle cx="16" cy="10" r="1.5" fill="white"/>
+          <!-- لبخند -->
+          <path d="M8 14 Q12 18, 16 14" stroke="white" stroke-width="2" fill="none"/>
+          <!-- حرف ش (شکل ساده‌شده) -->
+          <text x="12" y="21" font-size="6" text-anchor="middle" fill="white" font-family="Arial, sans-serif">ش</text>
         </svg>
         <h3 id="card9Title">شاد</h3>
         <p id="card9Desc">شاد · آموزش</p>
