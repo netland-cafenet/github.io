@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" media="print" onload="this.media='all'">
   <style>
     /* ------------------------------------------------------------
-       NETLAND CAFENET — آیکون‌های SVG اختصاصی (همراه با fallback)
+       NETLAND CAFENET — سوئیچ حرفه‌ای با موشن + سایه عمیق
        ------------------------------------------------------------ */
     
     * {
@@ -33,7 +33,7 @@
       letter-spacing: -0.012em;
       background: var(--bg-gradient);
       color: var(--text-primary);
-      transition: background 0.2s ease, color 0.15s ease;
+      transition: background 0.3s ease, color 0.2s ease;
       min-height: 100vh;
       line-height: 1.5;
       overflow-x: hidden;
@@ -51,8 +51,10 @@
       --glass-bg: linear-gradient(145deg, rgba(255,255,255,0.85), rgba(255,255,255,0.65));
       --glass-border: rgba(255,255,255,0.95);
       
-      --shadow-1: 0 15px 30px -10px rgba(0,20,40,0.08);
-      --shadow-2: 0 5px 15px -5px rgba(0,0,0,0.02);
+      --shadow-1: 0 25px 50px -12px rgba(0,0,0,0.25);
+      --shadow-2: 0 10px 20px -8px rgba(0,0,0,0.15);
+      --shadow-3: 0 4px 12px rgba(0,0,0,0.05);
+      --shadow-hover: 0 30px 60px -15px rgba(0,0,0,0.3);
       
       --accent-default: #0066cc;
       --accent-soft: rgba(0,102,204,0.08);
@@ -86,8 +88,10 @@
       --glass-bg: linear-gradient(145deg, rgba(20,30,42,0.85), rgba(12,20,30,0.75));
       --glass-border: rgba(255,255,255,0.15);
       
-      --shadow-1: 0 20px 35px -15px rgba(0,0,0,0.6);
-      --shadow-2: 0 10px 20px -10px rgba(0,0,0,0.4);
+      --shadow-1: 0 25px 50px -12px rgba(0,0,0,0.6);
+      --shadow-2: 0 10px 20px -8px rgba(0,0,0,0.5);
+      --shadow-3: 0 4px 12px rgba(0,0,0,0.3);
+      --shadow-hover: 0 30px 60px -15px rgba(0,0,0,0.7);
       
       --accent-default: #5aa9e6;
       --accent-soft: rgba(90,169,230,0.12);
@@ -147,15 +151,20 @@
       100% { transform: translate(4%, -4%) scale(1.08); }
     }
 
-    /* کلاس شیشه */
+    /* کلاس شیشه با سایه عمیق */
     .glass {
       background: var(--glass-bg);
       -webkit-backdrop-filter: blur(10px) saturate(160%);
       backdrop-filter: blur(10px) saturate(160%);
       border: 0.8px solid var(--glass-border);
       border-radius: 24px;
-      box-shadow: var(--shadow-1), var(--shadow-2);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: var(--shadow-1), var(--shadow-2), var(--shadow-3);
+      transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.4, 1), box-shadow 0.3s ease;
+    }
+
+    .glass:hover {
+      box-shadow: var(--shadow-hover), var(--shadow-2);
+      transform: translateY(-2px);
     }
 
     /* هوور هوشمند کارت‌ها */
@@ -189,7 +198,7 @@
     
     .card:hover {
       transform: translateY(-4px);
-      box-shadow: 0 20px 30px -10px rgba(0,0,0,0.15);
+      box-shadow: var(--shadow-hover), var(--shadow-2);
     }
     
     .card:hover::before {
@@ -242,15 +251,6 @@
       transform: scale(1.1);
       filter: drop-shadow(0 2px 5px var(--hover-color));
     }
-    
-    /* آیکون‌های اختصاصی SVG (داخلی) */
-    .icon-rubika, .icon-eitaa, .icon-shad {
-      display: inline-block;
-      width: 1.6rem;
-      height: 1.6rem;
-      margin-bottom: 8px;
-      transition: all 0.3s ease;
-    }
 
     /* هدر */
     header {
@@ -301,12 +301,12 @@
       position: relative;
     }
 
-    /* سوئیچ تم با آیکون SVG و نوشته دارک/لایت */
+    /* سوئیچ تم حرفه‌ای با موشن خفن */
     .theme-switch {
       position: relative;
       display: inline-block;
-      width: 90px;
-      height: 36px;
+      width: 120px;
+      height: 40px;
       flex-shrink: 0;
     }
     .theme-switch input {
@@ -325,57 +325,85 @@
       -webkit-backdrop-filter: blur(5px);
       backdrop-filter: blur(5px);
       border: 0.5px solid var(--glass-border);
-      border-radius: 34px;
-      transition: 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
-      box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+      border-radius: 40px;
+      transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+      box-shadow: inset 0 1px 3px rgba(0,0,0,0.05), var(--shadow-3);
       display: flex;
       align-items: center;
-      padding: 0 5px;
+      justify-content: space-between;
+      padding: 0 10px;
     }
+    
     .slider:before {
       position: absolute;
       content: "";
-      height: 28px;
-      width: 28px;
-      left: 4px;
-      bottom: 4px;
-      background: white;
+      height: 34px;
+      width: 34px;
+      left: 3px;
+      bottom: 3px;
+      background: linear-gradient(135deg, #fff, #f0f0f0);
       border-radius: 50%;
-      transition: transform 0.2s cubic-bezier(0.34, 1.2, 0.64, 1);
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-      z-index: 1;
-    }
-    input:checked + .slider:before {
-      transform: translateX(54px);
+      transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      z-index: 2;
     }
     
-    /* نوشته‌های دارک و لایت */
+    input:checked + .slider:before {
+      transform: translateX(80px);
+    }
+    
+    /* نوشته‌های LIGHT و DARK */
     .slider .light-text, .slider .dark-text {
-      position: absolute;
-      font-size: 0.75rem;
+      position: relative;
+      font-size: 0.85rem;
       font-weight: 600;
+      letter-spacing: 1px;
       color: var(--text-primary);
-      z-index: 2;
-      transition: opacity 0.15s ease;
-      pointer-events: none;
+      z-index: 1;
+      transition: all 0.3s ease;
+      opacity: 0.7;
     }
     
     .slider .light-text {
-      left: 38px;
-      opacity: 1;
+      margin-left: 35px;
     }
     
     .slider .dark-text {
-      right: 38px;
-      opacity: 0;
+      margin-right: 35px;
     }
     
     input:checked + .slider .light-text {
-      opacity: 0;
+      opacity: 0.3;
     }
     
     input:checked + .slider .dark-text {
       opacity: 1;
+    }
+    
+    input:not(:checked) + .slider .light-text {
+      opacity: 1;
+    }
+    
+    input:not(:checked) + .slider .dark-text {
+      opacity: 0.3;
+    }
+    
+    /* آیکون‌های کوچک کنار نوشته‌ها */
+    .slider .light-icon, .slider .dark-icon {
+      font-size: 1rem;
+      margin: 0 3px;
+      vertical-align: middle;
+    }
+
+    /* موشن اضافی برای اسلایدر */
+    @keyframes pulseGlow {
+      0% { box-shadow: 0 0 0 0 rgba(255,255,255,0.4); }
+      70% { box-shadow: 0 0 0 6px rgba(255,255,255,0); }
+      100% { box-shadow: 0 0 0 0 rgba(255,255,255,0); }
+    }
+    
+    .theme-switch:hover .slider:before {
+      animation: pulseGlow 1.5s infinite;
     }
 
     /* منوی زبان */
@@ -384,8 +412,8 @@
     }
 
     .lang-btn {
-      width: 36px;
-      height: 36px;
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
       background: var(--glass-bg);
       -webkit-backdrop-filter: blur(5px);
@@ -396,51 +424,69 @@
       justify-content: center;
       cursor: pointer;
       color: var(--text-primary);
-      transition: all 0.2s ease;
+      transition: all 0.3s ease;
+      box-shadow: var(--shadow-3);
     }
     .lang-btn i {
-      font-size: 1.1rem;
-      transition: transform 0.3s ease;
+      font-size: 1.2rem;
+      transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+    }
+    .lang-btn:hover {
+      transform: rotate(180deg) scale(1.1);
     }
     .lang-btn:hover i {
-      transform: rotate(180deg);
+      transform: scale(1.1);
     }
 
     .lang-dropdown {
       position: absolute;
-      top: 45px;
+      top: 50px;
       right: 0;
-      min-width: 110px;
+      min-width: 120px;
       background: var(--glass-bg);
       -webkit-backdrop-filter: blur(10px);
       backdrop-filter: blur(10px);
       border: 0.8px solid var(--glass-border);
-      border-radius: 16px;
-      padding: 4px;
+      border-radius: 20px;
+      padding: 6px;
       display: none;
       z-index: 1000;
+      box-shadow: var(--shadow-1);
+      animation: dropdownFade 0.2s ease;
     }
+    
+    @keyframes dropdownFade {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
     .lang-dropdown.show {
       display: block;
     }
 
     .lang-option {
-      padding: 6px 10px;
-      border-radius: 12px;
+      padding: 8px 12px;
+      border-radius: 14px;
       cursor: pointer;
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
       color: var(--text-primary);
-      font-size: 0.8rem;
-      transition: 0.15s;
+      font-size: 0.85rem;
+      transition: all 0.2s;
     }
     .lang-option:hover {
       background: var(--accent-soft);
+      transform: translateX(2px);
     }
     .lang-option.active {
       background: var(--accent-soft);
       border: 0.5px solid var(--accent-default);
+    }
+    .lang-option i {
+      width: 16px;
+      font-size: 0.9rem;
+      color: var(--accent-default);
     }
 
     /* هیرو */
@@ -452,6 +498,7 @@
       font-size: clamp(2rem, 5vw, 3rem);
       font-weight: 700;
       line-height: 1.2;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.05);
     }
     .hero-sub {
       font-size: 1rem;
@@ -491,8 +538,12 @@
       font-size: 0.65rem;
       font-weight: 500;
       cursor: pointer;
-      transition: transform 0.1s;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    .card .btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 15px rgba(0,0,0,0.15);
     }
     .card .btn:active {
       transform: scale(0.95);
@@ -519,23 +570,24 @@
       .logo { font-size: 1.1rem; }
       .hero { padding: 100px 12px 20px; }
       .theme-switch {
-        width: 80px;
-        height: 32px;
+        width: 100px;
+        height: 36px;
       }
       .slider:before {
-        height: 24px;
-        width: 24px;
+        height: 30px;
+        width: 30px;
       }
       input:checked + .slider:before {
-        transform: translateX(48px);
+        transform: translateX(64px);
+      }
+      .slider .light-text, .slider .dark-text {
+        font-size: 0.7rem;
       }
       .slider .light-text {
-        left: 32px;
-        font-size: 0.7rem;
+        margin-left: 30px;
       }
       .slider .dark-text {
-        right: 32px;
-        font-size: 0.7rem;
+        margin-right: 30px;
       }
     }
 
@@ -548,22 +600,28 @@
       transform: translateX(-50%);
       width: calc(100% - 30px);
       max-width: 340px;
-      padding: 6px 12px;
+      padding: 8px 16px;
       background: var(--glass-bg);
       backdrop-filter: blur(10px);
       border: 0.8px solid var(--glass-border);
       border-radius: 40px;
       justify-content: space-around;
       z-index: 99;
+      box-shadow: var(--shadow-1);
     }
     @media (max-width: 767px) {
       .bottom-nav { display: flex; }
     }
     .bottom-nav i {
-      font-size: 1.1rem;
+      font-size: 1.2rem;
       color: var(--text-secondary);
       padding: 6px;
       cursor: pointer;
+      transition: transform 0.2s, color 0.2s;
+    }
+    .bottom-nav i:hover {
+      transform: scale(1.2);
+      color: var(--accent-default);
     }
 
     /* toast */
@@ -580,12 +638,13 @@
       font-size: 0.75rem;
       border: 0.5px solid rgba(255,255,255,0.2);
       z-index: 999;
-      animation: slideUp 0.2s ease;
+      animation: slideUp 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55);
       pointer-events: none;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
     }
     @keyframes slideUp {
-      from { opacity: 0; transform: translate(-50%, 15px); }
-      to { opacity: 1; transform: translate(-50%, 0); }
+      0% { opacity: 0; transform: translate(-50%, 30px); }
+      100% { opacity: 1; transform: translate(-50%, 0); }
     }
   </style>
 </head>
@@ -609,12 +668,12 @@
     </div>
     
     <div class="header-actions">
-      <!-- سوئیچ تم با آیکون SVG و نوشته دارک/لایت -->
+      <!-- سوئیچ تم حرفه‌ای با موشن خفن و نوشته LIGHT/DARK -->
       <label class="theme-switch">
         <input type="checkbox" id="themeToggle">
         <span class="slider">
-          <span class="light-text">روشن</span>
-          <span class="dark-text">تاریک</span>
+          <span class="light-text"><i class="fas fa-sun light-icon"></i> LIGHT</span>
+          <span class="dark-text">DARK <i class="fas fa-moon dark-icon"></i></span>
         </span>
       </label>
 
@@ -748,7 +807,7 @@
   </div>
 
   <script defer>
-    // سیستم تم با نوشته دارک/لایت
+    // سیستم تم با موشن نرم
     (function() {
       const themeToggle = document.getElementById('themeToggle');
       if (!themeToggle) return;
@@ -949,9 +1008,9 @@
 
       function copyToClipboard(text) {
         navigator.clipboard.writeText(text).then(() => {
-          showToast('📋 کپی شد');
+          showToast('📋 Copied!');
         }).catch(() => {
-          showToast('❌ خطا در کپی');
+          showToast('❌ Copy failed');
         });
       }
 
