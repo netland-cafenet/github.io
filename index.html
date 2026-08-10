@@ -6,18 +6,21 @@
 <meta name="color-scheme" content="light dark">
 <title>NetLand CafeNet | کافی‌نت نت‌لند</title>
 <meta name="description" content="کافی‌نت نت‌لند - ارائه‌دهنده خدمات اینترنتی، دیجیتال و گرافیک">
-<meta name="theme-color" content="#eef3fb" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#eef1fb" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#05070c" media="(prefers-color-scheme: dark)">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
 <style>
 /* ============================================================
-   NETLAND CAFENET — iOS-glass rebuild
+   NETLAND CAFENET — iOS-glass rebuild v2
    Self-contained: no external icon CDN, no data-URI fallback hacks.
    ============================================================ */
 
 * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
 
 :root {
-  --bg-a: #eef3fb;
+  --bg-a: #eef1fb;
   --bg-b: #ffffff;
   --bg-gradient: radial-gradient(circle at 25% 20%, var(--bg-b), var(--bg-a) 70%);
 
@@ -33,10 +36,10 @@
   --shadow-2: 0 2px 10px -4px rgba(10,26,43,.06);
   --shadow-hover: 0 26px 46px -16px rgba(10,26,43,.22);
 
-  --accent-default: #0066cc;
-  --accent-soft: rgba(0,102,204,.1);
+  --accent-default: #5b4fe0;
+  --accent-soft: rgba(91,79,224,.1);
 
-  --blob-1: rgba(90,130,220,.22);
+  --blob-1: rgba(100,90,220,.22);
   --blob-2: rgba(70,150,230,.18);
   --blob-3: rgba(130,110,230,.16);
 
@@ -47,10 +50,11 @@
   --whatsapp: #25D366;
   --rubika: #C92127;
   --eitaa: #4c9a2a;
-  --shad: #2196f3;
   --location: #e74c3c;
   --phone: #3498db;
   --hours: #7c8a94;
+  --status-open: #2ecc71;
+  --status-closed: #e74c3c;
 
   --ease-spring: cubic-bezier(.16,1,.3,1);
   --ease-bounce: cubic-bezier(.34,1.56,.64,1);
@@ -60,7 +64,7 @@
 [data-theme="dark"] {
   --bg-a: #05070c;
   --bg-b: #0d1420;
-  --bg-gradient: radial-gradient(circle at 75% 15%, #101a2a, var(--bg-a) 70%);
+  --bg-gradient: radial-gradient(circle at 75% 15%, #131228, var(--bg-a) 70%);
 
   --text-primary: #f1f7fc;
   --text-secondary: #a9c0d1;
@@ -73,10 +77,10 @@
   --shadow-2: 0 6px 16px -8px rgba(0,0,0,.4);
   --shadow-hover: 0 30px 54px -18px rgba(0,0,0,.6);
 
-  --accent-default: #6ab4f2;
-  --accent-soft: rgba(106,180,242,.14);
+  --accent-default: #9c97ff;
+  --accent-soft: rgba(156,151,255,.14);
 
-  --blob-1: rgba(80,150,230,.4);
+  --blob-1: rgba(120,100,240,.4);
   --blob-2: rgba(130,90,230,.32);
   --blob-3: rgba(50,190,210,.3);
 }
@@ -97,7 +101,8 @@ body {
   overflow-x: hidden;
 }
 
-/* Respect reduced-motion users */
+.display-font { font-family: "Space Grotesk", -apple-system, sans-serif; }
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: .001ms !important;
@@ -166,7 +171,6 @@ body {
 .card:nth-child(6){animation-delay:.29s}
 .card:nth-child(7){animation-delay:.34s}
 .card:nth-child(8){animation-delay:.39s}
-.card:nth-child(9){animation-delay:.44s}
 
 .card::before {
   content:''; position:absolute; inset:0; z-index:0; border-radius:inherit;
@@ -187,7 +191,6 @@ body {
 .card[data-platform="phone"]{ --hover-color: var(--phone); }
 .card[data-platform="hours"]{ --hover-color: var(--hours); }
 .card[data-platform="eitaa"]{ --hover-color: var(--eitaa); }
-.card[data-platform="shad"]{ --hover-color: var(--shad); }
 .card[data-platform="instagram"]::before { background: linear-gradient(135deg, var(--instagram-1), var(--instagram-2), var(--instagram-3)); }
 .card[data-platform="instagram"]:hover::before { opacity:.18; }
 .card--wide { grid-column: span 2; }
@@ -215,7 +218,6 @@ body {
 .icon-tile[data-platform="whatsapp"]{ --tile-bg: var(--whatsapp); }
 .icon-tile[data-platform="rubika"]{ --tile-bg: var(--rubika); }
 .icon-tile[data-platform="eitaa"]{ --tile-bg: var(--eitaa); }
-.icon-tile[data-platform="shad"]{ --tile-bg: var(--shad); }
 .icon-tile[data-platform="location"]{ --tile-bg: var(--location); }
 .icon-tile[data-platform="phone"]{ --tile-bg: var(--phone); }
 .icon-tile[data-platform="hours"]{ --tile-bg: var(--hours); }
@@ -234,12 +236,37 @@ body {
   font-weight: 600;
   cursor: pointer;
   transition: transform .25s var(--ease-bounce), box-shadow .25s var(--ease-spring), background .3s;
-  box-shadow: 0 4px 12px -4px rgba(0,0,0,.25);
+  box-shadow: 0 4px 12px -4px rgba(91,79,224,.4);
 }
-.card .btn:hover { box-shadow: 0 6px 16px -4px rgba(0,0,0,.3); }
+.card .btn:hover { box-shadow: 0 6px 16px -4px rgba(91,79,224,.5); }
 .card .btn:active { transform: scale(.93); }
 
 .address-text { font-size:.72rem; line-height:1.45; }
+
+/* ---------- Live status pill ---------- */
+.status-pill {
+  display:inline-flex; align-items:center; gap:6px;
+  font-size:.7rem; font-weight:600;
+  padding: 4px 10px; border-radius: 20px;
+  background: var(--accent-soft);
+  color: var(--text-primary);
+  margin-top: 6px;
+}
+.status-dot {
+  width:7px; height:7px; border-radius:50%;
+  background: var(--status-closed);
+  box-shadow: 0 0 0 0 rgba(0,0,0,0);
+  transition: background .3s;
+}
+.status-dot.is-open {
+  background: var(--status-open);
+  animation: statusPulse 2s infinite var(--ease-out);
+}
+@keyframes statusPulse {
+  0%   { box-shadow: 0 0 0 0 rgba(46,204,113,.5); }
+  70%  { box-shadow: 0 0 0 7px rgba(46,204,113,0); }
+  100% { box-shadow: 0 0 0 0 rgba(46,204,113,0); }
+}
 
 /* ---------- Header ---------- */
 header {
@@ -251,12 +278,12 @@ header {
   border-radius: 40px;
 }
 .logo {
-  font-weight: 750; font-size: 1.25rem;
-  background: linear-gradient(145deg, #0e2c4b, #1d6bb0);
+  font-weight: 700; font-size: 1.25rem;
+  background: linear-gradient(145deg, #0e2c4b, #5b4fe0);
   -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent;
 }
-[data-theme="dark"] .logo { background: linear-gradient(145deg, #dceaff, #8fc3f5); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
-.nav-links { display:flex; gap:22px; }
+[data-theme="dark"] .logo { background: linear-gradient(145deg, #dceaff, #9c97ff); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+.nav-links { display:flex; align-items:center; gap:22px; }
 .nav-links a {
   text-decoration:none; color:var(--text-primary); font-size:.88rem; opacity:.85;
   position:relative; transition: opacity .2s var(--ease-out);
@@ -268,6 +295,15 @@ header {
 }
 .nav-links a:hover { opacity:1; }
 .nav-links a:hover::after { transform: scaleX(1); }
+.nav-item-soon { display:inline-flex; align-items:center; gap:6px; }
+.nav-item-soon a.disabled {
+  pointer-events:none; opacity:.5; cursor:not-allowed;
+}
+.soon-badge {
+  font-size:.6rem; font-weight:700; padding:2px 7px; border-radius:10px;
+  background: var(--accent-soft); color: var(--accent-default);
+  letter-spacing: 0;
+}
 
 .header-actions { display:flex; align-items:center; gap:8px; position:relative; }
 
@@ -343,7 +379,7 @@ input:not(:checked) + .slider .moon-icon { opacity:0; }
 /* ---------- Hero ---------- */
 .hero { padding: 128px 16px 34px; text-align:center; }
 .hero h1 {
-  font-size: clamp(2rem, 5vw, 3.1rem); font-weight:750; line-height:1.15;
+  font-size: clamp(2rem, 5vw, 3.1rem); font-weight:700; line-height:1.15;
   opacity:0; animation: heroIn .8s var(--ease-spring) .05s forwards;
 }
 .hero-sub {
@@ -411,10 +447,13 @@ input:not(:checked) + .slider .moon-icon { opacity:0; }
 </div>
 
 <header class="glass">
-  <div class="logo">NetLand CafeNet</div>
+  <div class="logo display-font">NetLand CafeNet</div>
   <nav class="nav-links">
     <a href="#" class="nav-home" data-i18n="navHome">خانه</a>
-    <a href="#" class="nav-gaming" data-i18n="navGaming">گیمر</a>
+    <span class="nav-item-soon">
+      <a href="#" class="nav-gaming disabled" data-i18n="navGaming" aria-disabled="true" data-toast="🎮 به‌زودی راه‌اندازی می‌شود">گیمر</a>
+      <span class="soon-badge" data-i18n="soonBadge">به‌زودی</span>
+    </span>
     <a href="#" class="nav-services" data-i18n="navServices">خدمات</a>
     <a href="#" class="nav-contact" data-i18n="navContact">تماس</a>
     <a href="#" class="nav-login" data-i18n="navLogin">ورود</a>
@@ -460,57 +499,14 @@ input:not(:checked) + .slider .moon-icon { opacity:0; }
 </header>
 
 <section class="hero">
-  <h1 id="heroTitle">NetLand CafeNet</h1>
+  <h1 id="heroTitle" class="display-font">NetLand CafeNet</h1>
   <p class="hero-sub" id="heroSub" data-i18n="heroSub">خدمات اینترنتی، دیجیتال و گرافیک</p>
 </section>
 
 <section class="section">
   <div class="grid">
 
-    <div class="card glass" data-platform="telegram">
-      <div class="icon-tile" data-platform="telegram" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="#fff"><path d="M21.9 3.6 2.7 11.1c-1.3.5-1.3 1.2-.2 1.5l4.9 1.5 1.9 5.8c.2.6.4.8.8.8.4 0 .6-.2.8-.5l2.3-2.2 4.8 3.5c.9.5 1.5.2 1.7-.8l3.1-14.6c.3-1.3-.4-1.9-1.9-1.5ZM8.6 13.6l9.5-6c.5-.3.9-.1.6.2l-8.2 7.4-.3 3.1-1.6-4.7Z"/></svg>
-      </div>
-      <div>
-        <h3 id="card1Title" data-i18n="card1Title">تلگرام</h3>
-        <p id="card1Desc" data-i18n="card1Desc">۲,۵۰۰ عضو</p>
-      </div>
-      <button class="btn" data-toast="📬 تلگرام" data-i18n="card1Btn">عضویت</button>
-    </div>
-
-    <div class="card glass" data-platform="instagram">
-      <div class="icon-tile" data-platform="instagram" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.2" cy="6.8" r="1" fill="#fff" stroke="none"/></svg>
-      </div>
-      <div>
-        <h3 id="card2Title" data-i18n="card2Title">اینستاگرام</h3>
-        <p id="card2Desc" data-i18n="card2Desc">۸,۳۰۰ دنبال‌کننده</p>
-      </div>
-      <button class="btn" data-toast="📸 اینستاگرام" data-i18n="card2Btn">دنبال کردن</button>
-    </div>
-
-    <div class="card glass" data-platform="whatsapp">
-      <div class="icon-tile" data-platform="whatsapp" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="#fff"><path d="M12.04 2C6.6 2 2.2 6.4 2.2 11.9c0 1.9.5 3.7 1.5 5.3L2 22l4.9-1.5a9.9 9.9 0 0 0 5.1 1.4c5.5 0 9.9-4.4 9.9-9.9C21.9 6.4 17.5 2 12.04 2Zm5.8 13.9c-.2.7-1.4 1.3-2 1.4-.5.1-1.1.1-3.5-.9-2.9-1.2-4.8-4.1-5-4.3-.1-.2-1.2-1.6-1.2-3s.7-2.1 1-2.4c.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5.2.5.7 1.8.8 1.9.1.2.1.3 0 .5-.1.2-.2.3-.3.5l-.5.5c-.2.2-.3.4-.1.7.2.3.9 1.4 1.9 2.3 1.3 1.2 2.4 1.5 2.7 1.7.3.2.5.1.7-.1l1-1.1c.2-.3.4-.2.7-.1l1.7.8c.2.1.4.2.5.3.1.2.1.9-.1 1.6Z"/></svg>
-      </div>
-      <div>
-        <h3 id="card3Title" data-i18n="card3Title">واتساپ</h3>
-        <p id="card3Desc"><span style="color:#2ecc71;">آنلاین</span> · گفتگو</p>
-      </div>
-      <button class="btn" data-toast="💬 واتساپ" data-i18n="card3Btn">گفتگو</button>
-    </div>
-
-    <div class="card glass" data-platform="rubika">
-      <div class="icon-tile" data-platform="rubika" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="#fff"><path d="M6 4h9.5C18.5 4 20 5.6 20 8c0 1.9-1 3.2-2.7 3.7L20 20h-3.4l-2.9-7.8H9.2V20H6V4Zm3.2 3v5h5.4c1.6 0 2.4-.9 2.4-2.5S16.2 7 14.6 7H9.2Z"/></svg>
-      </div>
-      <div>
-        <h3 id="card4Title" data-i18n="card4Title">روبیکا</h3>
-        <p id="card4Desc" data-i18n="card4Desc">روبیکا · ارتباط سریع</p>
-      </div>
-      <button class="btn" data-toast="📱 روبیکا" data-i18n="card4Btn">ارتباط</button>
-    </div>
-
+    <!-- Location: moved first, practical info priority -->
     <div class="card glass card--wide" data-platform="location">
       <div class="icon-tile" data-platform="location" aria-hidden="true">
         <svg viewBox="0 0 24 24" fill="#fff"><path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5Z"/></svg>
@@ -526,6 +522,21 @@ input:not(:checked) + .slider .moon-icon { opacity:0; }
       </a>
     </div>
 
+    <!-- Hours + live open/closed status -->
+    <div class="card glass card--wide" data-platform="hours">
+      <div class="icon-tile" data-platform="hours" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5.2l3.6 2.1" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div>
+        <h3 id="card7Title" data-i18n="card7Title">ساعت کاری</h3>
+        <p id="card7Desc" data-i18n="card7Desc">هر روز ۰۹–۱۴ و ۱۷–۲۲:۳۰</p>
+        <span class="status-pill" id="statusPill">
+          <span class="status-dot" id="statusDot"></span>
+          <span id="statusText">در حال بررسی...</span>
+        </span>
+      </div>
+    </div>
+
     <div class="card glass" data-platform="phone">
       <div class="icon-tile" data-platform="phone" aria-hidden="true">
         <svg viewBox="0 0 24 24" fill="#fff"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.5 0 1 .4 1 1V20c0 .6-.5 1-1 1-9.4 0-17-7.6-17-17 0-.5.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.2 1l-2.3 2.2Z"/></svg>
@@ -537,14 +548,56 @@ input:not(:checked) + .slider .moon-icon { opacity:0; }
       <button class="btn" data-copy="09054240371" data-i18n="card6Btn">کپی</button>
     </div>
 
-    <div class="card glass" data-platform="hours">
-      <div class="icon-tile" data-platform="hours" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5.2l3.6 2.1" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <div class="card glass" data-platform="telegram">
+      <div class="icon-tile" data-platform="telegram" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="#fff"><path d="M21.9 3.6 2.7 11.1c-1.3.5-1.3 1.2-.2 1.5l4.9 1.5 1.9 5.8c.2.6.4.8.8.8.4 0 .6-.2.8-.5l2.3-2.2 4.8 3.5c.9.5 1.5.2 1.7-.8l3.1-14.6c.3-1.3-.4-1.9-1.9-1.5ZM8.6 13.6l9.5-6c.5-.3.9-.1.6.2l-8.2 7.4-.3 3.1-1.6-4.7Z"/></svg>
       </div>
       <div>
-        <h3 id="card7Title" data-i18n="card7Title">ساعت کاری</h3>
-        <p id="card7Desc" data-i18n="card7Desc">۰۹–۲۳ · جمعه ۱۴–۲۳</p>
+        <h3 id="card1Title" data-i18n="card1Title">تلگرام</h3>
+        <p id="card1Desc" data-i18n="card1Desc">۲,۵۰۰ عضو</p>
       </div>
+      <a href="https://t.me/cafenet_netland" target="_blank" rel="noopener" style="text-decoration:none;">
+        <button class="btn" data-toast="📬 تلگرام" data-i18n="card1Btn">عضویت</button>
+      </a>
+    </div>
+
+    <div class="card glass" data-platform="instagram">
+      <div class="icon-tile" data-platform="instagram" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.2" cy="6.8" r="1" fill="#fff" stroke="none"/></svg>
+      </div>
+      <div>
+        <h3 id="card2Title" data-i18n="card2Title">اینستاگرام</h3>
+        <p id="card2Desc" data-i18n="card2Desc">۸,۳۰۰ دنبال‌کننده</p>
+      </div>
+      <a href="https://www.instagram.com/netland_cafenet" target="_blank" rel="noopener" style="text-decoration:none;">
+        <button class="btn" data-toast="📸 اینستاگرام" data-i18n="card2Btn">دنبال کردن</button>
+      </a>
+    </div>
+
+    <div class="card glass" data-platform="whatsapp">
+      <div class="icon-tile" data-platform="whatsapp" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="#fff"><path d="M12.04 2C6.6 2 2.2 6.4 2.2 11.9c0 1.9.5 3.7 1.5 5.3L2 22l4.9-1.5a9.9 9.9 0 0 0 5.1 1.4c5.5 0 9.9-4.4 9.9-9.9C21.9 6.4 17.5 2 12.04 2Zm5.8 13.9c-.2.7-1.4 1.3-2 1.4-.5.1-1.1.1-3.5-.9-2.9-1.2-4.8-4.1-5-4.3-.1-.2-1.2-1.6-1.2-3s.7-2.1 1-2.4c.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5.2.5.7 1.8.8 1.9.1.2.1.3 0 .5-.1.2-.2.3-.3.5l-.5.5c-.2.2-.3.4-.1.7.2.3.9 1.4 1.9 2.3 1.3 1.2 2.4 1.5 2.7 1.7.3.2.5.1.7-.1l1-1.1c.2-.3.4-.2.7-.1l1.7.8c.2.1.4.2.5.3.1.2.1.9-.1 1.6Z"/></svg>
+      </div>
+      <div>
+        <h3 id="card3Title" data-i18n="card3Title">واتساپ</h3>
+        <p id="card3Desc"><span style="color:#2ecc71;">آنلاین</span> · گفتگو</p>
+      </div>
+      <a href="https://wa.me/989054240371" target="_blank" rel="noopener" style="text-decoration:none;">
+        <button class="btn" data-toast="💬 واتساپ" data-i18n="card3Btn">گفتگو</button>
+      </a>
+    </div>
+
+    <div class="card glass" data-platform="rubika">
+      <div class="icon-tile" data-platform="rubika" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="#fff"><path d="M6 4h9.5C18.5 4 20 5.6 20 8c0 1.9-1 3.2-2.7 3.7L20 20h-3.4l-2.9-7.8H9.2V20H6V4Zm3.2 3v5h5.4c1.6 0 2.4-.9 2.4-2.5S16.2 7 14.6 7H9.2Z"/></svg>
+      </div>
+      <div>
+        <h3 id="card4Title" data-i18n="card4Title">روبیکا</h3>
+        <p id="card4Desc" data-i18n="card4Desc">روبیکا · ارتباط سریع</p>
+      </div>
+      <a href="https://rubika.ir/Netland_CafeNet" target="_blank" rel="noopener" style="text-decoration:none;">
+        <button class="btn" data-toast="📱 روبیکا" data-i18n="card4Btn">ارتباط</button>
+      </a>
     </div>
 
     <div class="card glass" data-platform="eitaa">
@@ -555,18 +608,9 @@ input:not(:checked) + .slider .moon-icon { opacity:0; }
         <h3 id="card8Title" data-i18n="card8Title">ایتا</h3>
         <p id="card8Desc" data-i18n="card8Desc">پیام‌رسان ایتا</p>
       </div>
-      <button class="btn" data-toast="💬 ایتا" data-i18n="card8Btn">ارتباط</button>
-    </div>
-
-    <div class="card glass" data-platform="shad">
-      <div class="icon-tile" data-platform="shad" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><path d="M4 19V7.8c0-1 .6-1.9 1.5-2.3l5.7-2.6c.5-.2 1.1-.2 1.6 0l5.7 2.6c.9.4 1.5 1.3 1.5 2.3V19" stroke-linejoin="round"/><path d="M4 19h16M9 19v-4.5h6V19" stroke-linejoin="round"/></svg>
-      </div>
-      <div>
-        <h3 id="card9Title" data-i18n="card9Title">شاد</h3>
-        <p id="card9Desc" data-i18n="card9Desc">شاد · آموزش</p>
-      </div>
-      <button class="btn" data-toast="📚 شاد" data-i18n="card9Btn">ارتباط</button>
+      <a href="https://eitaa.com/Netland_CafeNet" target="_blank" rel="noopener" style="text-decoration:none;">
+        <button class="btn" data-toast="💬 ایتا" data-i18n="card8Btn">ارتباط</button>
+      </a>
     </div>
 
   </div>
@@ -576,17 +620,14 @@ input:not(:checked) + .slider .moon-icon { opacity:0; }
   <button class="nav-icon-btn" data-toast="🏠 صفحه اصلی" aria-label="صفحه اصلی">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 11.5 12 4l9 7.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M5.5 10v9a1 1 0 0 0 1 1H9a1 1 0 0 0 1-1v-4h4v4a1 1 0 0 0 1 1h2.5a1 1 0 0 0 1-1v-9" stroke-linecap="round" stroke-linejoin="round"/></svg>
   </button>
-  <button class="nav-icon-btn" data-toast="📱 خدمات" aria-label="خدمات">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3.5" y="3.5" width="7" height="7" rx="1.8"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.8"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.8"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.8"/></svg>
+  <button class="nav-icon-btn" data-toast="🎮 به‌زودی راه‌اندازی می‌شود" aria-label="گیمر - به زودی">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2.5" y="8" width="19" height="10" rx="5"/><path d="M7 11v4M5 13h4" stroke-linecap="round"/><circle cx="16" cy="11.5" r="1"/><circle cx="18" cy="14.5" r="1"/></svg>
   </button>
   <button class="nav-icon-btn" data-map aria-label="نقشه و مسیریابی">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s7-7.4 7-12a7 7 0 1 0-14 0c0 4.6 7 12 7 12Z" stroke-linejoin="round"/><circle cx="12" cy="9" r="2.3"/></svg>
   </button>
   <button class="nav-icon-btn" data-copy="09054240371" aria-label="کپی شماره تماس">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.5 0 1 .4 1 1V20c0 .6-.5 1-1 1-9.4 0-17-7.6-17-17 0-.5.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.2 1l-2.3 2.2Z" stroke-linejoin="round"/></svg>
-  </button>
-  <button class="nav-icon-btn" data-toast="👤 پروفایل" aria-label="پروفایل">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="3.6"/><path d="M4.8 20c1-3.6 4-5.6 7.2-5.6s6.2 2 7.2 5.6" stroke-linecap="round"/></svg>
   </button>
 </nav>
 
@@ -609,6 +650,30 @@ input:not(:checked) + .slider .moon-icon { opacity:0; }
       localStorage.setItem('theme', theme);
     });
   }
+
+  /* ---------- Live open/closed status ---------- */
+  /* Hours: every day 09:00-14:00 and 17:00-22:30 (device local time) */
+  function isOpenNow() {
+    const now = new Date();
+    const mins = now.getHours() * 60 + now.getMinutes();
+    const morning = mins >= 9 * 60 && mins < 14 * 60;
+    const evening = mins >= 17 * 60 && mins < (22 * 60 + 30);
+    return morning || evening;
+  }
+
+  function updateStatus() {
+    const dot = document.getElementById('statusDot');
+    const text = document.getElementById('statusText');
+    if (!dot || !text) return;
+    const open = isOpenNow();
+    dot.classList.toggle('is-open', open);
+    const lang = document.documentElement.lang === 'en' ? 'en' : 'fa';
+    text.textContent = open
+      ? (lang === 'en' ? 'Open now' : 'باز است')
+      : (lang === 'en' ? 'Closed now' : 'بسته است');
+  }
+  updateStatus();
+  setInterval(updateStatus, 60000);
 
   /* ---------- Language ---------- */
   const langBtn = document.getElementById('langBtn');
@@ -639,6 +704,7 @@ input:not(:checked) + .slider .moon-icon { opacity:0; }
     navServices:{ fa: 'خدمات', en: 'Services' },
     navContact: { fa: 'تماس', en: 'Contact' },
     navLogin:   { fa: 'ورود', en: 'Login' },
+    soonBadge:  { fa: 'به‌زودی', en: 'Soon' },
     heroSub:    { fa: 'خدمات اینترنتی، دیجیتال و گرافیک', en: 'Internet, Digital & Graphic Services' },
     card1Title: { fa: 'تلگرام', en: 'Telegram' },
     card1Desc:  { fa: '۲,۵۰۰ عضو', en: '2.5K members' },
@@ -661,13 +727,10 @@ input:not(:checked) + .slider .moon-icon { opacity:0; }
     card6Title: { fa: 'تماس', en: 'Contact' },
     card6Btn:   { fa: 'کپی', en: 'Copy' },
     card7Title: { fa: 'ساعت کاری', en: 'Hours' },
-    card7Desc:  { fa: '۰۹–۲۳ · جمعه ۱۴–۲۳', en: '09–23 · Fri 14–23' },
+    card7Desc:  { fa: 'هر روز ۰۹–۱۴ و ۱۷–۲۲:۳۰', en: 'Every day 09:00–14:00 & 17:00–22:30' },
     card8Title: { fa: 'ایتا', en: 'Eitaa' },
     card8Desc:  { fa: 'پیام‌رسان ایتا', en: 'Eitaa messenger' },
-    card8Btn:   { fa: 'ارتباط', en: 'Connect' },
-    card9Title: { fa: 'شاد', en: 'Shad' },
-    card9Desc:  { fa: 'شاد · آموزش', en: 'Shad · Education' },
-    card9Btn:   { fa: 'ارتباط', en: 'Connect' }
+    card8Btn:   { fa: 'ارتباط', en: 'Connect' }
   };
 
   function setLanguage(lang) {
@@ -686,11 +749,10 @@ input:not(:checked) + .slider .moon-icon { opacity:0; }
       if (entry && entry[lang] !== undefined) el.textContent = entry[lang];
     });
 
-    // buttons keyed by data-platform + role, matched via nearest .card
     const btnMap = [
       ['telegram','card1Btn'], ['instagram','card2Btn'], ['whatsapp','card3Btn'],
       ['rubika','card4Btn'], ['location','card5Btn'], ['phone','card6Btn'],
-      ['eitaa','card8Btn'], ['shad','card9Btn']
+      ['eitaa','card8Btn']
     ];
     btnMap.forEach(([platform, key]) => {
       const btn = document.querySelector(`.card[data-platform="${platform}"] .btn`);
@@ -704,6 +766,7 @@ input:not(:checked) + .slider .moon-icon { opacity:0; }
     }
 
     localStorage.setItem('language', lang);
+    updateStatus();
   }
 
   langOptions.forEach(opt => {
@@ -742,7 +805,10 @@ input:not(:checked) + .slider .moon-icon { opacity:0; }
   }
 
   document.addEventListener('click', (e) => {
-    const btn = e.target.closest('.btn, .nav-icon-btn');
+    const disabledLink = e.target.closest('a.disabled');
+    if (disabledLink) { e.preventDefault(); }
+
+    const btn = e.target.closest('.btn, .nav-icon-btn, a.disabled');
     if (!btn) return;
 
     const copyText = btn.dataset.copy;
